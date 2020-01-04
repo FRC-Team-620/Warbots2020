@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.DriveTrain.DriveTrain;
@@ -52,9 +53,12 @@ public class RobotContainer
     return sitTight;
   }
 
+  //OI:
+  public static XboxController driverXBox = new XboxController(0);
+
   //Subsystems:
-  public static DriveTrain driveTrain = new DriveTrain();
+  public static final DriveTrain driveTrain = new DriveTrain();
 
   //Commands:
-  public static SitStill sitTight = new SitStill();
+  public static final SitStill sitTight = new SitStill();
 }

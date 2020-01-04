@@ -7,7 +7,9 @@
 
 package frc.robot.DriveTrain;
 
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 
 public class DriveWithJoysticks extends CommandBase 
 {
@@ -16,7 +18,7 @@ public class DriveWithJoysticks extends CommandBase
    */
   public DriveWithJoysticks() 
   {
-    // Use addRequirements() here to declare subsystem dependencies.
+      addRequirements(RobotContainer.driveTrain);
   }
 
   // Called when the command is initially scheduled.
@@ -29,6 +31,9 @@ public class DriveWithJoysticks extends CommandBase
   @Override
   public void execute() 
   {
+      var speed = RobotContainer.driverXBox.getY(Hand.kLeft);
+      var rotation = RobotContainer.driverXBox.getX(Hand.kLeft);
+      RobotContainer.driveTrain.arcadeInput(speed, rotation);
   }
 
   // Called once the command ends or is interrupted.
