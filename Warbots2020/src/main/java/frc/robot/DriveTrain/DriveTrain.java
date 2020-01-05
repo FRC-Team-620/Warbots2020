@@ -18,7 +18,7 @@ public class DriveTrain extends SubsystemBase
   /**
    * Creates a new DriveTrain.
    */
-  public DriveTrain() throws Exception
+  public DriveTrain()
   {
       var lf = SparkMaxReflector.CreateSparkMax(Pin.LEFTFRONTMOTOR.id());
       var rf = SparkMaxReflector.CreateSparkMax(Pin.RIGHTFRONTMOTOR.id());

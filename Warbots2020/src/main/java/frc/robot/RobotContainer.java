@@ -8,10 +8,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.DriveTrain.DriveTrain;
+import frc.robot.DriveTrain.DriveWithJoysticks;
 import frc.robot.DriveTrain.SitStill;
 
 /**
@@ -20,13 +20,14 @@ import frc.robot.DriveTrain.SitStill;
  * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
  * (including subsystems, commands, and button mappings) should be declared here.
  */
-public class RobotContainer 
+public class RobotContainer
 {
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
-  public static void Initiate() 
+  public static void Initiate()
   {
+    InitializeFields();
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -53,12 +54,21 @@ public class RobotContainer
     return sitTight;
   }
 
+  public static void InitializeFields()
+  {
+    driverXBox = new XboxController(0);
+    driveTrain = new DriveTrain();
+    sitTight = new SitStill();
+    driveWithJoysticks = new DriveWithJoysticks();
+  }
+
   //OI:
-  public static XboxController driverXBox = new XboxController(0);
+  public static XboxController driverXBox;
 
   //Subsystems:
-  public static final DriveTrain driveTrain = new DriveTrain();
+  public static DriveTrain driveTrain;
 
   //Commands:
-  public static final SitStill sitTight = new SitStill();
+  public static SitStill sitTight;
+  public static DriveWithJoysticks driveWithJoysticks;
 }

@@ -13,11 +13,19 @@ import com.revrobotics.SparkMax;
  */
 public class SparkMaxReflector 
 {
-    public static SparkMax CreateSparkMax(int channel) throws Exception
+    public static SparkMax CreateSparkMax(int channel)
     {
-        var smClazz = Class.forName("com.revrobotics.SparkMax");
-        var constructor = smClazz.getDeclaredConstructor(int.class);
-        constructor.setAccessible(true); 
-        return (SparkMax)constructor.newInstance(channel);
+        try
+        {
+            var smClazz = Class.forName("com.revrobotics.SparkMax");
+            var constructor = smClazz.getDeclaredConstructor(int.class);
+            constructor.setAccessible(true); 
+            return (SparkMax)constructor.newInstance(channel);
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
+        
     }
 }
