@@ -10,6 +10,7 @@ package frc.robot.DriveTrain;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.robot.*;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 
@@ -20,15 +21,20 @@ public class DriveTrain extends SubsystemBase
    */
   public DriveTrain()
   {
-      var lf = SparkMaxReflector.CreateSparkMax(Pin.LEFTFRONTMOTOR.id());
-      var rf = SparkMaxReflector.CreateSparkMax(Pin.RIGHTFRONTMOTOR.id());
-      var lr = SparkMaxReflector.CreateSparkMax(Pin.LEFTREARMOTOR.id());
-      var rr = SparkMaxReflector.CreateSparkMax(Pin.RIGHTREARMOTOR.id());
+    var lf = SparkMaxReflector.CreateSparkMax(Pin.LEFTFRONTMOTOR.id());
+    var rf = SparkMaxReflector.CreateSparkMax(Pin.RIGHTFRONTMOTOR.id());
+    var lr = SparkMaxReflector.CreateSparkMax(Pin.LEFTREARMOTOR.id());
+    var rr = SparkMaxReflector.CreateSparkMax(Pin.RIGHTREARMOTOR.id());
 
-      var leftSide = new SpeedControllerGroup(lf, lr);
-      var rightSide = new SpeedControllerGroup(rf, rr);
+    var leftSide = new SpeedControllerGroup(lf, lr);
+    var rightSide = new SpeedControllerGroup(rf, rr);
 
-      diffDrive = new DifferentialDrive(leftSide, rightSide);
+    diffDrive = new DifferentialDrive(leftSide, rightSide);
+
+    LFEncoder = null;
+    RFEncoder = null;
+    LREncoder = null;
+    RREncoder = null;
   }
 
   @Override
@@ -39,8 +45,22 @@ public class DriveTrain extends SubsystemBase
 
   public void arcadeInput(double speed, double rotation)
   {
-      diffDrive.arcadeDrive(speed, rotation);
+    diffDrive.arcadeDrive(speed, rotation);
+  }
+
+  public double distanceTraveled()
+  {
+    return 0.0;
+  }
+
+  public void resetDistanceTraveled()
+  {
+
   }
 
   private final DifferentialDrive diffDrive;
+  private final Encoder LFEncoder;
+  private final Encoder RFEncoder;
+  private final Encoder LREncoder;
+  private final Encoder RREncoder;
 }

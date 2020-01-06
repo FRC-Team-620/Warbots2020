@@ -31,9 +31,9 @@ public class DriveWithJoysticks extends CommandBase
   @Override
   public void execute() 
   {
-      var speed = RobotContainer.driverXBox.getY(Hand.kLeft);
-      var rotation = RobotContainer.driverXBox.getX(Hand.kLeft);
-      RobotContainer.driveTrain.arcadeInput(speed, rotation);
+    var speed = RobotContainer.driverXBox.getY(Hand.kLeft);
+    var rotation = RobotContainer.driverXBox.getX(Hand.kLeft);
+    RobotContainer.driveTrain.arcadeInput(speed, rotation);
   }
 
   // Called once the command ends or is interrupted.
