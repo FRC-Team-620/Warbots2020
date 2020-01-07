@@ -9,7 +9,10 @@ package frc.robot.DriveTrain;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.robot.*;
+import frc.robot.Robot.*;
+
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
@@ -31,16 +34,18 @@ public class DriveTrain extends SubsystemBase
 
     diffDrive = new DifferentialDrive(leftSide, rightSide);
 
-    LFEncoder = new Encoder(Pin.LeftFrontEncoderA.id(), Pin.LeftFrontEncoderB.id());
-    RFEncoder = new Encoder(Pin.RightFrontEncoderA.id(), Pin.RightFrontEncoderB.id());
-    LREncoder = new Encoder(Pin.LeftRearEncoderA.id(), Pin.LeftRearEncoderB.id());
-    RREncoder = new Encoder(Pin.RightRearEncoderA.id(), Pin.RightRearEncoderB.id());
+    lFEncoder = new Encoder(Pin.LeftFrontEncoderA.id(), Pin.LeftFrontEncoderB.id());
+    rFEncoder = new Encoder(Pin.RightFrontEncoderA.id(), Pin.RightFrontEncoderB.id());
+    lREncoder = new Encoder(Pin.LeftRearEncoderA.id(), Pin.LeftRearEncoderB.id());
+    rREncoder = new Encoder(Pin.RightRearEncoderA.id(), Pin.RightRearEncoderB.id());
 
     var distancePerPulse = 0;
-    LFEncoder.setDistancePerPulse(distancePerPulse);
-    RFEncoder.setDistancePerPulse(distancePerPulse);
-    LREncoder.setDistancePerPulse(distancePerPulse);
-    RREncoder.setDistancePerPulse(distancePerPulse);
+    lFEncoder.setDistancePerPulse(distancePerPulse);
+    rFEncoder.setDistancePerPulse(distancePerPulse);
+    lREncoder.setDistancePerPulse(distancePerPulse);
+    rREncoder.setDistancePerPulse(distancePerPulse);
+
+    navX = new AHRS(); //TODO: create with the correct constructor
   }
 
   @Override
@@ -56,20 +61,21 @@ public class DriveTrain extends SubsystemBase
 
   public double distanceTraveled()
   {
-    return (LFEncoder.getDistance() + LREncoder.getDistance() + RFEncoder.getDistance() + RREncoder.getDistance()) / 4;
+    return (lFEncoder.getDistance() + lREncoder.getDistance() + rFEncoder.getDistance() + rREncoder.getDistance()) / 4;
   } 
 
   public void resetDistanceTraveled()
   {
-    LFEncoder.reset();
-    RFEncoder.reset();
-    LREncoder.reset();
-    RREncoder.reset();
+    lFEncoder.reset();
+    rFEncoder.reset();
+    lREncoder.reset();
+    rREncoder.reset();
   }
 
   private final DifferentialDrive diffDrive;
-  private final Encoder LFEncoder;
-  private final Encoder RFEncoder;
-  private final Encoder LREncoder;
-  private final Encoder RREncoder;
+  private final Encoder lFEncoder;
+  private final Encoder rFEncoder;
+  private final Encoder lREncoder;
+  private final Encoder rREncoder;
+  private final AHRS navX;
 }

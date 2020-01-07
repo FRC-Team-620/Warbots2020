@@ -7,18 +7,17 @@
 
 package frc.robot.DriveTrain;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot.*;
 
-public class DriveWithJoysticks extends CommandBase 
-{
+public class TurnAngle extends CommandBase {
   /**
-   * Creates a new DriveWithJoysticks.
+   * Creates a new TurnAngle.
    */
-  public DriveWithJoysticks() 
+  public TurnAngle(double degrees) 
   {
-      addRequirements(RobotContainer.driveTrain);
+    degreesToTurn = degrees;
+    addRequirements(RobotContainer.driveTrain);
   }
 
   // Called when the command is initially scheduled.
@@ -31,9 +30,6 @@ public class DriveWithJoysticks extends CommandBase
   @Override
   public void execute() 
   {
-    var speed = Math.pow(RobotContainer.driverXBox.getY(Hand.kLeft), 2);
-    var rotation = Math.pow(RobotContainer.driverXBox.getX(Hand.kLeft), 2);
-    RobotContainer.driveTrain.arcadeInput(speed, rotation);
   }
 
   // Called once the command ends or is interrupted.
@@ -48,4 +44,6 @@ public class DriveWithJoysticks extends CommandBase
   {
     return false;
   }
+
+  private final double degreesToTurn;
 }

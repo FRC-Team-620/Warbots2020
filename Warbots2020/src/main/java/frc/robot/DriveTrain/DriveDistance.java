@@ -8,12 +8,12 @@
 package frc.robot.DriveTrain;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.robot.*;
+import frc.robot.Robot.*;
 
 public class DriveDistance extends CommandBase 
 {
   /**
-   * Creates a new DriveDistandce.
+   * Creates a new DriveDistance.
    */
   public DriveDistance(int distance) 
   {
