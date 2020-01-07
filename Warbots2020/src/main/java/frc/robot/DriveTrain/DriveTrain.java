@@ -21,20 +21,26 @@ public class DriveTrain extends SubsystemBase
    */
   public DriveTrain()
   {
-    var lf = SparkMaxReflector.CreateSparkMax(Pin.LEFTFRONTMOTOR.id());
-    var rf = SparkMaxReflector.CreateSparkMax(Pin.RIGHTFRONTMOTOR.id());
-    var lr = SparkMaxReflector.CreateSparkMax(Pin.LEFTREARMOTOR.id());
-    var rr = SparkMaxReflector.CreateSparkMax(Pin.RIGHTREARMOTOR.id());
+    var lf = SparkMaxReflector.CreateSparkMax(Pin.LeftFrontMotor.id());
+    var rf = SparkMaxReflector.CreateSparkMax(Pin.RightFrontMotor.id());
+    var lr = SparkMaxReflector.CreateSparkMax(Pin.LeftRearMotor.id());
+    var rr = SparkMaxReflector.CreateSparkMax(Pin.RightRearMotor.id());
 
     var leftSide = new SpeedControllerGroup(lf, lr);
     var rightSide = new SpeedControllerGroup(rf, rr);
 
     diffDrive = new DifferentialDrive(leftSide, rightSide);
 
-    LFEncoder = null;
-    RFEncoder = null;
-    LREncoder = null;
-    RREncoder = null;
+    LFEncoder = new Encoder(Pin.LeftFrontEncoderA.id(), Pin.LeftFrontEncoderB.id());
+    RFEncoder = new Encoder(Pin.RightFrontEncoderA.id(), Pin.RightFrontEncoderB.id());
+    LREncoder = new Encoder(Pin.LeftRearEncoderA.id(), Pin.LeftRearEncoderB.id());
+    RREncoder = new Encoder(Pin.RightRearEncoderA.id(), Pin.RightRearEncoderB.id());
+
+    var distancePerPulse = 0;
+    LFEncoder.setDistancePerPulse(distancePerPulse);
+    RFEncoder.setDistancePerPulse(distancePerPulse);
+    LREncoder.setDistancePerPulse(distancePerPulse);
+    RREncoder.setDistancePerPulse(distancePerPulse);
   }
 
   @Override
@@ -50,12 +56,15 @@ public class DriveTrain extends SubsystemBase
 
   public double distanceTraveled()
   {
-    return 0.0;
-  }
+    return (LFEncoder.getDistance() + LREncoder.getDistance() + RFEncoder.getDistance() + RREncoder.getDistance()) / 4;
+  } 
 
   public void resetDistanceTraveled()
   {
-
+    LFEncoder.reset();
+    RFEncoder.reset();
+    LREncoder.reset();
+    RREncoder.reset();
   }
 
   private final DifferentialDrive diffDrive;

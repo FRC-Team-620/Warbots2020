@@ -14,10 +14,19 @@ public enum Pin
 
     //vvvvvvvvv ELECTRONICS EDITING START HERE vvvvvvvvvvv
 
-    LEFTFRONTMOTOR(1, RobotContainer.driveTrain),
-    RIGHTFRONTMOTOR(3, RobotContainer.driveTrain),
-    LEFTREARMOTOR(2, RobotContainer.driveTrain),
-    RIGHTREARMOTOR(4, RobotContainer.driveTrain),
+    LeftFrontMotor(1, RobotContainer.driveTrain),
+    RightFrontMotor(3, RobotContainer.driveTrain),
+    LeftRearMotor(2, RobotContainer.driveTrain),
+    RightRearMotor(4, RobotContainer.driveTrain),
+
+    LeftFrontEncoderA(1, RobotContainer.driveTrain),
+    LeftFrontEncoderB(1, RobotContainer.driveTrain),
+    RightFrontEncoderA(3, RobotContainer.driveTrain),
+    RightFrontEncoderB(3, RobotContainer.driveTrain),
+    LeftRearEncoderA(2, RobotContainer.driveTrain),
+    LeftRearEncoderB(2, RobotContainer.driveTrain),
+    RightRearEncoderA(4, RobotContainer.driveTrain),
+    RightRearEncoderB(4, RobotContainer.driveTrain),
 
     /*^^^^^^^^^^ ELECTRONICS EDITING END HERE ^^^^^^^^^^^^
      *

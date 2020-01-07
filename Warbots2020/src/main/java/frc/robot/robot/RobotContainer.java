@@ -28,7 +28,6 @@ public class RobotContainer
   public static void Initiate()
   {
     InitializeFields();
-    // Configure the button bindings
     configureButtonBindings();
   }
 
@@ -50,11 +49,10 @@ public class RobotContainer
    */
   public static Command getAutonomousCommand() 
   {
-    // An ExampleCommand will run in autonomous
     return sitTight;
   }
 
-  public static void InitializeFields()
+  private static void InitializeFields()
   {
     driverXBox = new XboxController(0);
     driveTrain = new DriveTrain();

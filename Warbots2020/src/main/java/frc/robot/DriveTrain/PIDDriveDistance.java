@@ -9,6 +9,7 @@ package frc.robot.DriveTrain;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.robot.RobotContainer;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -22,13 +23,15 @@ public class PIDDriveDistance extends PIDCommand {
         // The controller that the command will use
         new PIDController(0, 0, 0),
         // This should return the measurement
-        () -> distance,
+        () -> RobotContainer.driveTrain.distanceTraveled(),
         // This should return the setpoint (can also be a constant)
         () -> distance,
         // This uses the output
-        output -> {
+        output ->
+        {
           // Use the output here
         });
+    addRequirements(RobotContainer.driveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
   }
