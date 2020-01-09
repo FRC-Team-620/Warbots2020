@@ -56,8 +56,9 @@ public class RobotContainer
   {
     driverXBox = new XboxController(0);
     driveTrain = new DriveTrain();
-    sitTight = new SitStill();
     driveWithJoysticks = new DriveWithJoysticks();
+    driveTrain.setDefaultCommand(driveWithJoysticks);
+    sitTight = new SitStill();
   }
 
   //OI:

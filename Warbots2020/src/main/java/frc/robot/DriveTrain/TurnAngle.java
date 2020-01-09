@@ -14,9 +14,10 @@ public class TurnAngle extends CommandBase {
   /**
    * Creates a new TurnAngle.
    */
-  public TurnAngle(double degrees) 
+  public TurnAngle(double degrees, double tolerance) 
   {
     degreesToTurn = degrees;
+    angleTolerance = tolerance;
     addRequirements(RobotContainer.driveTrain);
   }
 
@@ -24,12 +25,14 @@ public class TurnAngle extends CommandBase {
   @Override
   public void initialize() 
   {
+    RobotContainer.driveTrain.resetYaw();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() 
   {
+    RobotContainer.driveTrain.arcadeInput(0, .25 * getRemainingAngle() / Math.abs(getRemainingAngle()));
   }
 
   // Called once the command ends or is interrupted.
@@ -42,8 +45,14 @@ public class TurnAngle extends CommandBase {
   @Override
   public boolean isFinished() 
   {
-    return false;
+    return Math.abs(getRemainingAngle()) < angleTolerance;
   }
 
-  private final double degreesToTurn;
+  private double getRemainingAngle()
+  {
+    return Math.abs(RobotContainer.driveTrain.getYaw()) - Math.abs(degreesToTurn);
+  }
+
+  private final double degreesToTurn; //clockwise - positive; counterclockwise - negative
+  private final double angleTolerance;
 }

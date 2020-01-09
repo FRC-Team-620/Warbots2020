@@ -10,11 +10,11 @@ package frc.robot.DriveTrain;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot.*;
-
 import com.kauailabs.navx.frc.AHRS;
-
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.PWMSparkMax;
 
 
 public class DriveTrain extends SubsystemBase 
@@ -24,10 +24,11 @@ public class DriveTrain extends SubsystemBase
    */
   public DriveTrain()
   {
-    var lf = SparkMaxReflector.CreateSparkMax(Pin.LeftFrontMotor.id());
-    var rf = SparkMaxReflector.CreateSparkMax(Pin.RightFrontMotor.id());
-    var lr = SparkMaxReflector.CreateSparkMax(Pin.LeftRearMotor.id());
-    var rr = SparkMaxReflector.CreateSparkMax(Pin.RightRearMotor.id());
+
+    var lf = new PWMSparkMax(Pin.LeftFrontMotor.id());
+    var rf = new PWMSparkMax(Pin.RightFrontMotor.id());
+    var lr = new PWMSparkMax(Pin.LeftRearMotor.id());
+    var rr = new PWMSparkMax(Pin.RightRearMotor.id());
 
     var leftSide = new SpeedControllerGroup(lf, lr);
     var rightSide = new SpeedControllerGroup(rf, rr);
@@ -39,13 +40,13 @@ public class DriveTrain extends SubsystemBase
     lREncoder = new Encoder(Pin.LeftRearEncoderA.id(), Pin.LeftRearEncoderB.id());
     rREncoder = new Encoder(Pin.RightRearEncoderA.id(), Pin.RightRearEncoderB.id());
 
-    var distancePerPulse = 0;
+    var distancePerPulse = 0; //TODO: set distance per pulse
     lFEncoder.setDistancePerPulse(distancePerPulse);
     rFEncoder.setDistancePerPulse(distancePerPulse);
     lREncoder.setDistancePerPulse(distancePerPulse);
     rREncoder.setDistancePerPulse(distancePerPulse);
 
-    navX = new AHRS(); //TODO: create with the correct constructor
+    navX = new AHRS(SPI.Port.kMXP);
   }
 
   @Override
@@ -70,6 +71,16 @@ public class DriveTrain extends SubsystemBase
     rFEncoder.reset();
     lREncoder.reset();
     rREncoder.reset();
+  }
+
+  public double getYaw()
+  {
+    return navX.getYaw();
+  } 
+
+  public void resetYaw()
+  {
+    navX.zeroYaw();
   }
 
   private final DifferentialDrive diffDrive;
