@@ -7,31 +7,19 @@
 
 package frc.robot.DriveTrain;
 
-public class DriveDistance extends DriveCommand 
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
+public abstract class DriveCommand extends CommandBase 
 {
   //region Constructors
-  public DriveDistance(DriveTrain dt, int distance) 
+  protected DriveCommand(DriveTrain dt) 
   {
-    super(dt);
-    distanceToTravel = distance;
-  }
-  //endregion
-
-  //region Overrides
-  @Override
-  public void execute() 
-  {
-    driveTrain.arcadeInput(.5, 0);
-  }
-
-  @Override
-  public boolean isFinished()
-  {
-    return driveTrain.distanceTraveled() > distanceToTravel;
+    driveTrain = dt;
+    addRequirements(dt);
   }
   //endregion
 
   //region Fields
-  private final double distanceToTravel;
+  protected final DriveTrain driveTrain;
   //endregion
 }

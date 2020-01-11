@@ -7,42 +7,20 @@
 
 package frc.robot.DriveTrain;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot.*;
-
-public class SitStill extends CommandBase 
+public class SitStill extends DriveCommand 
 {
-  /**
-   * Creates a new SitStill.
-   */
-  public SitStill() 
+  //region Constructors
+  public SitStill(DriveTrain dt) 
   {
-    addRequirements(RobotContainer.driveTrain);
-    // Use addRequirements() here to declare subsystem dependencies.
+    super(dt);
   }
+  //endregion
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() 
-  {
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() 
-  {
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) 
-  {
-  }
-
-  // Returns true when the command should end.
+  //region Overrides
   @Override
   public boolean isFinished() 
   {
     return false;
   }
+  //endregion
 }

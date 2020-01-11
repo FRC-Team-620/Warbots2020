@@ -7,52 +7,51 @@
 
 package frc.robot.DriveTrain;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot.*;
-
-public class TurnAngle extends CommandBase {
-  /**
-   * Creates a new TurnAngle.
-   */
-  public TurnAngle(double degrees, double tolerance) 
+public class TurnAngle extends DriveCommand 
+{
+  //region Constructors
+  public TurnAngle(DriveTrain dt, double degrees, double tolerance) 
   {
+    super(dt);
     degreesToTurn = degrees;
     angleTolerance = tolerance;
-    addRequirements(RobotContainer.driveTrain);
   }
+  //endregion
 
-  // Called when the command is initially scheduled.
+  //region Overrides
   @Override
   public void initialize() 
   {
-    RobotContainer.driveTrain.resetYaw();
+    driveTrain.resetYaw();
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() 
   {
-    RobotContainer.driveTrain.arcadeInput(0, .25 * getRemainingAngle() / Math.abs(getRemainingAngle()));
+    driveTrain.arcadeInput(0, .25 * getRemainingAngle() / Math.abs(getRemainingAngle()));
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) 
   {
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() 
   {
     return Math.abs(getRemainingAngle()) < angleTolerance;
   }
+  //endregion
 
+  //region Methods
   private double getRemainingAngle()
   {
-    return Math.abs(RobotContainer.driveTrain.getYaw()) - Math.abs(degreesToTurn);
+    return Math.abs(driveTrain.getYaw()) - Math.abs(degreesToTurn);
   }
+  //endregion
 
+  //region Fields
   private final double degreesToTurn; //clockwise - positive; counterclockwise - negative
   private final double angleTolerance;
+  //endregion
 }

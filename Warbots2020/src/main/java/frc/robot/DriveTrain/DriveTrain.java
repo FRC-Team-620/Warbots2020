@@ -16,12 +16,9 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.PWMSparkMax;
 
-
 public class DriveTrain extends SubsystemBase 
 {
-  /**
-   * Creates a new DriveTrain.
-   */
+  //region Constructors
   public DriveTrain()
   {
 
@@ -48,13 +45,9 @@ public class DriveTrain extends SubsystemBase
 
     navX = new AHRS(SPI.Port.kMXP);
   }
+  //endregion
 
-  @Override
-  public void periodic() 
-  {
-    // This method will be called once per scheduler run
-  }
-
+  //region Methods
   public void arcadeInput(double speed, double rotation)
   {
     diffDrive.arcadeDrive(speed, rotation);
@@ -82,11 +75,14 @@ public class DriveTrain extends SubsystemBase
   {
     navX.zeroYaw();
   }
+  //endregion
 
+  //region Fields
   private final DifferentialDrive diffDrive;
   private final Encoder lFEncoder;
   private final Encoder rFEncoder;
   private final Encoder lREncoder;
   private final Encoder rREncoder;
   private final AHRS navX;
+  //endregion
 }
