@@ -14,19 +14,6 @@ public enum Pin
 
     //vvvvvvvvv ELECTRONICS EDITING START HERE vvvvvvvvvvv
 
-    LeftFrontMotor(1, Robot.bot.driveTrain),
-    RightFrontMotor(3, Robot.bot.driveTrain),
-    LeftRearMotor(2, Robot.bot.driveTrain),
-    RightRearMotor(4, Robot.bot.driveTrain),
-
-    LeftFrontEncoderA(1, Robot.bot.driveTrain),
-    LeftFrontEncoderB(1, Robot.bot.driveTrain),
-    RightFrontEncoderA(3, Robot.bot.driveTrain),
-    RightFrontEncoderB(3, Robot.bot.driveTrain),
-    LeftRearEncoderA(2, Robot.bot.driveTrain),
-    LeftRearEncoderB(2, Robot.bot.driveTrain),
-    RightRearEncoderA(4, Robot.bot.driveTrain),
-    RightRearEncoderB(4, Robot.bot.driveTrain),
 
     /*^^^^^^^^^^ ELECTRONICS EDITING END HERE ^^^^^^^^^^^^
      *
@@ -40,8 +27,28 @@ public enum Pin
      * Pin Name ^                      ^
      *          ^          Comma at the End of a Value
      *   Pin Number on Rio
+     * 
+     * 
+     * 
+     *vvvvvvvvv CAN EDITING START HERE vvvvvvvvvvv*/
+    
+    LeftFrontMotor(2, Robot.bot.driveTrain),
+    RightFrontMotor(3, Robot.bot.driveTrain),
+    LeftRearMotor(1, Robot.bot.driveTrain),
+    RightRearMotor(4, Robot.bot.driveTrain),
+
+    // LeftFrontEncoderA(1, Robot.bot.driveTrain),
+    // LeftFrontEncoderB(1, Robot.bot.driveTrain),
+    // RightFrontEncoderA(3, Robot.bot.driveTrain),
+    // RightFrontEncoderB(3, Robot.bot.driveTrain),
+    // LeftRearEncoderA(2, Robot.bot.driveTrain),
+    // LeftRearEncoderB(2, Robot.bot.driveTrain),
+    // RightRearEncoderA(4, Robot.bot.driveTrain),
+    // RightRearEncoderB(4, Robot.bot.driveTrain),
+
+     /*^^^^^^^^^^ CAN EDITING END HERE ^^^^^^^^^^^^
      *
-     *
+     * 
      */;// <= this isn't a stray semicolon, it's being used for the benefit of electronics
 
 

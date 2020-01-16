@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot.*;
 import com.kauailabs.navx.frc.AHRS;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -22,28 +25,29 @@ public class DriveTrain extends SubsystemBase
   public DriveTrain()
   {
 
-    var lf = new PWMSparkMax(Pin.LeftFrontMotor.id());
-    var rf = new PWMSparkMax(Pin.RightFrontMotor.id());
-    var lr = new PWMSparkMax(Pin.LeftRearMotor.id());
-    var rr = new PWMSparkMax(Pin.RightRearMotor.id());
+    var lf = new CANSparkMax(Pin.LeftFrontMotor.id(), MotorType.kBrushed);
+    var rf = new CANSparkMax(Pin.RightFrontMotor.id(), MotorType.kBrushed);
+    var lr = new CANSparkMax(Pin.LeftRearMotor.id(), MotorType.kBrushed);
+    var rr = new CANSparkMax(Pin.RightRearMotor.id(), MotorType.kBrushed);
 
     var leftSide = new SpeedControllerGroup(lf, lr);
     var rightSide = new SpeedControllerGroup(rf, rr);
 
     diffDrive = new DifferentialDrive(leftSide, rightSide);
 
-    lFEncoder = new Encoder(Pin.LeftFrontEncoderA.id(), Pin.LeftFrontEncoderB.id());
-    rFEncoder = new Encoder(Pin.RightFrontEncoderA.id(), Pin.RightFrontEncoderB.id());
-    lREncoder = new Encoder(Pin.LeftRearEncoderA.id(), Pin.LeftRearEncoderB.id());
-    rREncoder = new Encoder(Pin.RightRearEncoderA.id(), Pin.RightRearEncoderB.id());
+    // lFEncoder = new Encoder(Pin.LeftFrontEncoderA.id(), Pin.LeftFrontEncoderB.id());
+    // rFEncoder = new Encoder(Pin.RightFrontEncoderA.id(), Pin.RightFrontEncoderB.id());
+    // lREncoder = new Encoder(Pin.LeftRearEncoderA.id(), Pin.LeftRearEncoderB.id());
+    // rREncoder = new Encoder(Pin.RightRearEncoderA.id(), Pin.RightRearEncoderB.id());
 
-    var distancePerPulse = 0; //TODO: set distance per pulse
-    lFEncoder.setDistancePerPulse(distancePerPulse);
-    rFEncoder.setDistancePerPulse(distancePerPulse);
-    lREncoder.setDistancePerPulse(distancePerPulse);
-    rREncoder.setDistancePerPulse(distancePerPulse);
+    // var distancePerPulse = 0; //TODO: set distance per pulse
+    // lFEncoder.setDistancePerPulse(distancePerPulse);
+    // rFEncoder.setDistancePerPulse(distancePerPulse);
+    // lREncoder.setDistancePerPulse(distancePerPulse);
+    // rREncoder.setDistancePerPulse(distancePerPulse);
 
     navX = new AHRS(SPI.Port.kMXP);
+    int a = 5;
   }
   //endregion
 
@@ -55,15 +59,16 @@ public class DriveTrain extends SubsystemBase
 
   public double distanceTraveled()
   {
-    return (lFEncoder.getDistance() + lREncoder.getDistance() + rFEncoder.getDistance() + rREncoder.getDistance()) / 4;
+    //return (lFEncoder.getDistance() + lREncoder.getDistance() + rFEncoder.getDistance() + rREncoder.getDistance()) / 4;
+    return 0;
   } 
 
   public void resetDistanceTraveled()
   {
-    lFEncoder.reset();
-    rFEncoder.reset();
-    lREncoder.reset();
-    rREncoder.reset();
+    // lFEncoder.reset();
+    // rFEncoder.reset();
+    // lREncoder.reset();
+    // rREncoder.reset();
   }
 
   public double getYaw()
@@ -79,10 +84,10 @@ public class DriveTrain extends SubsystemBase
 
   //region Fields
   private final DifferentialDrive diffDrive;
-  private final Encoder lFEncoder;
-  private final Encoder rFEncoder;
-  private final Encoder lREncoder;
-  private final Encoder rREncoder;
+  // private final Encoder lFEncoder;
+  // private final Encoder rFEncoder;
+  // private final Encoder lREncoder;
+  // private final Encoder rREncoder;
   private final AHRS navX;
   //endregion
 }
