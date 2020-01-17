@@ -14,20 +14,17 @@ import frc.robot.driveTrain.*;
 
 public class Robot extends TimedRobot 
 {
-  private Command m_autonomousCommand;
-
+  //region Overrides
   @Override
   public void robotInit() 
   {
-    bot = this;
-    keys = new KeyBinder(bot);
+    keys = new KeyBinder(this);
     driveTrain = new DriveTrain();
     driveWithJoysticks = new DriveWithJoysticks(driveTrain, keys.driver);
     driveTrain.setDefaultCommand(driveWithJoysticks);
     sitTight = new SitStill(driveTrain);
   }
 
-  
   @Override
   public void robotPeriodic() 
   {
@@ -35,39 +32,16 @@ public class Robot extends TimedRobot
   }
 
   @Override
-  public void disabledInit() {
-  }
-
-  @Override
-  public void disabledPeriodic() {
-  }
-
-  @Override
   public void autonomousInit()
   {
-    if (m_autonomousCommand != null) 
-    {
-      m_autonomousCommand.schedule();
-    }
-  }
-
-  @Override
-  public void autonomousPeriodic() 
-  {
+    sitTight.schedule();
   }
 
   @Override
   public void teleopInit() 
   {
-    if (m_autonomousCommand != null) 
-    {
-      m_autonomousCommand.cancel();
-    }
+    sitTight.cancel();
     driveWithJoysticks.schedule();
-  }
-
-  @Override
-  public void teleopPeriodic() {
   }
 
   @Override
@@ -79,6 +53,7 @@ public class Robot extends TimedRobot
   @Override
   public void testPeriodic() {
   }
+  //endregion
 
   //region OI
   public KeyBinder keys;
@@ -93,9 +68,5 @@ public class Robot extends TimedRobot
 
   protected SitStill sitTight;
   protected DriveWithJoysticks driveWithJoysticks;
-  //endregion
-
-  //region Fields
-  static Robot bot;
   //endregion
 }

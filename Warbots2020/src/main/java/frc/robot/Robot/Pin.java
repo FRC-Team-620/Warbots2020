@@ -7,56 +7,56 @@
 
 package frc.robot.robot;
 
-import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.driveTrain.DriveTrain;
+import java.security.InvalidParameterException;
 
 public enum Pin
 {
 
-    //vvvvvvvvv ELECTRONICS EDITING START HERE vvvvvvvvvvv
+    //vvvvvvvvv EDITING START HERE vvvvvvvvvvv
+        
+    LeftFrontMotor(2, CommsStandard.CAN),
+    RightFrontMotor(3, CommsStandard.CAN),
+    LeftRearMotor(1, CommsStandard.CAN),
+    RightRearMotor(4, CommsStandard.CAN),
 
-
-    /*^^^^^^^^^^ ELECTRONICS EDITING END HERE ^^^^^^^^^^^^
+    /*^^^^^^^^^^ EDITING END HERE ^^^^^^^^^^^^
      *
      * How to use the Pin document:
      *
-     * MYPIN(3, Robot.someSubsystem),
-     * YOURPIN(4, Robot.otherSubsystem),
-     * THEIRPIN(2, Robot.someSubsystem),
+     * MYPIN(3, CommsStandard.PWM),
+     * YOURPIN(4, CommsStandard.CAN),
+     * THEIRPIN(2, CommsStandard.PWM),
      *    ^     ^          ^           ^
-     *    ^     ^      Subsystem       ^
-     * Pin Name ^                      ^
+     *    ^     ^     Comms Standard   ^
+     *  Name    ^                      ^
      *          ^          Comma at the End of a Value
-     *   Pin Number on Rio
+     *  Number on Rio or Bus
      * 
      * 
-     * 
-     *vvvvvvvvv CAN EDITING START HERE vvvvvvvvvvv*/
-    
-    LeftFrontMotor(2),
-    RightFrontMotor(3),
-    LeftRearMotor(1),
-    RightRearMotor(4),
-
-    // LeftFrontEncoderA(1, Robot.bot.driveTrain),
-    // LeftFrontEncoderB(1, Robot.bot.driveTrain),
-    // RightFrontEncoderA(3, Robot.bot.driveTrain),
-    // RightFrontEncoderB(3, Robot.bot.driveTrain),
-    // LeftRearEncoderA(2, Robot.bot.driveTrain),
-    // LeftRearEncoderB(2, Robot.bot.driveTrain),
-    // RightRearEncoderA(4, Robot.bot.driveTrain),
-    // RightRearEncoderB(4, Robot.bot.driveTrain),
-
-     /*^^^^^^^^^^ CAN EDITING END HERE ^^^^^^^^^^^^
-     *
      * 
      */;// <= this isn't a stray semicolon, it's being used for the benefit of electronics
-
-
-    Pin(int i)
+     
+    //region Constructors
+     Pin(int i, CommsStandard s)
     {
         id = i;
+        std = s;
     }
+    //endregion
 
+    //region Methods
+    public static Pin getPin(int i, CommsStandard s) throws InvalidParameterException
+    {
+        for(Pin p : values())
+        {
+            if(p.id == i && p.std == s) return p;
+        }
+        throw new InvalidParameterException();
+    }
+    //endregion
+
+    //region Fields
     public final int id;
+    public final CommsStandard std;
+    //endregion
 }

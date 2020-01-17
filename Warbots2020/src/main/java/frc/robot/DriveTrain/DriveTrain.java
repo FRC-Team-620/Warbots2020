@@ -34,20 +34,9 @@ public class DriveTrain extends SubsystemBase
     var rightSide = new SpeedControllerGroup(rf, rr);
 
     diffDrive = new DifferentialDrive(leftSide, rightSide);
-
-    // lFEncoder = new Encoder(Pin.LeftFrontEncoderA.id(), Pin.LeftFrontEncoderB.id());
-    // rFEncoder = new Encoder(Pin.RightFrontEncoderA.id(), Pin.RightFrontEncoderB.id());
-    // lREncoder = new Encoder(Pin.LeftRearEncoderA.id(), Pin.LeftRearEncoderB.id());
-    // rREncoder = new Encoder(Pin.RightRearEncoderA.id(), Pin.RightRearEncoderB.id());
-
-    // var distancePerPulse = 0; //TODO: set distance per pulse
-    // lFEncoder.setDistancePerPulse(distancePerPulse);
-    // rFEncoder.setDistancePerPulse(distancePerPulse);
-    // lREncoder.setDistancePerPulse(distancePerPulse);
-    // rREncoder.setDistancePerPulse(distancePerPulse);
+    //TODO: set distance per pulse
 
     navX = new AHRS(SPI.Port.kMXP);
-    int a = 5;
   }
   //endregion
 
@@ -59,16 +48,13 @@ public class DriveTrain extends SubsystemBase
 
   public double distanceTraveled()
   {
-    //return (lFEncoder.getDistance() + lREncoder.getDistance() + rFEncoder.getDistance() + rREncoder.getDistance()) / 4;
+    //TODO: implement this
     return 0;
   } 
 
   public void resetDistanceTraveled()
   {
-    // lFEncoder.reset();
-    // rFEncoder.reset();
-    // lREncoder.reset();
-    // rREncoder.reset();
+    //TODO: implement this
   }
 
   public double getYaw()
@@ -84,10 +70,6 @@ public class DriveTrain extends SubsystemBase
 
   //region Fields
   private final DifferentialDrive diffDrive;
-  // private final Encoder lFEncoder;
-  // private final Encoder rFEncoder;
-  // private final Encoder lREncoder;
-  // private final Encoder rREncoder;
   private final AHRS navX;
   //endregion
 }
