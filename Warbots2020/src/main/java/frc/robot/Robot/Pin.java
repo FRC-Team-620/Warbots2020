@@ -5,9 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Robot;
+package frc.robot.robot;
 
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.driveTrain.DriveTrain;
 
 public enum Pin
 {
@@ -32,10 +33,10 @@ public enum Pin
      * 
      *vvvvvvvvv CAN EDITING START HERE vvvvvvvvvvv*/
     
-    LeftFrontMotor(2, Robot.bot.driveTrain),
-    RightFrontMotor(3, Robot.bot.driveTrain),
-    LeftRearMotor(1, Robot.bot.driveTrain),
-    RightRearMotor(4, Robot.bot.driveTrain),
+    LeftFrontMotor(2),
+    RightFrontMotor(3),
+    LeftRearMotor(1),
+    RightRearMotor(4),
 
     // LeftFrontEncoderA(1, Robot.bot.driveTrain),
     // LeftFrontEncoderB(1, Robot.bot.driveTrain),
@@ -52,20 +53,10 @@ public enum Pin
      */;// <= this isn't a stray semicolon, it's being used for the benefit of electronics
 
 
-    Pin(int i, Subsystem ss)
+    Pin(int i)
     {
         id = i;
-        claz = ss.getClass().getName();
     }
 
-    public int id() throws IllegalArgumentException
-    {
-        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        var caller = stackTrace[2].getClassName();
-        if(caller.equals(claz)) return id;
-        throw new IllegalArgumentException();
-    }
-
-    private final int id;
-    private final String claz;
+    public final int id;
 }

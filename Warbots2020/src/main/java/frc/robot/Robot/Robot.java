@@ -5,51 +5,69 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Robot;
+package frc.robot.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.DriveTrain.DriveTrain;
-import frc.robot.DriveTrain.DriveWithJoysticks;
-import frc.robot.DriveTrain.SitStill;
+import frc.robot.driveTrain.*;
 
-public class Robot extends TimedRobot //Andrew was here
+public class Robot extends TimedRobot 
 {
-  //region Overrides
+  private Command m_autonomousCommand;
+
   @Override
-  public void robotInit()
+  public void robotInit() 
   {
-    InitializeFields();
+    bot = this;
+    keys = new KeyBinder(bot);
+    driveTrain = new DriveTrain();
+    driveWithJoysticks = new DriveWithJoysticks(driveTrain, keys.driver);
+    driveTrain.setDefaultCommand(driveWithJoysticks);
+    sitTight = new SitStill(driveTrain);
   }
 
+  
   @Override
   public void robotPeriodic() 
   {
     CommandScheduler.getInstance().run();
   }
-  
-  @Override
-  public void autonomousInit() 
-  {
-    autonomousCommand = sitTight;
 
-    if (autonomousCommand != null) 
+  @Override
+  public void disabledInit() {
+  }
+
+  @Override
+  public void disabledPeriodic() {
+  }
+
+  @Override
+  public void autonomousInit()
+  {
+    if (m_autonomousCommand != null) 
     {
-      autonomousCommand.schedule();
+      m_autonomousCommand.schedule();
     }
+  }
+
+  @Override
+  public void autonomousPeriodic() 
+  {
   }
 
   @Override
   public void teleopInit() 
   {
-    if (autonomousCommand != null) 
+    if (m_autonomousCommand != null) 
     {
-      autonomousCommand.cancel();
+      m_autonomousCommand.cancel();
     }
-
     driveWithJoysticks.schedule();
+  }
+
+  @Override
+  public void teleopPeriodic() {
   }
 
   @Override
@@ -57,24 +75,13 @@ public class Robot extends TimedRobot //Andrew was here
   {
     CommandScheduler.getInstance().cancelAll();
   }
-  //endregion
 
-  //region Methods
-  protected void InitializeFields()
-  {
-    bot = this;
-    keys = new KeyBinder(bot);
-    driverXBox = new XboxController(0);
-    driveTrain = new DriveTrain();
-    driveWithJoysticks = new DriveWithJoysticks(driveTrain, keys.driver);
-    driveTrain.setDefaultCommand(driveWithJoysticks);
-    sitTight = new SitStill(driveTrain);
+  @Override
+  public void testPeriodic() {
   }
-  //endregion
 
   //region OI
   public KeyBinder keys;
-  protected XboxController driverXBox;
   //endregion
 
   //region Subsystems

@@ -5,30 +5,30 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.DriveTrain;
+package frc.robot.driveTrain;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Robot.*;
+import frc.robot.robot.*;
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.PWMSparkMax;
 
 public class DriveTrain extends SubsystemBase 
 {
   //region Constructors
   public DriveTrain()
   {
+    var lf = new CANSparkMax(Pin.LeftFrontMotor.id, MotorType.kBrushed);
+    var rf = new CANSparkMax(Pin.RightFrontMotor.id, MotorType.kBrushed);
+    var lr = new CANSparkMax(Pin.LeftRearMotor.id, MotorType.kBrushed);
+    var rr = new CANSparkMax(Pin.RightRearMotor.id, MotorType.kBrushed);
 
-    var lf = new CANSparkMax(Pin.LeftFrontMotor.id(), MotorType.kBrushed);
-    var rf = new CANSparkMax(Pin.RightFrontMotor.id(), MotorType.kBrushed);
-    var lr = new CANSparkMax(Pin.LeftRearMotor.id(), MotorType.kBrushed);
-    var rr = new CANSparkMax(Pin.RightRearMotor.id(), MotorType.kBrushed);
+    lr.setInverted(true);
+    rr.setInverted(true);
 
     var leftSide = new SpeedControllerGroup(lf, lr);
     var rightSide = new SpeedControllerGroup(rf, rr);

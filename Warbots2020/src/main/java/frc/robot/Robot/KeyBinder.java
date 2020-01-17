@@ -5,10 +5,9 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Robot;
+package frc.robot.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.Robot.Robot;
 
 public class KeyBinder 
 {
