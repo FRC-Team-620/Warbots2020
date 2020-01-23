@@ -10,10 +10,19 @@ package frc.robot.driveTrain;
 
 public class DriveDistance extends DriveCommand 
 {
+  //region Constructors
   public DriveDistance(DriveTrain dt, double dist) 
   {
     super(dt);
     distance = dist;
+  }
+  //endregion
+
+  //region Overrides
+  @Override
+  public void initialize() 
+  {
+    driveTrain.distanceTraveled.apply(true);
   }
 
   @Override
@@ -25,8 +34,11 @@ public class DriveDistance extends DriveCommand
   @Override
   public boolean isFinished()
   {
-    return false; //var avg = driveTrain.
+    return driveTrain.distanceTraveled.apply(false) > distance;
   }
+  //endregion
 
+  //region Fields
   private double distance;
+  //endregion
 }

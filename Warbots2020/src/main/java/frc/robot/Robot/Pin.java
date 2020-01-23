@@ -11,7 +11,6 @@ import java.security.InvalidParameterException;
 
 public enum Pin
 {
-
     //vvvvvvvvv EDITING START HERE vvvvvvvvvvv
         
     LeftFrontMotor(1, CommsStandard.CAN),

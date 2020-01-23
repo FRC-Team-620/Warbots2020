@@ -32,18 +32,28 @@ public class DriveTrain extends SubsystemBase
     var lr = new CANSparkMax(Pin.LeftRearMotor.id, MotorType.kBrushless);
     var rr = new CANSparkMax(Pin.RightRearMotor.id, MotorType.kBrushless);
 
-
     lf.setIdleMode(IdleMode.kBrake);
     lr.setIdleMode(IdleMode.kBrake);
     rf.setIdleMode(IdleMode.kBrake);
     rr.setIdleMode(IdleMode.kBrake);
 
+    var conversionFactor = 0.0; //TODO: ask Mr. Mercer for revolution to position conversion factor; determine fudge factor ourselves;
+    lf.getEncoder().setPositionConversionFactor(conversionFactor);
+    lr.getEncoder().setPositionConversionFactor(conversionFactor);
+    rf.getEncoder().setPositionConversionFactor(conversionFactor);
+    rr.getEncoder().setPositionConversionFactor(conversionFactor);
 
-
-    // distanceTraveled = reset -> 
-    // {
-    //   var avg = lf.getEncoder().getPosition();
-    // };
+    distanceTraveled = reset -> 
+    {
+      var avg = lf.getEncoder().getPosition() * lf.getEncoder().getPositionConversionFactor();
+      avg += lr.getEncoder().getPosition() * lr.getEncoder().getPositionConversionFactor();
+      avg += lr.getEncoder().getPosition() * lr.getEncoder().getPositionConversionFactor();
+      avg += rf.getEncoder().getPosition() * lr.getEncoder().getPositionConversionFactor();
+      avg += rr.getEncoder().getPosition() * lr.getEncoder().getPositionConversionFactor();
+      avg /= 4.0;
+      if(reset) encoderOffsetDistance = avg;
+      return avg - encoderOffsetDistance;
+    };
 
     var leftSide = new SpeedControllerGroup(lf, lr);
     var rightSide = new SpeedControllerGroup(rf, rr);
@@ -76,6 +86,7 @@ public class DriveTrain extends SubsystemBase
   //region Fields
   private final DifferentialDrive diffDrive;
   private final AHRS navX;
-  public final Function<Boolean, Double> distanceTraveled = null;
+  public final Function<Boolean, Double> distanceTraveled;
+  private double encoderOffsetDistance;
   //endregion
 }
