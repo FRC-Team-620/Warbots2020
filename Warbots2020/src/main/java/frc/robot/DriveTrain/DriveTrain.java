@@ -10,8 +10,12 @@ package frc.robot.driveTrain;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.robot.*;
+
+import java.util.function.Function;
+
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
@@ -27,6 +31,19 @@ public class DriveTrain extends SubsystemBase
     var rf = new CANSparkMax(Pin.RightFrontMotor.id, MotorType.kBrushless);
     var lr = new CANSparkMax(Pin.LeftRearMotor.id, MotorType.kBrushless);
     var rr = new CANSparkMax(Pin.RightRearMotor.id, MotorType.kBrushless);
+
+
+    lf.setIdleMode(IdleMode.kBrake);
+    lr.setIdleMode(IdleMode.kBrake);
+    rf.setIdleMode(IdleMode.kBrake);
+    rr.setIdleMode(IdleMode.kBrake);
+
+
+
+    // distanceTraveled = reset -> 
+    // {
+    //   var avg = lf.getEncoder().getPosition();
+    // };
 
     var leftSide = new SpeedControllerGroup(lf, lr);
     var rightSide = new SpeedControllerGroup(rf, rr);
@@ -45,17 +62,6 @@ public class DriveTrain extends SubsystemBase
     diffDrive.arcadeDrive(speed, rotation);
   }
 
-  public double distanceTraveled()
-  {
-    //TODO: implement this
-    return 0;
-  } 
-
-  public void resetDistanceTraveled()
-  {
-    //TODO: implement this
-  }
-
   public double getYaw()
   {
     return navX.getYaw();
@@ -70,5 +76,6 @@ public class DriveTrain extends SubsystemBase
   //region Fields
   private final DifferentialDrive diffDrive;
   private final AHRS navX;
+  public final Function<Boolean, Double> distanceTraveled = null;
   //endregion
 }
