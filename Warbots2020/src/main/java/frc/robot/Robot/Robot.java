@@ -7,6 +7,9 @@
 
 package frc.robot.robot;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -48,10 +51,15 @@ public class Robot extends TimedRobot
   public void testInit() 
   {
     CommandScheduler.getInstance().cancelAll();
+    testSpark = new CANSparkMax(Pin.RightRearMotor.id, MotorType.kBrushless);
   }
 
+  CANSparkMax testSpark;
+
   @Override
-  public void testPeriodic() {
+  public void testPeriodic()
+  {
+    testSpark.set(1);
   }
   //endregion
 

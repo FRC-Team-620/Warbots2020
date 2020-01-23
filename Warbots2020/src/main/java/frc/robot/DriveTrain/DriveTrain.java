@@ -13,22 +13,20 @@ import frc.robot.robot.*;
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 public class DriveTrain extends SubsystemBase 
 {
+  CANSparkMax controller;
   //region Constructors
   public DriveTrain()
   {
-    var lf = new CANSparkMax(Pin.LeftFrontMotor.id, MotorType.kBrushed);
-    var rf = new CANSparkMax(Pin.RightFrontMotor.id, MotorType.kBrushed);
-    var lr = new CANSparkMax(Pin.LeftRearMotor.id, MotorType.kBrushed);
-    var rr = new CANSparkMax(Pin.RightRearMotor.id, MotorType.kBrushed);
-
-    lr.setInverted(true);
-    rr.setInverted(true);
+    var lf = new CANSparkMax(Pin.LeftFrontMotor.id, MotorType.kBrushless);
+    var rf = new CANSparkMax(Pin.RightFrontMotor.id, MotorType.kBrushless);
+    var lr = new CANSparkMax(Pin.LeftRearMotor.id, MotorType.kBrushless);
+    var rr = new CANSparkMax(Pin.RightRearMotor.id, MotorType.kBrushless);
 
     var leftSide = new SpeedControllerGroup(lf, lr);
     var rightSide = new SpeedControllerGroup(rf, rr);
@@ -43,6 +41,7 @@ public class DriveTrain extends SubsystemBase
   //region Methods
   public void arcadeInput(double speed, double rotation)
   {
+    //controller.set(.5);
     diffDrive.arcadeDrive(speed, rotation);
   }
 

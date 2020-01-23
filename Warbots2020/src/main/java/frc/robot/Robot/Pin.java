@@ -14,9 +14,9 @@ public enum Pin
 
     //vvvvvvvvv EDITING START HERE vvvvvvvvvvv
         
-    LeftFrontMotor(2, CommsStandard.CAN),
+    LeftFrontMotor(1, CommsStandard.CAN),
     RightFrontMotor(3, CommsStandard.CAN),
-    LeftRearMotor(1, CommsStandard.CAN),
+    LeftRearMotor(2, CommsStandard.CAN),
     RightRearMotor(4, CommsStandard.CAN),
 
     /*^^^^^^^^^^ EDITING END HERE ^^^^^^^^^^^^

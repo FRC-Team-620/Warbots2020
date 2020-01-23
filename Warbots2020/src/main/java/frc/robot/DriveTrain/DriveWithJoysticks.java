@@ -24,9 +24,7 @@ public class DriveWithJoysticks extends DriveCommand
   @Override
   public void execute() 
   {
-    var speed = Math.pow(driverXbox.getY(Hand.kLeft), 2);
-    var rotation = Math.pow(driverXbox.getX(Hand.kLeft), 2);
-    driveTrain.arcadeInput(speed, rotation);
+    driveTrain.arcadeInput(driverXbox.getY(Hand.kLeft), -1 * driverXbox.getX(Hand.kLeft));
   }
 
   @Override
