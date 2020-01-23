@@ -7,34 +7,26 @@
 
 package frc.robot.driveTrain;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class DriveDistance extends CommandBase {
-  /**
-   * Creates a new DriveDistance.
-   */
-  public DriveDistance() {
-    // Use addRequirements() here to declare subsystem dependencies.
+public class DriveDistance extends DriveCommand 
+{
+  public DriveDistance(DriveTrain dt, double dist) 
+  {
+    super(dt);
+    distance = dist;
   }
 
-  // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
+  public void execute()
+  {
+    driveTrain.arcadeInput(.25, 0);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
+  public boolean isFinished()
+  {
+    return false; //var avg = driveTrain.
   }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+  private double distance;
 }
