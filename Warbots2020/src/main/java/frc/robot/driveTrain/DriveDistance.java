@@ -22,19 +22,19 @@ public class DriveDistance extends DriveCommand
   @Override
   public void initialize() 
   {
-    //driveTrain.distanceTraveled.apply(true);
+    driveTrain.distanceTraveled.apply(true);
   }
 
   @Override
   public void execute()
   {
-    driveTrain.arcadeInput(.75, 0);
+    driveTrain.arcadeInput(.25, 0);
   }
 
   @Override
   public boolean isFinished()
   {
-    return false;//driveTrain.distanceTraveled.apply(false) > distance;
+    return driveTrain.distanceTraveled.apply(false) > distance;
   }
   //endregion
 
