@@ -32,12 +32,13 @@ public class DriveTrain extends SubsystemBase
     var lr = new CANSparkMax(Pin.LeftRearMotor.id, MotorType.kBrushless);
     var rr = new CANSparkMax(Pin.RightRearMotor.id, MotorType.kBrushless);
 
-    lf.setIdleMode(IdleMode.kBrake);
-    lr.setIdleMode(IdleMode.kBrake);
-    rf.setIdleMode(IdleMode.kBrake);
-    rr.setIdleMode(IdleMode.kBrake);
+    var mode = IdleMode.kCoast;
+    lf.setIdleMode(mode);
+    lr.setIdleMode(mode);
+    rf.setIdleMode(mode);
+    rr.setIdleMode(mode);
 
-    var conversionFactor = 0.0; //TODO: ask Mr. Mercer for revolution to position conversion factor; determine fudge factor ourselves;
+    var conversionFactor = 1.0; //TODO: ask Mr. Mercer for revolution to position conversion factor; determine fudge factor ourselves;
     lf.getEncoder().setPositionConversionFactor(conversionFactor);
     lr.getEncoder().setPositionConversionFactor(conversionFactor);
     rf.getEncoder().setPositionConversionFactor(conversionFactor);

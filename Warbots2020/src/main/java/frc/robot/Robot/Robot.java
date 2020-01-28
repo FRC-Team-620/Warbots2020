@@ -19,10 +19,13 @@ public class Robot extends TimedRobot
   public void robotInit() 
   {
     keys = new KeyBinder(this);
+
     driveTrain = new DriveTrain();
     driveWithJoysticks = new DriveWithJoysticks(driveTrain, keys.driver);
     driveTrain.setDefaultCommand(driveWithJoysticks);
     sitTight = new SitStill(driveTrain);
+    driveDistance = new DriveDistance(driveTrain, 710);
+    test = new TestAutoCommand(driveTrain);
   }
 
   @Override
@@ -34,7 +37,7 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit()
   {
-    sitTight.schedule();
+    driveDistance.schedule();
   }
 
   @Override
@@ -54,9 +57,9 @@ public class Robot extends TimedRobot
   //endregion
   
   //region Commands
-  protected Command autonomousCommand;
-
   protected SitStill sitTight;
   protected DriveWithJoysticks driveWithJoysticks;
+  protected DriveDistance driveDistance;
+  protected TestAutoCommand test;
   //endregion
 }
