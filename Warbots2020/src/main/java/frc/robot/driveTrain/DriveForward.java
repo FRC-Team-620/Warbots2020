@@ -8,10 +8,10 @@
 package frc.robot.driveTrain;
 
 
-public class DriveDistance extends DriveCommand 
+public class DriveForward extends DriveCommand 
 {
   //region Constructors
-  public DriveDistance(DriveTrain dt, double dist) 
+  public DriveForward(DriveTrain dt, double dist) 
   {
     super(dt);
     distance = dist;
@@ -34,7 +34,7 @@ public class DriveDistance extends DriveCommand
   @Override
   public boolean isFinished()
   {
-    return false;//driveTrain.distanceTraveled.apply(false) > distance;
+    return driveTrain.distanceTraveled.apply(false) > distance;
   }
   //endregion
 

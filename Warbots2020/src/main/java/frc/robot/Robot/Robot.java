@@ -29,7 +29,7 @@ public class Robot extends TimedRobot
     driveWithJoysticks = new DriveWithJoysticks(driveTrain, keys.driver);
     driveTrain.setDefaultCommand(driveWithJoysticks);
     sitTight = new SitStill(driveTrain);
-    driveDistance = new DriveDistance(driveTrain, 710);
+    driveDistance = new DriveForward(driveTrain, 10);
     test = new TestAutoCommand(driveTrain);
   }
 
@@ -64,7 +64,7 @@ public class Robot extends TimedRobot
   //region Commands
   protected SitStill sitTight;
   protected DriveWithJoysticks driveWithJoysticks;
-  protected DriveDistance driveDistance;
+  protected DriveForward driveDistance;
   protected TestAutoCommand test;
   //endregion
 }

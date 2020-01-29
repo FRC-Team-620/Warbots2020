@@ -53,11 +53,10 @@ public class DriveTrain extends SubsystemBase
     distanceTraveled = reset -> 
     {
       var avg = lf.getEncoder().getPosition() * lf.getEncoder().getPositionConversionFactor();
-      avg += lr.getEncoder().getPosition() * lr.getEncoder().getPositionConversionFactor();
-      avg += lr.getEncoder().getPosition() * lr.getEncoder().getPositionConversionFactor();
-      avg += rf.getEncoder().getPosition() * lr.getEncoder().getPositionConversionFactor();
-      avg += rr.getEncoder().getPosition() * lr.getEncoder().getPositionConversionFactor();
-      avg /= 4.0;
+      // avg += lr.getEncoder().getPosition() * lr.getEncoder().getPositionConversionFactor();
+      // avg += rf.getEncoder().getPosition() * lr.getEncoder().getPositionConversionFactor();
+      // avg += rr.getEncoder().getPosition() * lr.getEncoder().getPositionConversionFactor();
+      // avg /= 4.0;
       if(reset) encoderOffsetDistance = avg;
       return avg - encoderOffsetDistance;
     };
