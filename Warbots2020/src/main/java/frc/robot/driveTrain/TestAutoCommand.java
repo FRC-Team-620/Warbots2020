@@ -7,8 +7,6 @@
 
 package frc.robot.driveTrain;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
 public class TestAutoCommand extends DriveCommand {
   /**
    * Creates a new TestAutoCommand.
