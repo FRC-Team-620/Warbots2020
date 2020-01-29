@@ -75,8 +75,12 @@ public class DriveTrain extends SubsystemBase
   //region Methods
   public void arcadeInput(double speed, double rotation)
   {
-    //controller.set(.5);
     diffDrive.arcadeDrive(speed, rotation);
+  }
+
+  public void curvatureInput(double speed, double rotation)
+  {
+    diffDrive.curvatureDrive(speed, rotation, true);
   }
 
   public double getYaw()
