@@ -44,12 +44,6 @@ public class DriveTrain extends SubsystemBase
     rf.getEncoder().setPositionConversionFactor(conversionFactor);
     rr.getEncoder().setPositionConversionFactor(conversionFactor);
 
-    var openLoopRampRate = 0.5; //TODO: ask Mr. Mercer for revolution to position conversion factor; determine fudge factor ourselves;
-    lf.setOpenLoopRampRate(openLoopRampRate);
-    lr.setOpenLoopRampRate(openLoopRampRate);
-    rf.setOpenLoopRampRate(openLoopRampRate);
-    rr.setOpenLoopRampRate(openLoopRampRate);
-
     distanceTraveled = reset -> 
     {
       var avg = lf.getEncoder().getPosition() * lf.getEncoder().getPositionConversionFactor();
@@ -94,6 +88,6 @@ public class DriveTrain extends SubsystemBase
   private final DifferentialDrive diffDrive;
   private final AHRS navX;
   public final Function<Boolean, Double> distanceTraveled;
-  private double encoderOffsetDistance = 0;
+  private double encoderOffsetDistance;
   //endregion
 }
