@@ -32,7 +32,7 @@ public class DriveTrain extends SubsystemBase
     var lr = new CANSparkMax(Pin.LeftRearMotor.id, MotorType.kBrushless);
     var rr = new CANSparkMax(Pin.RightRearMotor.id, MotorType.kBrushless);
 
-    var mode = IdleMode.kCoast;
+    var mode = IdleMode.kBrake;
     lf.setIdleMode(mode);
     lr.setIdleMode(mode);
     rf.setIdleMode(mode);
@@ -44,11 +44,17 @@ public class DriveTrain extends SubsystemBase
     rf.getEncoder().setPositionConversionFactor(conversionFactor);
     rr.getEncoder().setPositionConversionFactor(conversionFactor);
 
-    var openLoopRampRate = 0.5; //TODO: ask Mr. Mercer for revolution to position conversion factor; determine fudge factor ourselves;
+    var openLoopRampRate = 0.5;
     lf.setOpenLoopRampRate(openLoopRampRate);
     lr.setOpenLoopRampRate(openLoopRampRate);
     rf.setOpenLoopRampRate(openLoopRampRate);
     rr.setOpenLoopRampRate(openLoopRampRate);
+
+    var currentLimit = 20; //TODO: ask Mr. Mercer for revolution to position conversion factor; determine fudge factor ourselves;
+    lf.setSmartCurrentLimit(currentLimit);
+    lr.setSmartCurrentLimit(currentLimit);
+    rf.setSmartCurrentLimit(currentLimit);
+    rr.setSmartCurrentLimit(currentLimit);
 
     distanceTraveled = reset -> 
     {
@@ -61,10 +67,14 @@ public class DriveTrain extends SubsystemBase
       return avg - encoderOffsetDistance;
     };
 
-    var leftSide = new SpeedControllerGroup(lf, lr);
-    var rightSide = new SpeedControllerGroup(rf, rr);
+    lf.follow(lr, false);
+    rf.follow(rr, false);
+
+    var leftSide = lr; //= new SpeedControllerGroup(lf, lr);
+    var rightSide =  rr; //= new SpeedControllerGroup(rf, rr);
 
     diffDrive = new DifferentialDrive(leftSide, rightSide);
+    diffDrive.setDeadband(0.05);
     //TODO: set distance per pulse
 
     navX = new AHRS(SPI.Port.kMXP);
@@ -79,6 +89,7 @@ public class DriveTrain extends SubsystemBase
 
   public void curvatureInput(double speed, double rotation)
   {
+    
     diffDrive.curvatureDrive(speed, rotation, true);
   }
 
