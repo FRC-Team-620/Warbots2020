@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.robot;
+package frc.robot.Robot;
 
 import java.security.InvalidParameterException;
 

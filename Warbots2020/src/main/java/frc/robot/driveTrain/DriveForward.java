@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.driveTrain;
+package frc.robot.DriveTrain;
 
 
 public class DriveForward extends DriveCommand 
