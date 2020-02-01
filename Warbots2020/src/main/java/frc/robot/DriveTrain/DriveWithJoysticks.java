@@ -24,7 +24,7 @@ public class DriveWithJoysticks extends DriveCommand
   @Override
   public void execute() 
   {
-    driveTrain.curvatureInput(driverXbox.getY(Hand.kLeft), -1 * driverXbox.getX(Hand.kLeft));
+    driveTrain.curvatureInput(driverXbox.getY(Hand.kLeft), -1 * driverXbox.getX(Hand.kLeft), driverXbox.getAButton());
   }
 
   @Override

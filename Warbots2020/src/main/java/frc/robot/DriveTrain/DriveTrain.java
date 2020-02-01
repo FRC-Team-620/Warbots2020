@@ -87,10 +87,10 @@ public class DriveTrain extends SubsystemBase
     diffDrive.arcadeDrive(speed, rotation);
   }
 
-  public void curvatureInput(double speed, double rotation)
+  public void curvatureInput(double speed, double rotation, boolean isCurvartureDrive)
   {
     
-    diffDrive.curvatureDrive(speed, rotation, true);
+    diffDrive.curvatureDrive(speed, rotation, isCurvartureDrive);
   }
 
   public double getYaw()
