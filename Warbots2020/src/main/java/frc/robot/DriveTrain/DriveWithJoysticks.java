@@ -9,6 +9,7 @@ package frc.robot.driveTrain;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveWithJoysticks extends DriveCommand 
 {
@@ -24,7 +25,9 @@ public class DriveWithJoysticks extends DriveCommand
   @Override
   public void execute() 
   {
-    driveTrain.curvatureInput(driverXbox.getY(Hand.kLeft), -1 * driverXbox.getX(Hand.kLeft), driverXbox.getAButton());
+    driveTrain.curvatureInput(driverXbox.getY(Hand.kLeft), -1 * driverXbox.getX(Hand.kLeft), 
+    driverXbox.getAButton());
+    SmartDashboard.putNumber("Motor Temperature", driveTrain.getMotorTemp());
   }
 
   @Override
@@ -38,3 +41,24 @@ public class DriveWithJoysticks extends DriveCommand
   protected XboxController driverXbox;
   //endregion
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

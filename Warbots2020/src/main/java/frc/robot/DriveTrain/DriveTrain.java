@@ -27,10 +27,10 @@ public class DriveTrain extends SubsystemBase
   //region Constructors
   public DriveTrain()
   {
-    var lf = new CANSparkMax(Pin.LeftFrontMotor.id, MotorType.kBrushless);
-    var rf = new CANSparkMax(Pin.RightFrontMotor.id, MotorType.kBrushless);
-    var lr = new CANSparkMax(Pin.LeftRearMotor.id, MotorType.kBrushless);
-    var rr = new CANSparkMax(Pin.RightRearMotor.id, MotorType.kBrushless);
+    lf = new CANSparkMax(Pin.LeftFrontMotor.id, MotorType.kBrushless);
+    rf = new CANSparkMax(Pin.RightFrontMotor.id, MotorType.kBrushless);
+    lr = new CANSparkMax(Pin.LeftRearMotor.id, MotorType.kBrushless);
+    rr = new CANSparkMax(Pin.RightRearMotor.id, MotorType.kBrushless);
 
     var mode = IdleMode.kBrake;
     lf.setIdleMode(mode);
@@ -87,6 +87,11 @@ public class DriveTrain extends SubsystemBase
     diffDrive.arcadeDrive(speed, rotation);
   }
 
+  //returns the temperature of the left front motor
+  public double getMotorTemp() {
+    return lf.getMotorTemperature();
+  }
+
   public void curvatureInput(double speed, double rotation, boolean isCurvartureDrive)
   {
     
@@ -109,5 +114,6 @@ public class DriveTrain extends SubsystemBase
   private final AHRS navX;
   public final Function<Boolean, Double> distanceTraveled;
   private double encoderOffsetDistance = 0;
+  private CANSparkMax lf, rf, rr, lr;
   //endregion
 }
