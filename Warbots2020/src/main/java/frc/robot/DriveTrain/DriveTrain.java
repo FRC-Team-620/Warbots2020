@@ -10,7 +10,6 @@ package frc.robot.driveTrain;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.robot.*;
-import java.util.function.Function;
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -19,7 +18,6 @@ import edu.wpi.first.wpilibj.SPI;
 
 public class DriveTrain extends SubsystemBase 
 {
-  CANSparkMax controller;
   //region Constructors
   public DriveTrain()
   {
@@ -51,51 +49,41 @@ public class DriveTrain extends SubsystemBase
     rf.setOpenLoopRampRate(openLoopRampRate);
     rr.setOpenLoopRampRate(openLoopRampRate);
 
-    var currentLimit = 20; //TODO: ask Mr. Mercer for revolution to position conversion factor; determine fudge factor ourselves;
+    var currentLimit = 20;
     lf.setSmartCurrentLimit(currentLimit);
     lr.setSmartCurrentLimit(currentLimit);
     rf.setSmartCurrentLimit(currentLimit);
     rr.setSmartCurrentLimit(currentLimit);
 
-    distanceTraveled = reset -> 
-    {
-      var avg = lf.getEncoder().getPosition() * lf.getEncoder().getPositionConversionFactor();
-      // avg += lr.getEncoder().getPosition() * lr.getEncoder().getPositionConversionFactor();
-      // avg += rf.getEncoder().getPosition() * lr.getEncoder().getPositionConversionFactor();
-      // avg += rr.getEncoder().getPosition() * lr.getEncoder().getPositionConversionFactor();
-      // avg /= 4.0;
-      if(reset) encoderOffsetDistance = avg;
-      return avg - encoderOffsetDistance;
-    };
-
     lf.follow(lr, false);
     rf.follow(rr, false);
 
-    var leftSide = lr; //= new SpeedControllerGroup(lf, lr);
-    var rightSide =  rr; //= new SpeedControllerGroup(rf, rr);
-
-    diffDrive = new DifferentialDrive(leftSide, rightSide);
+    diffDrive = new DifferentialDrive(lr, rr);
     diffDrive.setDeadband(0.05);
-    //TODO: set distance per pulse
 
     navX = new AHRS(SPI.Port.kMXP);
+    resetDistance();
   }
   //endregion
 
   //region Methods
+  public void stop()
+  {
+    diffDrive.stopMotor();
+  }
+
   public void arcadeInput(double speed, double rotation)
   {
     diffDrive.arcadeDrive(speed, rotation);
   }
 
-  //returns the temperature of the left front motor
-  public double getMotorTemp() {
+  public double getMotorTemp() 
+  {
     return lf.getMotorTemperature();
   }
 
   public void curvatureInput(double speed, double rotation, boolean isCurvartureDrive)
   {
-    
     diffDrive.curvatureDrive(speed, rotation, isCurvartureDrive);
   }
 
@@ -108,13 +96,26 @@ public class DriveTrain extends SubsystemBase
   {
     navX.zeroYaw();
   }
+
+  public double getDistance()
+  {
+     var avg = lr.getEncoder().getPosition() - leftEncoderOffsetDistance;
+     avg += rr.getEncoder().getPosition() - rightEncoderOffsetDistance;
+     return avg / 2;
+  }
+
+  public void resetDistance()
+  {
+    leftEncoderOffsetDistance = lr.getEncoder().getPosition();
+    rightEncoderOffsetDistance = rr.getEncoder().getPosition();
+  }
   //endregion
 
   //region Fields
-  private final DifferentialDrive diffDrive;
-  private final AHRS navX;
-  public final Function<Boolean, Double> distanceTraveled;
-  private double encoderOffsetDistance = 0;
-  private CANSparkMax lf, rf, rr, lr;
+  protected final DifferentialDrive diffDrive;
+  protected final AHRS navX;
+  protected double leftEncoderOffsetDistance;
+  protected double rightEncoderOffsetDistance;
+  protected CANSparkMax lf, rf, rr, lr;
   //endregion
 }

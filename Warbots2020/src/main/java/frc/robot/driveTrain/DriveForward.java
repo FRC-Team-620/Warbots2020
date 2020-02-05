@@ -22,23 +22,31 @@ public class DriveForward extends DriveCommand
   @Override
   public void initialize() 
   {
-    //driveTrain.distanceTraveled.apply(true);
+    driveTrain.resetDistance();
   }
 
   @Override
   public void execute()
   {
-    driveTrain.arcadeInput(.75, 0);
+    i++;
+    driveTrain.curvatureInput(-.75, 0, false);
   }
 
   @Override
   public boolean isFinished()
   {
-    return driveTrain.distanceTraveled.apply(false) > distance;
+    return driveTrain.getDistance() > distance;
+  }
+
+  @Override
+  public void end(boolean interrupted)
+  {
+    driveTrain.stop();
   }
   //endregion
 
   //region Fields
   private double distance;
+  int i = 0;
   //endregion
 }
