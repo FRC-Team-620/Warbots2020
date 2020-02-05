@@ -9,7 +9,6 @@ package frc.robot.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.driveTrain.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -23,14 +22,7 @@ public class Robot extends TimedRobot
   @Override
   public void robotInit() 
   {
-    keys = new KeyBinder(this);
-
-    driveTrain = new DriveTrain();
-    driveWithJoysticks = new DriveWithJoysticks(driveTrain, keys.driver);
-    driveTrain.setDefaultCommand(driveWithJoysticks);
-    sitTight = new SitStill(driveTrain);
-    driveDistance = new DriveForward(driveTrain, 10);
-    test = new TestAutoCommand(driveTrain);
+    container = new RobotContainer();
   }
 
   @Override
@@ -42,29 +34,18 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit()
   {
-    driveDistance.schedule();
+    container.driveDistance.schedule();
   }
 
   @Override
   public void teleopInit() 
   {
-    sitTight.cancel();
-    driveWithJoysticks.schedule();
+    container.sitTight.cancel();
+    container.driveWithJoysticks.schedule();
   }
   //endregion
 
-  //region OI
-  public KeyBinder keys;
-  //endregion
-  
-  //region Subsystems
-  public DriveTrain driveTrain;
-  //endregion
-  
-  //region Commands
-  protected SitStill sitTight;
-  protected DriveWithJoysticks driveWithJoysticks;
-  protected DriveForward driveDistance;
-  protected TestAutoCommand test;
+  //region Fields
+  protected RobotContainer container;
   //endregion
 }

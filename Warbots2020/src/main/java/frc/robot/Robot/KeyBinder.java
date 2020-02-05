@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.XboxController;
 public class KeyBinder 
 {
     //region Constructors
-    public KeyBinder(Robot bot)
+    public KeyBinder(RobotContainer bot)
     {
         driver = new XboxController(0);
         operator = new XboxController(1);
