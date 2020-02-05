@@ -28,6 +28,6 @@ public final class Constants {
         private static final double deadBand = 0.05;
     }
     public static final class ShooterConstants {
-        private static final double spinRate = 0.25;
+        private static final double spinRate = 0.2;
     }
 }
