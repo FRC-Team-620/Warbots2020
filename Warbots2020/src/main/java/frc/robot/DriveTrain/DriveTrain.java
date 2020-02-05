@@ -28,6 +28,11 @@ public class DriveTrain extends SubsystemBase
     lr = new CANSparkMax(Pin.LeftRearMotor.id, MotorType.kBrushless);
     rr = new CANSparkMax(Pin.RightRearMotor.id, MotorType.kBrushless);
 
+    lf.restoreFactoryDefaults();
+    lr.restoreFactoryDefaults();
+    rf.restoreFactoryDefaults();
+    rr.restoreFactoryDefaults();
+
     var mode = IdleMode.kBrake;
     lf.setIdleMode(mode);
     lr.setIdleMode(mode);
@@ -40,7 +45,7 @@ public class DriveTrain extends SubsystemBase
     rf.getEncoder().setPositionConversionFactor(conversionFactor);
     rr.getEncoder().setPositionConversionFactor(conversionFactor);
 
-    var openLoopRampRate = 0.5;
+    var openLoopRampRate = 0.75;
     lf.setOpenLoopRampRate(openLoopRampRate);
     lr.setOpenLoopRampRate(openLoopRampRate);
     rf.setOpenLoopRampRate(openLoopRampRate);
