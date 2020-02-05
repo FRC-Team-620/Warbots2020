@@ -7,13 +7,18 @@
 
 package frc.robot.intake;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.robot.Pin;
 
 public class Intake extends SubsystemBase
-{
+{ 
     public Intake() 
     {
-      
+      intakeMotor = new TalonSRX(Pin.IntakeMotor.id);
+      intakeMotor.set(ControlMode.PercentOutput, 0);
     }
 
     @Override
@@ -22,4 +27,5 @@ public class Intake extends SubsystemBase
     }
     
     // Region Fields
+    private final TalonSRX intakeMotor;
 }
