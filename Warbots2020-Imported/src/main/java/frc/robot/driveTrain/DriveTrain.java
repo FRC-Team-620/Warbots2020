@@ -10,11 +10,15 @@ package frc.robot.driveTrain;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.robot.*;
+
 import java.util.function.Function;
+
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+
 import edu.wpi.first.wpilibj.SPI;
 
 public class DriveTrain extends SubsystemBase 
@@ -23,10 +27,10 @@ public class DriveTrain extends SubsystemBase
   //region Constructors
   public DriveTrain()
   {
-    lf = new CANSparkMax(Pin.LeftFrontMotor.id, MotorType.kBrushless);
-    rf = new CANSparkMax(Pin.RightFrontMotor.id, MotorType.kBrushless);
-    lr = new CANSparkMax(Pin.LeftRearMotor.id, MotorType.kBrushless);
-    rr = new CANSparkMax(Pin.RightRearMotor.id, MotorType.kBrushless);
+    var lf = new CANSparkMax(Pin.LeftFrontMotor.id, MotorType.kBrushless);
+    var rf = new CANSparkMax(Pin.RightFrontMotor.id, MotorType.kBrushless);
+    var lr = new CANSparkMax(Pin.LeftRearMotor.id, MotorType.kBrushless);
+    var rr = new CANSparkMax(Pin.RightRearMotor.id, MotorType.kBrushless);
 
     var mode = IdleMode.kBrake;
     lf.setIdleMode(mode);
@@ -83,15 +87,10 @@ public class DriveTrain extends SubsystemBase
     diffDrive.arcadeDrive(speed, rotation);
   }
 
-  //returns the temperature of the left front motor
-  public double getMotorTemp() {
-    return lf.getMotorTemperature();
-  }
-
-  public void curvatureInput(double speed, double rotation, boolean isCurvartureDrive)
+  public void curvatureInput(double speed, double rotation)
   {
     
-    diffDrive.curvatureDrive(speed, rotation, isCurvartureDrive);
+    diffDrive.curvatureDrive(speed, rotation, true);
   }
 
   public double getYaw()
@@ -110,6 +109,5 @@ public class DriveTrain extends SubsystemBase
   private final AHRS navX;
   public final Function<Boolean, Double> distanceTraveled;
   private double encoderOffsetDistance = 0;
-  private CANSparkMax lf, rf, rr, lr;
   //endregion
 }
