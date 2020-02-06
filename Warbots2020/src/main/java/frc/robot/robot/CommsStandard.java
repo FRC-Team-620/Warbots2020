@@ -9,5 +9,5 @@ package frc.robot.robot;
 
 public enum CommsStandard 
 {
-    CAN, PWM
+    CAN, PWM, DIO
 }
