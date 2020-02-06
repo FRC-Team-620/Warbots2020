@@ -19,7 +19,7 @@ public enum Pin
     LeftRearMotor(2, CommsStandard.CAN),
     RightRearMotor(4, CommsStandard.CAN),
 
-    // Others
+    //Mechansim Motors
     ShooterLoaderMotor(5, CommsStandard.CAN), // T1
     IntakeMotor(6, CommsStandard.CAN), // T2
     SpinnerMotor(7, CommsStandard.CAN), // T3
@@ -27,6 +27,9 @@ public enum Pin
     ShooterMotor1(9, CommsStandard.CAN),
     ShooterMotor2(10, CommsStandard.CAN),
     ClimberMotor(11, CommsStandard.CAN),
+
+    //Sensors
+    BallLoadedLimitSwitch(0, CommsStandard.DIO),
 
     /*^^^^^^^^^^ EDITING END HERE ^^^^^^^^^^^^
      *
