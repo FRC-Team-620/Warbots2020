@@ -7,6 +7,8 @@
 
 package frc.robot.robot;
 
+import edu.wpi.first.wpilibj2.command.Command;
+
 import frc.robot.driveTrain.DriveForward;
 import frc.robot.driveTrain.DriveTrain;
 import frc.robot.driveTrain.DriveWithJoysticks;
@@ -32,7 +34,16 @@ public class RobotContainer
     }
     //endregion
     
-    //region OI
+   /**
+   * Use this to pass the autonomous command to the main {@link Robot} class.
+   *
+   * @return the command to run in autonomous
+   */
+  public Command getAutonomousCommand() {
+    return null;
+  }
+
+  //region OI
     public KeyBinder keys;
     //endregion
 

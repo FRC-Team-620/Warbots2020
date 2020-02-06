@@ -8,6 +8,7 @@
 package frc.robot.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 /**
@@ -22,7 +23,7 @@ public class Robot extends TimedRobot
   @Override
   public void robotInit() 
   {
-    container = new RobotContainer();
+    m_robotContainer = new RobotContainer();
   }
 
   @Override
@@ -31,21 +32,61 @@ public class Robot extends TimedRobot
     CommandScheduler.getInstance().run();
   }
 
+/**
+   * This function is called once each time the robot enters Disabled mode.
+   */
+  @Override
+  public void disabledInit() {
+  }
+
+  @Override
+  public void disabledPeriodic() {
+  }
+
   @Override
   public void autonomousInit()
   {
-    container.driveDistance.schedule();
+      m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+
+      // schedule the autonomous command
+      if (m_autonomousCommand != null) {
+        m_autonomousCommand.schedule();
+      }
+
+    m_robotContainer.driveDistance.schedule();
   }
 
   @Override
   public void teleopInit() 
   {
-    container.sitTight.cancel();
-    container.driveWithJoysticks.schedule();
+    m_robotContainer.sitTight.cancel();
+    m_robotContainer.driveWithJoysticks.schedule();
   }
+  /**
+   * This function is called periodically during operator control.
+   */
+  @Override
+  public void teleopPeriodic() {
+
+  }
+
+  @Override
+  public void testInit() {
+    // Cancels all running commands at the start of test mode.
+    CommandScheduler.getInstance().cancelAll();
+  }
+
+  /**
+   * This function is called periodically during test mode.
+   */
+  @Override
+  public void testPeriodic() {
+  }
+  
   //endregion
 
   //region Fields
-  protected RobotContainer container;
+  private Command m_autonomousCommand;
+  private RobotContainer m_robotContainer;
   //endregion
 }
