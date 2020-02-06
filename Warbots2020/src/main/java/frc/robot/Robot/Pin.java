@@ -20,7 +20,7 @@ public enum Pin
     RightRearMotor(4, CommsStandard.CAN),
 
     // Others
-    LoaderMotor(5, CommsStandard.CAN), // T1
+    ShooterLoaderMotor(5, CommsStandard.CAN), // T1
     IntakeMotor(6, CommsStandard.CAN), // T2
     SpinnerMotor(7, CommsStandard.CAN), // T3
     LiftMotor(8, CommsStandard.CAN), // T4
