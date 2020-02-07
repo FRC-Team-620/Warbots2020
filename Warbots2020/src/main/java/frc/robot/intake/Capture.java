@@ -10,38 +10,43 @@ package frc.robot.intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Capture extends CommandBase
-{
-    private final Intake m_intake;
-
-  /**
-   * Creates a new Capture.
-   *
-   * @param Intake The subsystem used by this command.
-   */
-  public Capture(Intake intake) {
-    m_intake = intake;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_intake);
+{  
+  //region Constructors
+  public Capture(Intake i) 
+  {
+    intake = i;
+    addRequirements(intake);
   }
+  //endregion
 
+  //region Overrides
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
+  public void initialize() 
+  {
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
+  public void execute() 
+  {
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end(boolean interrupted) 
+  {
   }
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
+  public boolean isFinished() 
+  {
     return false;
   }
+  //endregion
+
+  //region Fields
+  private final Intake intake;
+  //endregion
 }   

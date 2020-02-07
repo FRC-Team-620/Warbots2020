@@ -14,25 +14,30 @@ import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.robot.Pin;
 
-public class Climber extends SubsystemBase {
-  /**
-   * Creates a new Climber.
-   */
-  public Climber() {  
-
-    m_climberActuator = new Servo(1);
-    m_climberActuator.set(0);
-    m_climberActuator.setAngle(0);
+public class Climber extends SubsystemBase 
+{
+  //region Constructors
+  public Climber() 
+  { 
+    climberActuator = new Servo(1);
+    climberActuator.set(0);
+    climberActuator.setAngle(0);
     
-    m_climberMotor = new TalonSRX(0);
-    m_climberMotor.set(ControlMode.PercentOutput, Pin.ClimberMotor.id);
+    climberMotor = new TalonSRX(0);
+    climberMotor.set(ControlMode.PercentOutput, Pin.ClimberMotor.id);
   }
+  //endregion
+
+  //region Overrides
   @Override
-  public void periodic() {
+  public void periodic() 
+  {
     // This method will be called once per scheduler run
   }
+  //endregion
 
-  private final Servo m_climberActuator;
-  private final TalonSRX m_climberMotor;
-  
+  //region Fields
+  private final Servo climberActuator;
+  private final TalonSRX climberMotor;
+  //endregion
 }

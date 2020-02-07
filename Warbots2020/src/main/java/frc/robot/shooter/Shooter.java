@@ -15,10 +15,10 @@ import frc.robot.robot.*;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.*;
 
-public class Shooter extends SubsystemBase {
-
-  //TODO: Scheduling tuning 
-
+//TODO: Scheduling, tuning 
+public class Shooter extends SubsystemBase 
+{  
+  //region Constructors
   public Shooter() 
   {
     shooter = new TalonFX(Pin.ShooterMotor1.id);
@@ -33,13 +33,17 @@ public class Shooter extends SubsystemBase {
     srxConfig.continuousCurrentLimit = 20;
     loader.configAllSettings(srxConfig);
   }
+  //endregion
 
+  //region Overrides
   @Override
   public void periodic()
   {    
     // This method will be called once per scheduler run
   }
+  //endregion
 
+  //region Methods
   public void setShootSpeed(double speed)
   {
     shooter.set(ControlMode.PercentOutput, speed);
@@ -59,9 +63,11 @@ public class Shooter extends SubsystemBase {
   {
     return ballLoadedSwitch.get();
   }
+  //endregion
 
-
+  //region Fields
   protected TalonFX shooter;
   protected TalonSRX loader;
   protected DigitalInput ballLoadedSwitch;
+  //endregion
 }

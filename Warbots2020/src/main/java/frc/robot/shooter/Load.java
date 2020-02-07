@@ -12,25 +12,20 @@ import frc.robot.Constants;
 
 public class Load extends CommandBase
 {
-  private final Shooter shooter; 
-
-  /**
-   * Creates a new Load.
-   *
-   * @param Shooter The subsystem used by this command.
-   */
+  //region Constructors
   public Load(Shooter s) 
   {
     shooter = s;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooter);
     this.withTimeout(Constants.ShooterConstants.loaderTimeout);
   }
+  //endregion
 
+  //region Overrides
   // Called when the command is initially scheduled.
   @Override
   public void initialize()
-   {
+  {
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -51,4 +46,9 @@ public class Load extends CommandBase
   {
     return false;
   }
+  //endregion
+
+  //region Fields
+  private final Shooter shooter; 
+  //endregion
 }   

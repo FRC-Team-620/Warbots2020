@@ -12,26 +12,20 @@ import frc.robot.Constants;
 
 public class Enable extends CommandBase
 {
-  private final Shooter shooter;
-  private final double targetVelocity;
-  /**
-   * Creates a new Enable.
-   *
-   * @param Shooter The subsystem used by this command.
-   */
+  //region Constructors
   public Enable(Shooter s, double speed) 
   {
     shooter = s;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooter);
     targetVelocity = speed;
   }
+  //endregion
 
+  //region Overrides
   // Called when the command is initially scheduled.
   @Override
   public void initialize()
   {
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -54,4 +48,10 @@ public class Enable extends CommandBase
   {
     return Math.abs(shooter.flyWheelSpeed() - targetVelocity) < Constants.ShooterConstants.spinRateTolerance;
   }
+  //endregion
+  
+  //region Fields
+  private final Shooter shooter;
+  private final double targetVelocity;
+  //endregion
 }   

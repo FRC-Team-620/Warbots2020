@@ -7,12 +7,7 @@
 
 package frc.robot.robot;
 
-import java.security.PublicKey;
-
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.Constants.OIConstants;
 import frc.robot.climber.Climber;
 import frc.robot.driveTrain.DriveForward;
 import frc.robot.driveTrain.DriveTrain;
@@ -23,37 +18,24 @@ import frc.robot.intake.Intake;
 import frc.robot.shooter.Fire;
 import frc.robot.shooter.Shooter;
 
-/**
- * Add your docs here.
- */
 public class RobotContainer 
-{  
-   // Xbox Controllers
-    XboxController driverController;
-    XboxController operatorController;
+{
+  //region Constructors
+  public RobotContainer()
+  {
+    keys = new KeyBinder(this);
+    driveTrain = new DriveTrain();
+    driveWithJoysticks = new DriveWithJoysticks(driveTrain, keys.driver);
+    driveTrain.setDefaultCommand(driveWithJoysticks);
+    sitTight = new SitStill(driveTrain);
+    driveDistance = new DriveForward(driveTrain, -20); //TODO: figure out all of the trickle down negatives and fix them
+    test = new TestAutoCommand(driveTrain);
+    climber = new Climber();
+    shooter = new Shooter();
+    intake = new Intake();
+  }
+  //endregion
 
-    //region Constructors
-    public RobotContainer()
-    {
-        keys = new KeyBinder(this);
-
-        driveTrain = new DriveTrain();
-        driveWithJoysticks = new DriveWithJoysticks(driveTrain, keys.driver);
-        driveTrain.setDefaultCommand(driveWithJoysticks);
-        sitTight = new SitStill(driveTrain);
-        driveDistance = new DriveForward(driveTrain, -20);
-        test = new TestAutoCommand(driveTrain);
-        climber = new Climber();
-        shooter = new Shooter();
-        intake = new Intake();
-    }
-    //endregion
-    
-   /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
   public Command getAutonomousCommand() 
   {
     return test;

@@ -27,7 +27,7 @@ public class DriveWithJoysticks extends DriveCommand
   {
     driveTrain.curvatureInput(driverXbox.getY(Hand.kLeft), -1 * driverXbox.getX(Hand.kLeft), 
     driverXbox.getAButton());
-    SmartDashboard.putNumber("Motor Temperature", driveTrain.getMotorTemp());
+    SmartDashboard.putNumber("Motor Temperature", driveTrain.getAvgMotorTemp());
   }
 
   @Override

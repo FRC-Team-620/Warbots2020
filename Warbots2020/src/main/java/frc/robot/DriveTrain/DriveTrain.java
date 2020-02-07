@@ -77,9 +77,9 @@ public class DriveTrain extends SubsystemBase
     diffDrive.arcadeDrive(speed, rotation);
   }
 
-  public double getMotorTemp() 
+  public double getAvgMotorTemp() 
   {
-    return lf.getMotorTemperature();
+    return (lf.getMotorTemperature() + lr.getMotorTemperature() + rr.getMotorTemperature() + rf.getMotorTemperature()) / 4;
   }
 
   public void curvatureInput(double speed, double rotation, boolean isCurvartureDrive)

@@ -13,13 +13,14 @@ public enum Pin
 {
     //vvvvvvvvv EDITING START HERE vvvvvvvvvvv
 
-    // DriveTrain Motors
+    //region Drivetrain
     LeftFrontMotor(1, CommsStandard.CAN),
     RightFrontMotor(3, CommsStandard.CAN),
     LeftRearMotor(2, CommsStandard.CAN),
     RightRearMotor(4, CommsStandard.CAN),
+    //endregion
 
-    //Mechansim Motors
+    //region Mechanisms
     ShooterLoaderMotor(5, CommsStandard.CAN), // T1
     IntakeMotor(6, CommsStandard.CAN), // T2
     SpinnerMotor(7, CommsStandard.CAN), // T3
@@ -27,9 +28,11 @@ public enum Pin
     ShooterMotor1(9, CommsStandard.CAN),
     ShooterMotor2(10, CommsStandard.CAN),
     ClimberMotor(11, CommsStandard.CAN),
+    //endregion
 
-    //Sensors
+    //region Sensors
     BallLoadedLimitSwitch(0, CommsStandard.DIO),
+    //endregion
 
     /*^^^^^^^^^^ EDITING END HERE ^^^^^^^^^^^^
      *
@@ -63,7 +66,7 @@ public enum Pin
         {
             if(p.id == i && p.std == s) return p;
         }
-        throw new InvalidParameterException();
+        throw new InvalidParameterException(); //TODO: safeguard for competition
     }
     //endregion
 

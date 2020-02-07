@@ -11,22 +11,16 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Fire extends CommandBase
 {
-  private final Shooter shooter;
-  private final double targetVelocity;
-
-  /**
-   * Creates a new Fire.
-   *
-   * @param Shooter The subsystem used by this command.
-   */
+  //region Constructors
   public Fire(Shooter s, double speed) 
   {
     shooter = s;
     targetVelocity = speed;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooter);
   }
+  //endregion
 
+  //region Overrides
   // Called when the command is initially scheduled.
   @Override
   public void initialize() 
@@ -53,4 +47,10 @@ public class Fire extends CommandBase
   {
     return !shooter.ballLoaded();
   }
+  //endregion
+
+  //region Fields
+  private final Shooter shooter;
+  private final double targetVelocity;
+  //endregion
 }   
