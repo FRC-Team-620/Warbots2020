@@ -8,7 +8,7 @@
 package frc.robot.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+import frc.robot.robot.*;
 
 public class Load extends CommandBase
 {
@@ -17,7 +17,7 @@ public class Load extends CommandBase
   {
     loader = l;
     addRequirements(loader);
-    this.withTimeout(Constants.ShooterConstants.loaderTimeout);
+    this.withTimeout(Constants.Shooter.loaderTimeout);
   }
   //endregion
 

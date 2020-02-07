@@ -8,7 +8,6 @@
 package frc.robot.shooter;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.robot.*;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.*;
@@ -43,7 +42,7 @@ public class Shooter extends SubsystemBase
 
   public double flyWheelSpeed()
   {
-    return shooter.getSelectedSensorVelocity() * Constants.ShooterConstants.flyWheelConversionFactor;
+    return shooter.getSelectedSensorVelocity() * Constants.Shooter.flyWheelConversionFactor;
   }
   //endregion
 

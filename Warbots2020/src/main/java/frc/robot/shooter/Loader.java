@@ -11,8 +11,7 @@ import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.*;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import frc.robot.robot.Pin;
+import frc.robot.robot.*;
 
 public class Loader extends SubsystemBase 
 {
@@ -33,7 +32,7 @@ public class Loader extends SubsystemBase
 
   public void load()
   {
-    loader.set(ControlMode.PercentOutput, Constants.ShooterConstants.spinRate);
+    loader.set(ControlMode.PercentOutput, Constants.Shooter.spinRate);
   }
   
   protected TalonSRX loader;

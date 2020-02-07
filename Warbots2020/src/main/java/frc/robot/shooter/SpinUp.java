@@ -7,7 +7,7 @@
 
 package frc.robot.shooter;
 
-import frc.robot.Constants;
+import frc.robot.robot.*;
 
 public class SpinUp extends ShooterCommand
 {
@@ -44,7 +44,7 @@ public class SpinUp extends ShooterCommand
   @Override
   public boolean isFinished() 
   {
-    return Math.abs(shooter.flyWheelSpeed() - targetVelocity) < Constants.ShooterConstants.spinRateTolerance;
+    return Math.abs(shooter.flyWheelSpeed() - targetVelocity) < Constants.Shooter.spinRateTolerance;
   }
   //endregion
 }   
