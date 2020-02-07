@@ -8,18 +8,25 @@
 package frc.robot.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants;
 
 public class KeyBinder 
 {
     //region Constructors
     public KeyBinder(RobotContainer bot)
     {
-        driver = new XboxController(0);
-        operator = new XboxController(1);
+        driver = new XboxController(Constants.OIConstants.driverControllerPort);
+        operator = new XboxController(Constants.OIConstants.operatorControllerPort);
+        (new JoystickButton(operator, Button.kBumperRight.value)).whenPressed(() -> bot.fire.schedule());
+        //(new JoystickButton(operator, Button.kB.value)).whenPressed(() -> bot.load.schedule()))
+
     }
     //endregion
 
     //region Fields
+    
     public final XboxController driver;
     public final XboxController operator;
     //endregion

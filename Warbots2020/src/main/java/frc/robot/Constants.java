@@ -17,17 +17,24 @@ package frc.robot;
  */
 public final class Constants {
     public static final class IntakeConstants {
-        private static final double k_RollerSpeedForward = 0.2; // Placeholder value of 0.2
-        private static final double k_RollerSpeedReverse = 0.2;
-        private static final double k_CaptureTimer = 5;
+        public static final double rollerSpeedForward = 0.2; // Placeholder value of 0.2
+        public static final double rollerSpeedReverse = 0.2;
+        public static final double captureTimer = 5;
     }
     public static final class DriveTrainConstants {
-        private static final double k_encoderConversionFactor = 1;
-        private static final double k_openLoopRampRate = 0.5;
-        private static final double currentLimit = 20;
-        private static final double deadBand = 0.05;
+        public static final double encoderConversionFactor = 1;
+        public static final double openLoopRampRate = 0.5;
+        public static final double currentLimit = 20;
+        public static final double deadBand = 0.05;
     }
     public static final class ShooterConstants {
-        private static final double spinRate = 0.2;
+        public static final double spinRate = 0.25;
+        public static final double spinRateTolerance = 0.25;
+        public static final double loaderTimeout = 5.0;
+        public static final double flyWheelConversionFactor = 1.0;
     }
+    public static final class OIConstants {
+        public static final int driverControllerPort = 0;
+        public static final int operatorControllerPort = 1;
+      }
 }

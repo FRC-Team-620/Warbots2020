@@ -7,18 +7,61 @@
 
 package frc.robot.shooter;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.robot.*;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.*;
 
 public class Shooter extends SubsystemBase {
-  /**
-   * Creates a new Shooter.
-   */
-  public Shooter() {
-    
+
+  //TODO: Scheduling tuning 
+
+  public Shooter() 
+  {
+    shooter = new TalonFX(Pin.ShooterMotor1.id);
+    loader = new TalonSRX(Pin.ShooterLoaderMotor.id);
+    ballLoadedSwitch = new DigitalInput(Pin.BallLoadedLimitSwitch.id);
+
+    var fxConfig = new TalonFXConfiguration();
+    fxConfig.statorCurrLimit.currentLimit = 20;
+    shooter.configAllSettings(fxConfig);
+
+    var srxConfig = new TalonSRXConfiguration();
+    srxConfig.continuousCurrentLimit = 20;
+    loader.configAllSettings(srxConfig);
   }
 
   @Override
-  public void periodic() {
+  public void periodic()
+  {    
     // This method will be called once per scheduler run
   }
+
+  public void setShootSpeed(double speed)
+  {
+    shooter.set(ControlMode.PercentOutput, speed);
+  }
+
+  public void load()
+  {
+    loader.set(ControlMode.PercentOutput, Constants.ShooterConstants.spinRate);
+  }
+
+  public double flyWheelSpeed()
+  {
+    return shooter.getSelectedSensorVelocity() * Constants.ShooterConstants.flyWheelConversionFactor;
+  }
+
+  public boolean ballLoaded()
+  {
+    return ballLoadedSwitch.get();
+  }
+
+
+  protected TalonFX shooter;
+  protected TalonSRX loader;
+  protected DigitalInput ballLoadedSwitch;
 }
