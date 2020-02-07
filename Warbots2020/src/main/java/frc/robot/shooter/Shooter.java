@@ -16,9 +16,9 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.*;
 
 public class Shooter extends SubsystemBase {
-  /**
-   * Creates a new Shooter.
-   */
+
+  //TODO: Scheduling tuning 
+
   public Shooter() 
   {
     shooter = new TalonFX(Pin.ShooterMotor1.id);
