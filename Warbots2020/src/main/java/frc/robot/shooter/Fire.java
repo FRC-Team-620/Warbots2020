@@ -11,37 +11,46 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Fire extends CommandBase
 {
-    private final Shooter m_shooter;
+  private final Shooter shooter;
+  private final double targetVelocity;
 
   /**
    * Creates a new Fire.
    *
    * @param Shooter The subsystem used by this command.
    */
-  public Fire(Shooter shooter) {
-    m_shooter = shooter;
+  public Fire(Shooter s, double speed) 
+  {
+    shooter = s;
+    targetVelocity = speed;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_shooter);
+    addRequirements(shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
+  public void initialize() 
+  {
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
+  public void execute() 
+  {
+    shooter.setShootSpeed(targetVelocity);
+    shooter.load();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end(boolean interrupted) 
+  {
   }
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
-    return false;
+  public boolean isFinished()
+  {
+    return !shooter.ballLoaded();
   }
 }   

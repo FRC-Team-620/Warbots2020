@@ -7,6 +7,8 @@
 
 package frc.robot.robot;
 
+import java.security.PublicKey;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -18,24 +20,17 @@ import frc.robot.driveTrain.DriveWithJoysticks;
 import frc.robot.driveTrain.SitStill;
 import frc.robot.driveTrain.TestAutoCommand;
 import frc.robot.intake.Intake;
+import frc.robot.shooter.Fire;
 import frc.robot.shooter.Shooter;
 
 /**
  * Add your docs here.
  */
 public class RobotContainer 
-{
-   // The robot's subsystems
-   private final DriveTrain m_driveTrain = new DriveTrain();
-   private final Climber m_climber = new Climber();
-   private final Intake m_intake = new Intake();
-   private final Shooter m_shooter = new Shooter();
- 
-   // private final Command m_autoCommand = new InstantCommand(m_driveTrain::DriveForward);
-  
+{  
    // Xbox Controllers
-    XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
-    XboxController m_operatorController = new XboxController(OIConstants.kOperatorControllerPort);
+    XboxController driverController;
+    XboxController operatorController;
 
     //region Constructors
     public RobotContainer()
@@ -48,6 +43,9 @@ public class RobotContainer
         sitTight = new SitStill(driveTrain);
         driveDistance = new DriveForward(driveTrain, 1);
         test = new TestAutoCommand(driveTrain);
+        climber = new Climber();
+        shooter = new Shooter();
+        intake = new Intake();
     }
     //endregion
     
@@ -56,22 +54,27 @@ public class RobotContainer
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  public Command getAutonomousCommand() 
+  {
     return test;
   }
 
   //region OI
-    public KeyBinder keys;
-    //endregion
+  public KeyBinder keys;
+  //endregion
 
-    //region Subsystems
-    public DriveTrain driveTrain;
-    //endregion
+  //region Subsystems
+  public final DriveTrain driveTrain;
+  public final Climber climber; 
+  public final Intake intake; 
+  public final Shooter shooter; 
+  //endregion
 
-    //region Commands
-    protected SitStill sitTight;
-    protected DriveWithJoysticks driveWithJoysticks;
-    protected DriveForward driveDistance;
-    protected TestAutoCommand test;
-    //endregion
+  //region Commands
+  public SitStill sitTight;
+  public DriveWithJoysticks driveWithJoysticks;
+  public DriveForward driveDistance;
+  public TestAutoCommand test;
+  public Fire fire;
+  //endregion
 }
