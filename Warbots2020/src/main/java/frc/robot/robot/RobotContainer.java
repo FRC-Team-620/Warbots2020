@@ -8,21 +8,17 @@
 package frc.robot.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.climber.Climber;
-import frc.robot.driveTrain.DriveForward;
-import frc.robot.driveTrain.DriveTrain;
-import frc.robot.driveTrain.DriveWithJoysticks;
-import frc.robot.driveTrain.SitStill;
-import frc.robot.driveTrain.TestAutoCommand;
-import frc.robot.intake.Intake;
-import frc.robot.shooter.Fire;
-import frc.robot.shooter.Shooter;
+import frc.robot.climber.*;
+import frc.robot.driveTrain.*;
+import frc.robot.intake.*;
+import frc.robot.shooter.*;
 
 public class RobotContainer 
 {
   //region Constructors
   public RobotContainer()
   {
+    //utilities and drivetrain creation
     keys = new KeyBinder(this);
     driveTrain = new DriveTrain();
     driveWithJoysticks = new DriveWithJoysticks(driveTrain, keys.driver);
@@ -30,9 +26,16 @@ public class RobotContainer
     sitTight = new SitStill(driveTrain);
     driveDistance = new DriveForward(driveTrain, -20); //TODO: figure out all of the trickle down negatives and fix them
     test = new TestAutoCommand(driveTrain);
+    
+    //subsystem creation
     climber = new Climber();
     shooter = new Shooter();
     intake = new Intake();
+    loader = new Loader();
+
+    //command creation
+    load = new Load(loader);
+    spinUp = new SpinUp(shooter, .2);
   }
   //endregion
 
@@ -50,6 +53,7 @@ public class RobotContainer
   public final Climber climber; 
   public final Intake intake; 
   public final Shooter shooter; 
+  public final Loader loader;
   //endregion
 
   //region Commands
@@ -57,6 +61,7 @@ public class RobotContainer
   public DriveWithJoysticks driveWithJoysticks;
   public DriveForward driveDistance;
   public TestAutoCommand test;
-  public Fire fire;
+  public Load load;
+  public SpinUp spinUp;
   //endregion
 }

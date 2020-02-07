@@ -44,11 +44,14 @@ public class Load extends CommandBase
   @Override
   public boolean isFinished() 
   {
-    return loader.ballLoaded();
+    if(lastStateOfSwitch == false && loader.ballLoaded() == true) return true;
+    lastStateOfSwitch = loader.ballLoaded();
+    return false;
   }
   //endregion
 
   //region Fields
-  private final Loader loader; 
+  private final Loader loader;
+  private boolean lastStateOfSwitch; 
   //endregion
 }   

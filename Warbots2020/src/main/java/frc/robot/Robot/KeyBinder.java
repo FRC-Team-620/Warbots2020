@@ -19,7 +19,7 @@ public class KeyBinder
     {
         driver = new XboxController(Constants.OIConstants.driverControllerPort);
         operator = new XboxController(Constants.OIConstants.operatorControllerPort);
-        (new JoystickButton(operator, Button.kBumperRight.value)).whenPressed(() -> bot.fire.schedule());
+        (new JoystickButton(operator, Button.kBumperRight.value)).whenPressed(() -> bot.load.schedule());
         //(new JoystickButton(operator, Button.kB.value)).whenPressed(() -> bot.load.schedule()))
     }
     //endregion

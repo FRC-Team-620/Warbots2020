@@ -9,12 +9,13 @@ package frc.robot.shooter;
 
 import frc.robot.Constants;
 
-public class Enable extends ShooterCommand
+public class SpinUp extends ShooterCommand
 {
   //region Constructors
-  public Enable(Shooter s, double speed) 
+  public SpinUp(Shooter s, double speed) 
   {
     super(s, speed);
+    this.withTimeout(5);
   }
   //endregion
 
