@@ -13,10 +13,10 @@ import frc.robot.Constants;
 public class Load extends CommandBase
 {
   //region Constructors
-  public Load(Shooter s) 
+  public Load(Loader l) 
   {
-    shooter = s;
-    addRequirements(shooter);
+    loader = l;
+    addRequirements(loader);
     this.withTimeout(Constants.ShooterConstants.loaderTimeout);
   }
   //endregion
@@ -44,11 +44,11 @@ public class Load extends CommandBase
   @Override
   public boolean isFinished() 
   {
-    return false;
+    return loader.ballLoaded();
   }
   //endregion
 
   //region Fields
-  private final Shooter shooter; 
+  private final Loader loader; 
   //endregion
 }   

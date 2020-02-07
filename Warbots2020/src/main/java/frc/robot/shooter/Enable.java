@@ -7,17 +7,14 @@
 
 package frc.robot.shooter;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 
-public class Enable extends CommandBase
+public class Enable extends ShooterCommand
 {
   //region Constructors
   public Enable(Shooter s, double speed) 
   {
-    shooter = s;
-    addRequirements(shooter);
-    targetVelocity = speed;
+    super(s, speed);
   }
   //endregion
 
@@ -48,10 +45,5 @@ public class Enable extends CommandBase
   {
     return Math.abs(shooter.flyWheelSpeed() - targetVelocity) < Constants.ShooterConstants.spinRateTolerance;
   }
-  //endregion
-  
-  //region Fields
-  private final Shooter shooter;
-  private final double targetVelocity;
   //endregion
 }   

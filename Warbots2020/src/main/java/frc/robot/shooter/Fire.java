@@ -7,16 +7,14 @@
 
 package frc.robot.shooter;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
-public class Fire extends CommandBase
+public class Fire extends ShooterCommand
 {
   //region Constructors
-  public Fire(Shooter s, double speed) 
+  public Fire(Shooter s, double shootSpeed, Loader l) 
   {
-    shooter = s;
-    targetVelocity = speed;
-    addRequirements(shooter);
+    super(s, shootSpeed);
+    loader = l;
+    addRequirements(loader);
   }
   //endregion
 
@@ -32,7 +30,7 @@ public class Fire extends CommandBase
   public void execute() 
   {
     shooter.setShootSpeed(targetVelocity);
-    shooter.load();
+    loader.load();
   }
 
   // Called once the command ends or is interrupted.
@@ -45,12 +43,11 @@ public class Fire extends CommandBase
   @Override
   public boolean isFinished()
   {
-    return !shooter.ballLoaded();
+    return !loader.ballLoaded();
   }
   //endregion
 
   //region Fields
-  private final Shooter shooter;
-  private final double targetVelocity;
+  private final Loader loader;
   //endregion
 }   
