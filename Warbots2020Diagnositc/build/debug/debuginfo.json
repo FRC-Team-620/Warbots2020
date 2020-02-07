@@ -1,0 +1,9 @@
+[
+  {
+    "artifact": "frcJava (in project Warbots2020Diagnositc)",
+    "target": "roborio",
+    "debugfile": "frcJava_roborio.debugconfig",
+    "project": "Warbots2020Diagnositc",
+    "language": "java"
+  }
+]
