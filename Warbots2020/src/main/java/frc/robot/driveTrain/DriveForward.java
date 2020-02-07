@@ -35,13 +35,14 @@ public class DriveForward extends DriveCommand
   @Override
   public boolean isFinished()
   {
-    return driveTrain.getDistance() > distance;
+    return Math.abs(driveTrain.getDistance() - distance) < 2.0;
   }
 
   @Override
   public void end(boolean interrupted)
   {
     driveTrain.stop();
+    driveTrain.resetDistance();
   }
   //endregion
 

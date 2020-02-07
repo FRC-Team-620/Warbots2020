@@ -27,7 +27,7 @@ public class RobotContainer
         driveWithJoysticks = new DriveWithJoysticks(driveTrain, keys.driver);
         driveTrain.setDefaultCommand(driveWithJoysticks);
         sitTight = new SitStill(driveTrain);
-        driveDistance = new DriveForward(driveTrain, 1);
+        driveDistance = new DriveForward(driveTrain, -20);
         test = new TestAutoCommand(driveTrain);
     }
     //endregion

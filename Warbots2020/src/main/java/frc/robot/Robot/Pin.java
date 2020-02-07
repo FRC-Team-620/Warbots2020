@@ -54,7 +54,7 @@ public enum Pin
         id = i;
         std = s;
     }
-    //endregion
+    //endregion  c  
 
     //region Methods
     public static Pin getPin(int i, CommsStandard s) throws InvalidParameterException

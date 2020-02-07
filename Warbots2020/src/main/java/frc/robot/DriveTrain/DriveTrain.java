@@ -37,7 +37,7 @@ public class DriveTrain extends SubsystemBase
     rf.setIdleMode(mode);
     rr.setIdleMode(mode);
 
-    var conversionFactor = 1.0; //TODO: ask Mr. Mercer for revolution to position conversion factor; determine fudge factor ourselves;
+    var conversionFactor = 100.0; //TODO: ask Mr. Mercer for revolution to position conversion factor; determine fudge factor ourselves;
     lf.getEncoder().setPositionConversionFactor(conversionFactor);
     lr.getEncoder().setPositionConversionFactor(conversionFactor);
     rf.getEncoder().setPositionConversionFactor(conversionFactor);
@@ -99,13 +99,13 @@ public class DriveTrain extends SubsystemBase
 
   public double getDistance()
   {
-     var avg = lr.getEncoder().getPosition() - leftEncoderOffsetDistance;
-     avg += rr.getEncoder().getPosition() - rightEncoderOffsetDistance;
-     return avg / 2;
+    return (lr.getEncoder().getPosition() + rr.getEncoder().getPosition()) / 2;
   }
 
   public void resetDistance()
   {
+    lr.getEncoder().setPosition(0);
+    rr.getEncoder().setPosition(0);
     leftEncoderOffsetDistance = lr.getEncoder().getPosition();
     rightEncoderOffsetDistance = rr.getEncoder().getPosition();
   }
