@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.shooter;
+package frc.robot.loader;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.robot.*;
@@ -32,7 +32,6 @@ public class Load extends CommandBase
   @Override
   public void execute() 
   {
-    loader.load();
   }
 
   // Called once the command ends or is interrupted.

@@ -12,6 +12,7 @@ import frc.robot.climber.*;
 import frc.robot.driveTrain.*;
 import frc.robot.intake.*;
 import frc.robot.shooter.*;
+import frc.robot.loader.*;
 
 public class RobotContainer 
 {
@@ -19,12 +20,14 @@ public class RobotContainer
   public RobotContainer()
   {
     //utilities and drivetrain creation
-    keys = new KeyBinder(this);
+    keyBinder = new KeyBinder(this);
+
     driveTrain = new DriveTrain();
-    driveWithJoysticks = new DriveWithJoysticks(driveTrain, keys.driver);
+    driveWithJoysticks = new DriveWithJoysticks(driveTrain, keyBinder.driver);
     driveTrain.setDefaultCommand(driveWithJoysticks);
-    sitTight = new SitStill(driveTrain);
     driveDistance = new DriveForward(driveTrain, -20); //TODO: figure out all of the trickle down negatives and fix them
+    
+    sitTight = new SitStill(driveTrain);
     test = new TestAutoCommand(driveTrain);
     
     //subsystem creation
@@ -32,9 +35,8 @@ public class RobotContainer
     shooter = new Shooter();
     intake = new Intake();
     loader = new Loader();
-
+  
     //command creation
-    load = new Load(loader);
     spinUp = new SpinUp(shooter, .2);
   }
   //endregion
@@ -45,7 +47,7 @@ public class RobotContainer
   }
 
   //region OI
-  public KeyBinder keys;
+  public KeyBinder keyBinder;
   //endregion
 
   //region Subsystems
