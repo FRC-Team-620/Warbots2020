@@ -32,6 +32,7 @@ public class Load extends CommandBase
   @Override
   public void execute() 
   {
+    loader.load();
   }
 
   // Called once the command ends or is interrupted.
