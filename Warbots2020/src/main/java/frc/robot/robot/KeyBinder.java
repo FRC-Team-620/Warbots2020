@@ -14,26 +14,25 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class KeyBinder 
 {
-    //region Constructors
-    public KeyBinder(RobotContainer bot)
-    {
-        driver = new XboxController(Constants.Keybinder.driverControllerPort);
-        operator = new XboxController(Constants.Keybinder.operatorControllerPort);
-        new JoystickButton(operator, Button.kBumperRight.value).whenPressed(() -> bot.loader.load());
-        // new JoystickButton(operator, Button.kB.value).whenPressed(() -> bot.spinUp);
-        digitalInput0 = new DigitalInput(Constants.Keybinder.autoModeSelectorInput0);
-        digitalInput1 = new DigitalInput(Constants.Keybinder.autoModeSelectorInput1);
-        digitalInput2 = new DigitalInput(Constants.Keybinder.autoModeSelectorInput2);
-        digitalInput3 = new DigitalInput(Constants.Keybinder.autoModeSelectorInput3);
-    }
-    //endregion
-
-    //region Fields
     public final XboxController driver;
     public final XboxController operator;
     DigitalInput digitalInput0;
     DigitalInput digitalInput1;
     DigitalInput digitalInput2;
     DigitalInput digitalInput3;
-      //endregion
-}
+    
+    public KeyBinder(RobotContainer bot)
+    {
+        driver = new XboxController(Constants.Keybinder.driverControllerPort);
+        operator = new XboxController(Constants.Keybinder.operatorControllerPort);
+
+        new JoystickButton(operator, Button.kBumperRight.value).whenPressed(() -> bot.loader.load());
+        // new JoystickButton(operator, Button.kB.value).whenPressed(() -> bot.shooter.spinUp());
+
+        // Autonomous Selector Switches
+        digitalInput0 = new DigitalInput(Constants.Keybinder.autoModeSelectorInput0);
+        digitalInput1 = new DigitalInput(Constants.Keybinder.autoModeSelectorInput1);
+        digitalInput2 = new DigitalInput(Constants.Keybinder.autoModeSelectorInput2);
+        digitalInput3 = new DigitalInput(Constants.Keybinder.autoModeSelectorInput3);
+    }
+ }

@@ -24,13 +24,18 @@ public class RobotContainer
   public final Loader loader;
  
   //commands
-  public SitStill sitTight;
-  public DriveWithJoysticks driveWithJoysticks;
-  public DriveForward driveDistance;
-  public TestAutoCommand test;
-  public Load load;
-  public SpinUp spinUp;
- 
+  public DriveWithJoysticks driveWithJoysticks; //drivetrain
+  public Extend extend;   // climber
+  public Retract retract; // climber
+  public Capture capture; // intake
+  public Eject eject;     // intake
+  public SpinUp spinUp;   // shooter
+  public Load load;       // loader
+
+  public TestAutoCommand testAutoCommand; // autonomous
+  public SitStill sitTight;               // autonomous
+  public DriveForward driveDistance;      // autonomous
+  
   //OI
   public KeyBinder keyBinder;
  
@@ -39,27 +44,26 @@ public class RobotContainer
     //utilities and drivetrain creation
     keyBinder = new KeyBinder(this);
 
-    drivetrain = new DriveTrain();
-    driveWithJoysticks = new DriveWithJoysticks(drivetrain, keyBinder.driver);
-    drivetrain.setDefaultCommand(driveWithJoysticks);
-    driveDistance = new DriveForward(drivetrain, -20); //TODO: figure out all of the trickle down negatives and fix them
-    
-    sitTight = new SitStill(drivetrain);
-    test = new TestAutoCommand(drivetrain);
-    
     //subsystem creation
+    drivetrain = new DriveTrain();
     climber = new Climber();
     shooter = new Shooter();
     intake = new Intake();
     loader = new Loader();
-  
-    //command creation
+   
+    // commands
+    driveWithJoysticks = new DriveWithJoysticks(drivetrain, keyBinder.driver);
+    testAutoCommand = new TestAutoCommand(drivetrain);
+    sitTight = new SitStill(drivetrain);
+    driveDistance = new DriveForward(drivetrain, -20); //TODO: figure out all of the trickle down negatives and fix them
     spinUp = new SpinUp(shooter, .2);
+    
+    //default commands
+    drivetrain.setDefaultCommand(driveWithJoysticks);
   }
 
   public Command getAutonomousCommand() 
   {
-    return test;
+    return testAutoCommand;
   }
-
-  }
+}
