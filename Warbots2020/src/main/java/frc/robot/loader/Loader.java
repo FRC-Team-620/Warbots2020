@@ -10,28 +10,23 @@ package frc.robot.loader;
 import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.*;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.robot.*;
 
 public class Loader extends SubsystemBase 
 {
+  protected TalonSRX loaderMotor;
+  protected DigitalInput ballLoadedSwitch;
+  
   public Loader() 
   {
-    loader = new TalonSRX(Pin.LoaderMotor.id);
+    loaderMotor = new TalonSRX(Pin.LoaderMotor.id);
     ballLoadedSwitch = new DigitalInput(Pin.BallLoadedLimitSwitch.id);
 
     var srxConfig = new TalonSRXConfiguration();
-    srxConfig.continuousCurrentLimit = 20;
-    loader.configAllSettings(srxConfig);
-
-    /*
-    LiveWindow lw = LiveWindow.this;
-    lw.addActuator("Loader", "Motor", loader);
-    lw.addSensor("Loader", "Switch", ballLoadedSwitch);
-    */  
-  
+    srxConfig.continuousCurrentLimit = Constants.Shooter.loaderCurrentLimit;
+    loaderMotor.configAllSettings(srxConfig);
   }
 
   public boolean ballLoaded()
@@ -42,9 +37,6 @@ public class Loader extends SubsystemBase
 
   public void load()
   {
-    loader.set(ControlMode.PercentOutput, Constants.Shooter.spinRate);
+    loaderMotor.set(ControlMode.PercentOutput, Constants.Shooter.spinRate);
   }
-  
-  protected TalonSRX loader;
-  protected DigitalInput ballLoadedSwitch;
 }

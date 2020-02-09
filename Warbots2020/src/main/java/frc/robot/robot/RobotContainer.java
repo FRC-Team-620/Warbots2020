@@ -16,19 +16,36 @@ import frc.robot.loader.*;
 
 public class RobotContainer 
 {
-  //region Constructors
+  //subsystems
+  public final DriveTrain drivetrain;
+  public final Climber climber; 
+  public final Intake intake; 
+  public final Shooter shooter; 
+  public final Loader loader;
+ 
+  //commands
+  public SitStill sitTight;
+  public DriveWithJoysticks driveWithJoysticks;
+  public DriveForward driveDistance;
+  public TestAutoCommand test;
+  public Load load;
+  public SpinUp spinUp;
+ 
+  //OI
+  public KeyBinder keyBinder;
+ 
   public RobotContainer()
   {
     //utilities and drivetrain creation
     keyBinder = new KeyBinder(this);
 
-    driveTrain = new DriveTrain();
-    driveWithJoysticks = new DriveWithJoysticks(driveTrain, keyBinder.driver);
-    driveTrain.setDefaultCommand(driveWithJoysticks);
-    driveDistance = new DriveForward(driveTrain, -20); //TODO: figure out all of the trickle down negatives and fix them
+    drivetrain = new DriveTrain();
+    driveWithJoysticks = new DriveWithJoysticks(drivetrain, keyBinder.driver);
+    drivetrain.setDefaultCommand(driveWithJoysticks);
+    driveDistance = new DriveForward(drivetrain, -20); //TODO: figure out all of the trickle down negatives and fix them
     
-    sitTight = new SitStill(driveTrain);
-    test = new TestAutoCommand(driveTrain);
+    sitTight = new SitStill(drivetrain);
+    test = new TestAutoCommand(drivetrain);
     
     //subsystem creation
     climber = new Climber();
@@ -39,31 +56,10 @@ public class RobotContainer
     //command creation
     spinUp = new SpinUp(shooter, .2);
   }
-  //endregion
 
   public Command getAutonomousCommand() 
   {
     return test;
   }
 
-  //region OI
-  public KeyBinder keyBinder;
-  //endregion
-
-  //region Subsystems
-  public final DriveTrain driveTrain;
-  public final Climber climber; 
-  public final Intake intake; 
-  public final Shooter shooter; 
-  public final Loader loader;
-  //endregion
-
-  //region Commands
-  public SitStill sitTight;
-  public DriveWithJoysticks driveWithJoysticks;
-  public DriveForward driveDistance;
-  public TestAutoCommand test;
-  public Load load;
-  public SpinUp spinUp;
-  //endregion
-}
+  }
