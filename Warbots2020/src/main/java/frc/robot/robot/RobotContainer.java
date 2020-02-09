@@ -9,7 +9,7 @@ package frc.robot.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.climber.*;
-import frc.robot.driveTrain.*;
+import frc.robot.drivetrain.*;
 import frc.robot.intake.*;
 import frc.robot.shooter.*;
 import frc.robot.loader.*;
