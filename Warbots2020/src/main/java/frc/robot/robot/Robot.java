@@ -48,8 +48,8 @@ public class Robot extends TimedRobot
   @Override
   public void teleopInit() 
   {
-    robotContainer.sitTight.cancel();
-    robotContainer.driveWithJoysticks.schedule();
+    robotContainer.sitTight.cancel();               //TODO this is not necessary - get the autonomous command and cancel it 
+    robotContainer.driveWithJoysticks.schedule();   //TODO scheduling driveWithJoysticks is not required - it is a default command
   }
 
   @Override
