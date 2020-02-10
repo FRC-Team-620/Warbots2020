@@ -14,19 +14,12 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class KeyBinder 
 {
-    public final XboxController driver;
-    public final XboxController operator;
-    DigitalInput digitalInput0;
-    DigitalInput digitalInput1;
-    DigitalInput digitalInput2;
-    DigitalInput digitalInput3;
-    
     public KeyBinder(RobotContainer bot)
     {
         driver = new XboxController(Constants.Keybinder.driverControllerPort);
         operator = new XboxController(Constants.Keybinder.operatorControllerPort);
-        new JoystickButton(operator, Button.kBumperRight.value).whenPressed(() -> bot.load);
-        new JoystickButton(operator, Button.kB.value).whenPressed(() -> bot.spinUp);
+        new JoystickButton(operator, Button.kBumperRight.value).whenPressed(bot.load);
+        new JoystickButton(operator, Button.kB.value).whenPressed(bot.spinUp);
         // new JoystickButton(operator, Button.kB.value).whenPressed(() -> bot.shooter.spinUp());
 
         // Autonomous Selector Switches
