@@ -9,59 +9,61 @@ package frc.robot.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.climber.*;
-import frc.robot.driveTrain.*;
+import frc.robot.drivetrain.*;
 import frc.robot.intake.*;
 import frc.robot.shooter.*;
+import frc.robot.loader.*;
 
 public class RobotContainer 
 {
-  //region Constructors
-  public RobotContainer()
-  {
-    //utilities and drivetrain creation
-    keys = new KeyBinder(this);
-    driveTrain = new DriveTrain();
-    driveWithJoysticks = new DriveWithJoysticks(driveTrain, keys.driver);
-    driveTrain.setDefaultCommand(driveWithJoysticks);
-    sitTight = new SitStill(driveTrain);
-    driveDistance = new DriveForward(driveTrain, -20); //TODO: figure out all of the trickle down negatives and fix them
-    test = new TestAutoCommand(driveTrain);
-    
-    //subsystem creation
-    climber = new Climber();
-    shooter = new Shooter();
-    intake = new Intake();
-    loader = new Loader();
-
-    //command creation
-    load = new Load(loader);
-    spinUp = new SpinUp(shooter, .2);
-  }
-  //endregion
-
-  public Command getAutonomousCommand() 
-  {
-    return test;
-  }
-
-  //region OI
-  public KeyBinder keys;
-  //endregion
-
-  //region Subsystems
-  public final DriveTrain driveTrain;
+  //subsystems
+  public final DriveTrain drivetrain;
   public final Climber climber; 
   public final Intake intake; 
   public final Shooter shooter; 
   public final Loader loader;
-  //endregion
+ 
+  //commands
+  public DriveWithJoysticks driveWithJoysticks; //drivetrain
+  public Extend extend;   // climber
+  public Retract retract; // climber
+  public Capture capture; // intake
+  public Eject eject;     // intake
+  public SpinUp spinUp;   // shooter
+  public Load load;       // loader
 
-  //region Commands
-  public SitStill sitTight;
-  public DriveWithJoysticks driveWithJoysticks;
-  public DriveForward driveDistance;
-  public TestAutoCommand test;
-  public Load load;
-  public SpinUp spinUp;
-  //endregion
+  public TestAutoCommand testAutoCommand; // autonomous
+  public SitStill sitTight;               // autonomous
+  public DriveForward driveDistance;      // autonomous
+  
+  //OI
+  public KeyBinder keyBinder;
+ 
+  public RobotContainer()
+  {
+    //utilities and drivetrain creation
+    keyBinder = new KeyBinder(this);
+
+    //subsystem creation
+    drivetrain = new DriveTrain();
+    climber = new Climber();
+    shooter = new Shooter();
+    intake = new Intake();
+    loader = new Loader();
+   
+    // commands
+    driveWithJoysticks = new DriveWithJoysticks(drivetrain, keyBinder.driver);
+    testAutoCommand = new TestAutoCommand(drivetrain);
+    sitTight = new SitStill(drivetrain);
+    driveDistance = new DriveForward(drivetrain, -20); //TODO: figure out all of the trickle down negatives and fix them
+    spinUp = new SpinUp(shooter, .2);
+    
+    //default commands
+    drivetrain.setDefaultCommand(driveWithJoysticks);
+  }
+
+  public Command getAutonomousCommand() 
+  {
+    return testAutoCommand;
+  }
 }

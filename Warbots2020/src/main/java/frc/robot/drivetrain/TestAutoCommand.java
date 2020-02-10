@@ -5,29 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.driveTrain;
+package frc.robot.drivetrain;
 
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-public class DriveWithJoysticks extends DriveCommand 
+public class TestAutoCommand extends DriveCommand 
 {
   //region Constructors
-  public DriveWithJoysticks(DriveTrain dt, XboxController driverXboxController) 
+  public TestAutoCommand(DriveTrain dt) 
   {
     super(dt);
-    driverXbox = driverXboxController;
   }
   //endregion
 
-  //region Overrides
+  //regino Overrides
   @Override
   public void execute() 
   {
-    driveTrain.curvatureInput(driverXbox.getY(Hand.kLeft), -1 * driverXbox.getX(Hand.kLeft), 
-    driverXbox.getAButton());
-    SmartDashboard.putNumber("Motor Temperature", driveTrain.getAvgMotorTemp());
+    driveTrain.arcadeInput(.5, 0);
   }
 
   @Override
@@ -36,29 +29,4 @@ public class DriveWithJoysticks extends DriveCommand
     return false;
   }
   //endregion
-
-  //region Field
-  protected XboxController driverXbox;
-  //endregion
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

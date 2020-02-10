@@ -10,6 +10,7 @@ package frc.robot.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot 
 {
@@ -34,6 +35,15 @@ public class Robot extends TimedRobot
     if (autonomousCommand != null) autonomousCommand.schedule();
     robotContainer.driveDistance.schedule();
   }
+
+  @Override
+  public void autonomousPeriodic() 
+  {
+    SmartDashboard.putBoolean("Digital Input 0", robotContainer.keyBinder.digitalInput0.get());
+    SmartDashboard.putBoolean("Digital Input 1", robotContainer.keyBinder.digitalInput1.get());
+    SmartDashboard.putBoolean("Digital Input 2", robotContainer.keyBinder.digitalInput2.get());
+    SmartDashboard.putBoolean("Digital Input 3", robotContainer.keyBinder.digitalInput3.get());
+   }
 
   @Override
   public void teleopInit() 

@@ -21,17 +21,17 @@ public enum Pin
     //endregion
 
     //region Mechanisms
-    ShooterLoaderMotor(5, CommsStandard.CAN), // T1
-    IntakeMotor(6, CommsStandard.CAN), // T2
+    LoaderMotor(5, CommsStandard.CAN),  // T1
+    IntakeMotor(6, CommsStandard.CAN),  // T2
     SpinnerMotor(7, CommsStandard.CAN), // T3
-    LiftMotor(8, CommsStandard.CAN), // T4
+    LifterMotor(8, CommsStandard.CAN),  // T4
     ShooterMotor1(9, CommsStandard.CAN),
     ShooterMotor2(10, CommsStandard.CAN),
     ClimberMotor(11, CommsStandard.CAN),
     //endregion
 
     //region Sensors
-    BallLoadedLimitSwitch(0, CommsStandard.DIO),
+    BallLoadedLimitSwitch(4, CommsStandard.DIO),
     //endregion
 
     /*^^^^^^^^^^ EDITING END HERE ^^^^^^^^^^^^

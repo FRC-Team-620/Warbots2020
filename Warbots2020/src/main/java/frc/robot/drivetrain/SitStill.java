@@ -5,21 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.driveTrain;
+package frc.robot.drivetrain;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
-public abstract class DriveCommand extends CommandBase 
+public class SitStill extends DriveCommand 
 {
   //region Constructors
-  protected DriveCommand(DriveTrain dt) 
+  public SitStill(DriveTrain dt) 
   {
-    driveTrain = dt;
-    addRequirements(dt);
+    super(dt);
   }
   //endregion
 
-  //region Fields
-  protected final DriveTrain driveTrain;
+  //region Overrides
+  @Override
+  public boolean isFinished() 
+  {
+    return false;
+  }
   //endregion
 }
