@@ -9,36 +9,13 @@ package frc.robot.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.climber.*;
-import frc.robot.drivetrain.*;
+import frc.robot.loader.*;
 import frc.robot.intake.*;
 import frc.robot.shooter.*;
-import frc.robot.loader.*;
+import frc.robot.driveTrain.*;
 
 public class RobotContainer 
 {
-  //subsystems
-  public final DriveTrain drivetrain;
-  public final Climber climber; 
-  public final Intake intake; 
-  public final Shooter shooter; 
-  public final Loader loader;
- 
-  //commands
-  public DriveWithJoysticks driveWithJoysticks; //drivetrain
-  public Extend extend;   // climber
-  public Retract retract; // climber
-  public Capture capture; // intake
-  public Eject eject;     // intake
-  public SpinUp spinUp;   // shooter
-  public Load load;       // loader
-
-  public TestAutoCommand testAutoCommand; // autonomous
-  public SitStill sitTight;               // autonomous
-  public DriveForward driveDistance;      // autonomous
-  
-  //OI
-  public KeyBinder keyBinder;
- 
   public RobotContainer()
   {
     //utilities and drivetrain creation
@@ -66,4 +43,27 @@ public class RobotContainer
   {
     return testAutoCommand;
   }
+
+  //subsystems
+  public final DriveTrain drivetrain;
+  public final Climber climber; 
+  public final Intake intake; 
+  public final Shooter shooter; 
+  public final Loader loader;
+ 
+  //commands
+  public DriveWithJoysticks driveWithJoysticks; //drivetrain
+  public Extend extend;   // climber
+  public Retract retract; // climber
+  public Capture capture; // intake
+  public Eject eject;     // intake
+  public SpinUp spinUp;   // shooter
+  public Load load;       // loader
+
+  public TestAutoCommand testAutoCommand; // autonomous
+  public SitStill sitTight;               // autonomous
+  public DriveForward driveDistance;      // autonomous
+  
+  //OI
+  public KeyBinder keyBinder;
 }
