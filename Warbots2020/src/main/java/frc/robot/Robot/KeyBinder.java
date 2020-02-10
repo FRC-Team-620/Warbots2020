@@ -19,12 +19,8 @@ public class KeyBinder
     {
         driver = new XboxController(Constants.Keybinder.driverControllerPort);
         operator = new XboxController(Constants.Keybinder.operatorControllerPort);
-        new JoystickButton(operator, Button.kBumperRight.value).whenPressed(() -> bot.load);
-        new JoystickButton(operator, Button.kB.value).whenPressed(() -> bot.spinUp);
-        digitalInput0 = new DigitalInput(Constants.Keybinder.autoModeSelectorInput0);
-        digitalInput1 = new DigitalInput(Constants.Keybinder.autoModeSelectorInput1);
-        digitalInput2 = new DigitalInput(Constants.Keybinder.autoModeSelectorInput2);
-        digitalInput3 = new DigitalInput(Constants.Keybinder.autoModeSelectorInput3);
+        new JoystickButton(operator, Button.kBumperRight.value).whenPressed(bot.load);
+        new JoystickButton(operator, Button.kB.value).whenPressed(bot.spinUp);
     }
 
     //endregion
