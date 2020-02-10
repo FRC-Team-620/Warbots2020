@@ -30,7 +30,7 @@ public class KeyBinder
     //region Fields
     public final XboxController driver;
     public final XboxController operator;
-    DigitalInput digitalInput0;
+    DigitalInput digitalInput0; //TODO: refactor with descriptive names
     DigitalInput digitalInput1;
     DigitalInput digitalInput2;
     DigitalInput digitalInput3;
