@@ -18,9 +18,6 @@ public class RobotContainer
 {
   public RobotContainer()
   {
-    //utilities and drivetrain creation
-    keyBinder = new KeyBinder(this);
-
     //subsystem creation
     drivetrain = new DriveTrain();
     climber = new Climber();

@@ -19,6 +19,7 @@ public class Robot extends TimedRobot
   public void robotInit() 
   {
     robotContainer = new RobotContainer();
+    keyBinder = new KeyBinder(robotContainer);
   }
 
   @Override
@@ -85,5 +86,6 @@ public class Robot extends TimedRobot
   //region Fields
   private Command autonomousCommand;
   private RobotContainer robotContainer;
+  private KeyBinder keyBinder;
   //endregion
 }
