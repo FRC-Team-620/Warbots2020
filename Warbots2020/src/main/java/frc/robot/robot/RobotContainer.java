@@ -12,7 +12,7 @@ import frc.robot.climber.*;
 import frc.robot.loader.*;
 import frc.robot.intake.*;
 import frc.robot.shooter.*;
-import frc.robot.driveTrain.*;
+import frc.robot.drivetrain.*;
 
 public class RobotContainer 
 {

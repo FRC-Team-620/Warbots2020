@@ -16,7 +16,6 @@ public class SetMaxDriveSpeed extends CommandBase
   public SetMaxDriveSpeed(DriveTrain d) 
   {
     driveTrain = d;
-    addRequirements(driveTrain);
   }
 
   // Called when the command is initially scheduled.
@@ -41,6 +40,6 @@ public class SetMaxDriveSpeed extends CommandBase
   @Override
   public boolean isFinished() 
   {
-    return false;
+    return true;
   }
 }

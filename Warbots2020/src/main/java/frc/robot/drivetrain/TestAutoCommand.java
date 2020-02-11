@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.driveTrain;
+package frc.robot.drivetrain;
 
 public class TestAutoCommand extends DriveCommand 
 {

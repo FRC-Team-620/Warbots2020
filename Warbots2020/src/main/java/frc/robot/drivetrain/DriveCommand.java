@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.driveTrain;
+package frc.robot.drivetrain;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
