@@ -19,7 +19,6 @@ public class Robot extends TimedRobot
   public void robotInit() 
   {
     robotContainer = new RobotContainer();
-    keyBinder = new KeyBinder(robotContainer);
   }
 
   @Override
@@ -34,23 +33,21 @@ public class Robot extends TimedRobot
   {
     autonomousCommand = robotContainer.getAutonomousCommand();
     if (autonomousCommand != null) autonomousCommand.schedule();
-    robotContainer.driveDistance.schedule();
   }
 
   @Override
   public void autonomousPeriodic() 
   {
-    SmartDashboard.putBoolean("Digital Input 0", robotContainer.keyBinder.digitalInput0.get());
-    SmartDashboard.putBoolean("Digital Input 1", robotContainer.keyBinder.digitalInput1.get());
-    SmartDashboard.putBoolean("Digital Input 2", robotContainer.keyBinder.digitalInput2.get());
-    SmartDashboard.putBoolean("Digital Input 3", robotContainer.keyBinder.digitalInput3.get());
+    // SmartDashboard.putBoolean("Digital Input 0", robotContainer.kedigitalInput0.get());
+    // SmartDashboard.putBoolean("Digital Input 1", robotContainer.keyBinder.digitalInput1.get());
+    // SmartDashboard.putBoolean("Digital Input 2", robotContainer.keyBinder.digitalInput2.get());
+    // SmartDashboard.putBoolean("Digital Input 3", robotContainer.keyBinder.digitalInput3.get());
    }
 
   @Override
   public void teleopInit() 
   {
-    robotContainer.sitTight.cancel();               //TODO this is not necessary - get the autonomous command and cancel it 
-    robotContainer.driveWithJoysticks.schedule();   //TODO scheduling driveWithJoysticks is not required - it is a default command
+    if(autonomousCommand != null) autonomousCommand.cancel();
   }
 
   @Override
@@ -86,6 +83,5 @@ public class Robot extends TimedRobot
   //region Fields
   private Command autonomousCommand;
   private RobotContainer robotContainer;
-  private KeyBinder keyBinder;
   //endregion
 }

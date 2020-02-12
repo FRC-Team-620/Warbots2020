@@ -17,7 +17,7 @@ public class Load extends CommandBase
   {
     loader = l;
     addRequirements(loader);
-    this.withTimeout(Constants.Shooter.loaderTimeout);
+    // this.withTimeout(Constants.Shooter.loaderTimeout);
   }
   //endregion
 
@@ -32,7 +32,6 @@ public class Load extends CommandBase
   @Override
   public void execute() 
   {
-    loader.load();
   }
 
   // Called once the command ends or is interrupted.
@@ -45,9 +44,11 @@ public class Load extends CommandBase
   @Override
   public boolean isFinished() 
   {
-    if(lastStateOfSwitch == false && loader.ballLoaded() == true) return true;
-    lastStateOfSwitch = loader.ballLoaded();
-    return false;
+    // if(lastStateOfSwitch == false && loader.ballLoaded() == true) return true;
+    // lastStateOfSwitch = loader.ballLoaded();
+    // return false;
+
+    return true;
   }
   //endregion
 

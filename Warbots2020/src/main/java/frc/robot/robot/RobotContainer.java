@@ -7,7 +7,12 @@
 
 package frc.robot.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.climber.*;
 import frc.robot.loader.*;
 import frc.robot.intake.*;
@@ -16,51 +21,58 @@ import frc.robot.drivetrain.*;
 
 public class RobotContainer 
 {
+    // subsystem creation
+    private final DriveTrain drivetrain = new DriveTrain();
+    private final Climber climber = new Climber();
+    private final Shooter shooter = new Shooter();
+    private final Intake intake = new Intake();
+    private final Loader loader = new Loader();    
+   
+    XboxController driver = new XboxController(Constants.Keybinder.driverControllerPort);
+    XboxController operator = new XboxController(Constants.Keybinder.operatorControllerPort);
+    
+    // Autonomous Selector Switches
+    DigitalInput digitalInput0 = new DigitalInput(Constants.Keybinder.autoModeSelectorInput0);
+    DigitalInput digitalInput1 = new DigitalInput(Constants.Keybinder.autoModeSelectorInput1);
+    DigitalInput digitalInput2 = new DigitalInput(Constants.Keybinder.autoModeSelectorInput2);
+    DigitalInput digitalInput3 = new DigitalInput(Constants.Keybinder.autoModeSelectorInput3);
+
+    // private final Command autoCommand = new InstantCommand(shooter::SpinUp, shooter);
+  
   public RobotContainer()
   {
-    //subsystem creation
-    drivetrain = new DriveTrain();
-    climber = new Climber();
-    shooter = new Shooter();
-    intake = new Intake();
-    loader = new Loader();
-   
-    // commands
-    driveWithJoysticks = new DriveWithJoysticks(drivetrain, keyBinder.driver);
-    testAutoCommand = new TestAutoCommand(drivetrain);
-    sitTight = new SitStill(drivetrain);
-    driveDistance = new DriveForward(drivetrain, -20); //TODO: figure out all of the trickle down negatives and fix them
-    spinUp = new SpinUp(shooter, .2);
+
+    configureButtonBindings();
     
-    //default commands
-    drivetrain.setDefaultCommand(driveWithJoysticks);
+    // commands
+    // TODO: move to autonomous command
+    // final SitStill sitTight = new SitStill(drivetrain);
+    // final DriveForward driveDistance = new DriveForward(drivetrain, -20); //TODO: figure out all of the trickle down negatives and fix them
+    // final SpinUp spinUp = new SpinUp(shooter, .2);
+
+    // Joystick Buttons
+    final JoystickButton leftDriverBumper = new JoystickButton(driver, Button.kBumperLeft.value);
+    final JoystickButton rightDriverBumper = new JoystickButton(driver, Button.kBumperRight.value);
+    final JoystickButton leftOperatorBumper = new JoystickButton(operator, Button.kBumperLeft.value);
+    final JoystickButton rightOperatorBumper = new JoystickButton(operator, Button.kBumperRight.value);
+     
+    // Command bindings
+    // leftDriverBumper.whenPressed(new SetMaxDriveSpeed(container.drivetrain));
+    rightDriverBumper.whenPressed(new Load(loader));
+    leftDriverBumper.whenPressed(new Capture(intake));
+
   }
 
   public Command getAutonomousCommand() 
   {
-    return testAutoCommand;
+    return new TestAutoCommand(drivetrain);
   }
 
-  //subsystems
-  public final DriveTrain drivetrain;
-  public final Climber climber; 
-  public final Intake intake; 
-  public final Shooter shooter; 
-  public final Loader loader;
- 
-  //commands
-  public DriveWithJoysticks driveWithJoysticks; //drivetrain
-  public Extend extend;   // climber
-  public Retract retract; // climber
-  public Capture capture; // intake
-  public Eject eject;     // intake
-  public SpinUp spinUp;   // shooter
-  public Load load;       // loader
-
-  public TestAutoCommand testAutoCommand; // autonomous
-  public SitStill sitTight;               // autonomous
-  public DriveForward driveDistance;      // autonomous
-  
-  //OI
-  public KeyBinder keyBinder;
+  private void configureButtonBindings()
+    {
+        //default commands
+      drivetrain.setDefaultCommand(new DriveWithJoysticks(drivetrain, driver));
+     
+        //TODO - map selector switches to autonomous command parameters
+    }
 }
