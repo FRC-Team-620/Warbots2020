@@ -7,8 +7,10 @@
 
 package frc.robot.loader;
 
+// TODO - Loader code needs to be completed
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.robot.*;
+// import frc.robot.robot.*;
 
 public class Load extends CommandBase
 {
@@ -54,6 +56,6 @@ public class Load extends CommandBase
 
   //region Fields
   private final Loader loader;
-  private boolean lastStateOfSwitch; 
+  // private boolean lastStateOfSwitch; 
   //endregion
 }   

@@ -20,22 +20,21 @@ public class Shooter extends SubsystemBase
   {
     shooter = new TalonFX(Pin.ShooterMotor1.id);
 
-    var fxConfig = new TalonFXConfiguration();
+    final var fxConfig = new TalonFXConfiguration();
     fxConfig.statorCurrLimit.currentLimit = 20;
     shooter.configAllSettings(fxConfig);
   }
-  //endregion
+  // endregion
 
-  //region Overrides
+  // region Overrides
   @Override
-  public void periodic()
-  {    
+  public void periodic() {
     // This method will be called once per scheduler run
   }
-  //endregion
+  // endregion
 
-  //region Methods
-  public void setShootSpeed(double speed)
+  // region Methods
+  public void setShootSpeed(final double speed)
   {
     shooter.set(ControlMode.PercentOutput, speed);
   }
@@ -44,6 +43,12 @@ public class Shooter extends SubsystemBase
   {
     return shooter.getSelectedSensorVelocity() * Constants.Shooter.flyWheelConversionFactor;
   }
+
+  public Boolean atSetPoint()
+  {
+    return true;  // TODO check if controller is at set point
+  }
+
   //endregion
 
   //region Fields

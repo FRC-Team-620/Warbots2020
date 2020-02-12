@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.climber.*;
 import frc.robot.loader.*;
@@ -29,18 +31,36 @@ public class RobotContainer
     private final Loader loader = new Loader();    
    
     // OI
-    XboxController driver = new XboxController(Constants.oi.driverControllerPort);
-    XboxController operator = new XboxController(Constants.oi.operatorControllerPort);
+    XboxController driver = new XboxController(Constants.OI.driverControllerPort);
+    XboxController operator = new XboxController(Constants.OI.operatorControllerPort);
     
     // Autonomous Selector Switches
-    DigitalInput digitalInput0 = new DigitalInput(Constants.oi.autoModeSelectorInput0);
-    DigitalInput digitalInput1 = new DigitalInput(Constants.oi.autoModeSelectorInput1);
-    DigitalInput digitalInput2 = new DigitalInput(Constants.oi.autoModeSelectorInput2);
-    DigitalInput digitalInput3 = new DigitalInput(Constants.oi.autoModeSelectorInput3);
+    DigitalInput digitalInput0 = new DigitalInput(Constants.OI.autoModeSelectorInput0);
+    DigitalInput digitalInput1 = new DigitalInput(Constants.OI.autoModeSelectorInput1);
+    DigitalInput digitalInput2 = new DigitalInput(Constants.OI.autoModeSelectorInput2);
+    DigitalInput digitalInput3 = new DigitalInput(Constants.OI.autoModeSelectorInput3);
 
     // commands
-    Command autoCommand;
-  
+     private final Command autonomousCommand =
+    // Start the command by spinning up the shooter...
+    new SpinUp(shooter, Constants.Shooter.spinRate).andThen(
+        // Drive Forward
+        new DriveForward(drivetrain, Constants.DriveTrain.autoDriveDistance),
+        // Wait until the shooter is at speed before feeding the frisbees
+        new WaitUntilCommand(shooter::atSetPoint),
+        // Start running the feeder
+        new Load(loader),
+        // Shoot for the specified time
+        new WaitCommand(Constants.Shooter.autoShootTimeSeconds))
+        // Add a timeout (will end the command if, for instance, the shooter never gets up to
+        // speed)
+        .withTimeout(Constants.Shooter.autoTimeoutSeconds)
+        // When the command ends, turn off the shooter and the feeder
+        .andThen(() -> {
+          // shooter.disable();
+          // loader.disable();
+        });
+
   public RobotContainer()
   {
     configureButtonBindings();
@@ -63,11 +83,14 @@ public class RobotContainer
     // Command bindings
     // TODO Finish button binders
     // TODO Add instant quickturn command
+    // TODO Climber code needs to check that both start buttons are pressed
     quickTurnButton.whenPressed(new SetMaxDriveSpeed(drivetrain));
     leftDriverBumper.whenPressed(new Capture(intake));
     rightDriverBumper.whenPressed(new SetMaxDriveSpeed(drivetrain));
     leftOperatorBumper.whenPressed(new Capture(intake));
     rightOperatorBumper.whenPressed(new Load(loader));
+    driverStartButton.whenPressed(new Extend(climber));   
+    operatorStartButton.whenPressed(new Retract(climber));  
   }
 
   public Command getAutonomousCommand() 
@@ -84,10 +107,10 @@ public class RobotContainer
     // 01 - short
     // 10 - long
 
-    Boolean dio0 = digitalInput0.get();
-    Boolean dio1 = digitalInput1.get();
-    Boolean dio2 = digitalInput2.get();
-    Boolean dio3 = digitalInput3.get();
+    final Boolean dio0 = digitalInput0.get();
+    final Boolean dio1 = digitalInput1.get();
+    final Boolean dio2 = digitalInput2.get();
+    final Boolean dio3 = digitalInput3.get();
     
     SmartDashboard.putBoolean("Digital Input 0", dio0);
     SmartDashboard.putBoolean("Digital Input 1", dio1);
@@ -120,12 +143,8 @@ public class RobotContainer
     {
       // long
     }
-    
-    // final SitStill sitTight = new SitStill(drivetrain);
-    // final DriveForward driveDistance = new DriveForward(drivetrain, -20); 
-    // final SpinUp spinUp = new SpinUp(shooter, .2);
 
-    return new AutonomousCommand(drivetrain);
+    return autonomousCommand;
   }
 }
 
