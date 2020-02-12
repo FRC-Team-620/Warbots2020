@@ -16,17 +16,14 @@ import frc.robot.robot.*;
 
 public class Loader extends SubsystemBase 
 {
-  protected TalonSRX loaderMotor;
-  protected DigitalInput ballLoadedSwitch;
-  
+  protected TalonSRX loaderMotor = new TalonSRX(Pin.LoaderMotor.id);;
+  protected DigitalInput ballLoadedSwitch = new DigitalInput(Pin.BallLoadedLimitSwitch.id);
+
   public Loader() 
   {
-    loaderMotor = new TalonSRX(Pin.LoaderMotor.id);
-    ballLoadedSwitch = new DigitalInput(Pin.BallLoadedLimitSwitch.id);
-
-    var srxConfig = new TalonSRXConfiguration();
-    srxConfig.continuousCurrentLimit = Constants.Shooter.loaderCurrentLimit;
-    loaderMotor.configAllSettings(srxConfig);
+    var talonSRXConfig = new TalonSRXConfiguration();
+    talonSRXConfig.continuousCurrentLimit = Constants.Loader.loaderCurrentLimit;
+    loaderMotor.configAllSettings(talonSRXConfig);
   }
 
   public boolean ballLoaded()

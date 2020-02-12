@@ -34,11 +34,14 @@ public final class Constants
     {
         public static final double spinRate = 0.25;
         public static final double spinRateTolerance = 0.25;
-        public static final double loaderTimeout = 5.0;
         public static final double flyWheelConversionFactor = 1.0;
-        public static final int loaderCurrentLimit = 20;
     }
-    public static final class Keybinder 
+    public static final class Loader 
+    {
+        public static final int loaderCurrentLimit = 20;
+        public static final double loaderTimeout = 5.0;
+    } 
+    public static final class oi 
     {
         public static final int driverControllerPort = 0;
         public static final int operatorControllerPort = 1;

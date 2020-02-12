@@ -7,20 +7,20 @@
 
 package frc.robot.drivetrain;
 
-public class TestAutoCommand extends DriveCommand 
+public class AutonomousCommand extends DriveCommand 
 {
   //region Constructors
-  public TestAutoCommand(DriveTrain dt) 
+  public AutonomousCommand(DriveTrain dt) 
   {
     super(dt);
   }
   //endregion
 
-  //regino Overrides
+  //region Overrides
   @Override
   public void execute() 
   {
-    driveTrain.arcadeInput(.5, 0);
+    driveTrain.arcadeInput(.5, 0); //TODO Set default autonomous parameters in constants.java
   }
 
   @Override

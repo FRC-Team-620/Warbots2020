@@ -10,10 +10,12 @@ package frc.robot.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot 
 {
+  private Command autonomousCommand;
+  private RobotContainer robotContainer;
+
   //region Overrides
   @Override
   public void robotInit() 
@@ -27,22 +29,19 @@ public class Robot extends TimedRobot
     CommandScheduler.getInstance().run();
   }
 
-
   @Override
   public void autonomousInit()
   {
     autonomousCommand = robotContainer.getAutonomousCommand();
-    if (autonomousCommand != null) autonomousCommand.schedule();
+
+    if (autonomousCommand != null) 
+      autonomousCommand.schedule();
   }
 
   @Override
   public void autonomousPeriodic() 
   {
-    // SmartDashboard.putBoolean("Digital Input 0", robotContainer.kedigitalInput0.get());
-    // SmartDashboard.putBoolean("Digital Input 1", robotContainer.keyBinder.digitalInput1.get());
-    // SmartDashboard.putBoolean("Digital Input 2", robotContainer.keyBinder.digitalInput2.get());
-    // SmartDashboard.putBoolean("Digital Input 3", robotContainer.keyBinder.digitalInput3.get());
-   }
+  }
 
   @Override
   public void teleopInit() 
@@ -78,10 +77,5 @@ public class Robot extends TimedRobot
   public void testPeriodic() 
   {
   }
-  //endregion
-
-  //region Fields
-  private Command autonomousCommand;
-  private RobotContainer robotContainer;
   //endregion
 }
