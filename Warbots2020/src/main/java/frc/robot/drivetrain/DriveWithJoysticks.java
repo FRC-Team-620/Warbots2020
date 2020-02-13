@@ -9,7 +9,6 @@ package frc.robot.drivetrain;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveWithJoysticks extends DriveCommand 
 {
@@ -25,9 +24,32 @@ public class DriveWithJoysticks extends DriveCommand
   @Override
   public void execute() 
   {
-    driveTrain.curvatureInput(driverXbox.getY(Hand.kLeft), -1 * driverXbox.getX(Hand.kLeft), 
-    driverXbox.getAButton());
-    SmartDashboard.putNumber("Motor Temperature", driveTrain.getAvgMotorTemp());
+    var rotation = -1 * driverXbox.getX(Hand.kLeft);
+    var speed = driverXbox.getY(Hand.kLeft);
+
+    //speed = Math.pow(speed, 3);
+
+    if(driverXbox.getBumper(Hand.kRight))
+    {
+      rotation *= 0.65;
+      speed *= 0.65;
+    }
+
+    driveTrain.curvatureInput(speed, rotation, driverXbox.getAButton()); //TODO: use quickturn button from robot container
+    // driveTrain.curvatureInput(driverXbox.getY(Hand.kLeft), -1 * driverXbox.getX(Hand.kLeft), 
+
+    // double speed = driverXbox.getY(Hand.kLeft);
+    // double rotation = driverXbox.getY(Hand.kLeft);
+    // speed = Math.pow(speed, 3);
+    // rotation = Math.pow(rotation, 3);
+
+    // if(driverXbox.getBumper(Hand.kRight)) 
+    // {
+    //   speed = Math.pow(speed, 2);
+    //   rotation = Math.pow(rotation, 2);
+    // }
+
+    // driverXbox.getAButton());
   }
 
   @Override

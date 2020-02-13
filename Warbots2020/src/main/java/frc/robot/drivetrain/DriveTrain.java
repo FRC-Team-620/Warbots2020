@@ -15,6 +15,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrain extends SubsystemBase 
 {
@@ -108,6 +109,14 @@ public class DriveTrain extends SubsystemBase
     rr.getEncoder().setPosition(0);
     leftEncoderOffsetDistance = lr.getEncoder().getPosition();
     rightEncoderOffsetDistance = rr.getEncoder().getPosition();
+  }
+  //endregion
+
+  //region Overrides
+  @Override
+  public void periodic()
+  {
+    SmartDashboard.putNumber("Motor Temperature", getAvgMotorTemp());
   }
   //endregion
 
