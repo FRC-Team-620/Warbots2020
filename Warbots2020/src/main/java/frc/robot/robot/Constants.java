@@ -25,11 +25,7 @@ public final class Constants
     }
     public static final class DriveTrain 
     {
-        public static final double encoderConversionFactor = 1;
-        public static final double openLoopRampRate = 0.5;
-        public static final double currentLimit = 20;
-        public static final double deadBand = 0.05;
-        public static final double autoDriveDistance = 2.0; 
+       public static final double autoDriveDistance = 2.0; 
     }
     public static final class Shooter 
     {
