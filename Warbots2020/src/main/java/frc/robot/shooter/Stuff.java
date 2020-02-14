@@ -8,53 +8,44 @@
 package frc.robot.shooter;
 
 import java.time.LocalDateTime;
-import frc.robot.robot.*;
 
-public class SpinUp extends ShooterCommand
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
+public class Stuff extends CommandBase 
 {
-  public LocalDateTime endTime;
-  //region Constructors
-  public SpinUp(Shooter s, double speed) 
+  Shooter shoot;
+  LocalDateTime endTime;
+  public Stuff(Shooter s) 
   {
-    super(s, speed);
+    shoot = s;
+    addRequirements(s);
   }
-  //endregion
 
-  //region Overrides
   // Called when the command is initially scheduled.
   @Override
-  public void initialize()
+  public void initialize() 
   {
-    resetEndTime();
+    //endTime = LocalDateTime.now().plusSeconds(5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute()
+  public void execute() 
   {
-    shooter.setShootSpeed(targetVelocity);
+    shoot.setShootSpeed(0.25);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) 
   {
-    //TODO: Schedule blinglights
-    shooter.setShootSpeed(0);
+    shoot.setShootSpeed(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() 
   {
-    return LocalDateTime.now().isAfter(endTime);
+    return false;//LocalDateTime.now().isAfter(endTime);
   }
-  //endregion
-
-  //region Methods
-  public void resetEndTime()
-  {
-    endTime = LocalDateTime.now().plusSeconds(10);
-  }
-  //endregion
-}   
+}

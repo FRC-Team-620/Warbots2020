@@ -28,7 +28,7 @@ public class RobotContainer
     private final Climber climber = new Climber();
     private final Shooter shooter = new Shooter();
     private final Intake intake = new Intake();
-    private final Loader loader = new Loader();    
+    public final Loader loader = new Loader();    
    
     // OI
     XboxController driver = new XboxController(Constants.OI.driverControllerPort);
@@ -41,8 +41,8 @@ public class RobotContainer
     DigitalInput digitalInput3 = new DigitalInput(Constants.OI.autoModeSelectorInput3);
 
     // commands
-     private final Command autonomousCommand =
-    // Start the command by spinning up the shooter...
+    private final Command autonomousCommand = null;
+    /*/ Start the command by spinning up the shooter...
     new SpinUp(shooter, Constants.Shooter.spinRate).andThen(
         // Drive Forward
         new DriveForward(drivetrain, Constants.DriveTrain.autoDriveDistance),
@@ -59,7 +59,7 @@ public class RobotContainer
         .andThen(() -> {
           // shooter.disable();
           // loader.disable();
-        });
+        });*/
 
   public RobotContainer()
   {
@@ -79,18 +79,25 @@ public class RobotContainer
     final JoystickButton quickTurnButton = new JoystickButton(driver, Button.kA.value);
     final JoystickButton driverStartButton = new JoystickButton(driver, Button.kStart.value);
     final JoystickButton operatorStartButton = new JoystickButton(operator, Button.kStart.value);
-     
+    final JoystickButton operatorX = new JoystickButton(operator, Button.kX.value);
+
     // Command bindings
     // TODO Finish button binders
     // TODO Add instant quickturn command
     // TODO Climber code needs to check that both start buttons are pressed
-    quickTurnButton.whenPressed(new SetMaxDriveSpeed(drivetrain));
-    leftDriverBumper.whenPressed(new Capture(intake));
-    rightDriverBumper.whenPressed(new SetMaxDriveSpeed(drivetrain));
-    leftOperatorBumper.whenPressed(new Capture(intake));
-    rightOperatorBumper.whenPressed(new Load(loader));
-    driverStartButton.whenPressed(new Extend(climber));   
-    operatorStartButton.whenPressed(new Retract(climber));  
+    var setMaxDriveSpeed = new SetMaxDriveSpeed(drivetrain);
+    var capture = new Capture(intake);
+    var extend = new Extend(climber);
+    var retract = new Retract(climber);
+    SpinUp spinUp = new SpinUp(shooter, 1);
+    var testLoad = (new TestLoad(loader, spinUp));
+
+    rightDriverBumper.whenPressed(setMaxDriveSpeed);
+    leftOperatorBumper.whenPressed(capture);
+    rightOperatorBumper.whenPressed(testLoad);
+    driverStartButton.whenPressed(extend);   
+    operatorStartButton.whenPressed(retract);  
+    operatorX.whenPressed(spinUp);
   }
 
   public Command getAutonomousCommand() 

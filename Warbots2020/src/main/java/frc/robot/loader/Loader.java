@@ -34,6 +34,10 @@ public class Loader extends SubsystemBase
 
   public void load()
   {
-    loaderMotor.set(ControlMode.PercentOutput, Constants.Shooter.spinRate);
+    loaderMotor.set(ControlMode.PercentOutput, 1);
+  }
+  public void stopLoading()
+  {
+    loaderMotor.set(ControlMode.PercentOutput, 0);
   }
 }

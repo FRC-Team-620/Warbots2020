@@ -52,6 +52,6 @@ public class Shooter extends SubsystemBase
   //endregion
 
   //region Fields
-  protected TalonFX shooter;
+  public TalonFX shooter;
   //endregion
 }

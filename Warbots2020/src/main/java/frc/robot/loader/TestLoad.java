@@ -5,51 +5,71 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.shooter;
+package frc.robot.loader;
 
 import java.time.LocalDateTime;
-import frc.robot.robot.*;
 
-public class SpinUp extends ShooterCommand
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.shooter.SpinUp;
+import frc.robot.shooter.Stuff;
+
+public class TestLoad extends CommandBase 
 {
+  Loader loader;
+  SpinUp stuff;
+  boolean lastFrameBallLoaded;
   public LocalDateTime endTime;
-  //region Constructors
-  public SpinUp(Shooter s, double speed) 
-  {
-    super(s, speed);
-  }
-  //endregion
 
-  //region Overrides
+  public TestLoad(Loader l, SpinUp s) 
+  {
+    addRequirements(l);
+    loader = l;
+    stuff = s;
+    // Use addRequirements() here to declare subsystem dependencies.
+  }
+
   // Called when the command is initially scheduled.
   @Override
-  public void initialize()
+  public void initialize() 
   {
+    lastFrameBallLoaded = loader.ballLoaded();
     resetEndTime();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute()
+  public void execute() 
   {
-    shooter.setShootSpeed(targetVelocity);
+    loader.load();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) 
   {
-    //TODO: Schedule blinglights
-    shooter.setShootSpeed(0);
+    loader.stopLoading();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() 
   {
-    return LocalDateTime.now().isAfter(endTime);
+    if(!loader.ballLoaded() && lastFrameBallLoaded == true) 
+    {
+      stuff.resetEndTime();
+      resetEndTime();
+    }
+    if(loader.ballLoaded() && lastFrameBallLoaded == false) 
+    {
+      return true; 
+    }
+    if(LocalDateTime.now().isAfter(endTime))
+    {
+      return true;
+    }
+    lastFrameBallLoaded = loader.ballLoaded();
+    return false;
   }
-  //endregion
 
   //region Methods
   public void resetEndTime()
@@ -57,4 +77,4 @@ public class SpinUp extends ShooterCommand
     endTime = LocalDateTime.now().plusSeconds(10);
   }
   //endregion
-}   
+}
