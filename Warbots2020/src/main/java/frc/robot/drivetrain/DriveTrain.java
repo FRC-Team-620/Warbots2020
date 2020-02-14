@@ -8,6 +8,7 @@
 package frc.robot.drivetrain;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.robot.*;
 import com.kauailabs.navx.frc.AHRS;
@@ -15,12 +16,14 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrain extends SubsystemBase 
 {
   //region Constructors
   public DriveTrain()
   {
+
     lf = new CANSparkMax(Pin.LeftFrontMotor.id, MotorType.kBrushless);
     rf = new CANSparkMax(Pin.RightFrontMotor.id, MotorType.kBrushless);
     lr = new CANSparkMax(Pin.LeftRearMotor.id, MotorType.kBrushless);
@@ -108,6 +111,14 @@ public class DriveTrain extends SubsystemBase
     rr.getEncoder().setPosition(0);
     leftEncoderOffsetDistance = lr.getEncoder().getPosition();
     rightEncoderOffsetDistance = rr.getEncoder().getPosition();
+  }
+  //endregion
+
+  //region Overrides
+  @Override
+  public void periodic()
+  {
+    SmartDashboard.putNumber("Motor Temperature", getAvgMotorTemp());
   }
   //endregion
 

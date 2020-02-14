@@ -43,9 +43,15 @@ public class RobotContainer
     DigitalInput digitalInput3 = new DigitalInput(Constants.OI.autoModeSelectorInput3);
 
     // commands
+<<<<<<< HEAD
+    private final Command autonomousCommand = null;
+    /*/ Start the command by spinning up the shooter...
+=======
      private final Command autonomousCommand = new DriveForward(drivetrain, Constants.DriveTrain.autoDriveDistance);
     
     /*
+    // Start the command by spinning up the shooter...
+>>>>>>> f5ee7517f7b6532aa9715c6e56dad03bb95d059e
     new SpinUp(shooter, Constants.Shooter.spinRate).andThen(
         // Drive Forward
         new DriveForward(drivetrain, Constants.DriveTrain.autoDriveDistance),
@@ -62,8 +68,12 @@ public class RobotContainer
         .andThen(() -> {
           // shooter.disable();
           // loader.disable();
+<<<<<<< HEAD
         });*/
+=======
+        });
   */
+>>>>>>> f5ee7517f7b6532aa9715c6e56dad03bb95d059e
 
   public RobotContainer()
   {
