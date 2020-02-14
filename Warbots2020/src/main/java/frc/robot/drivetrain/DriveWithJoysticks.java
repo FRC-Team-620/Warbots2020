@@ -36,20 +36,6 @@ public class DriveWithJoysticks extends DriveCommand
     }
 
     driveTrain.curvatureInput(speed, rotation, driverXbox.getAButton()); //TODO: use quickturn button from robot container
-    // driveTrain.curvatureInput(driverXbox.getY(Hand.kLeft), -1 * driverXbox.getX(Hand.kLeft), 
-
-    // double speed = driverXbox.getY(Hand.kLeft);
-    // double rotation = driverXbox.getY(Hand.kLeft);
-    // speed = Math.pow(speed, 3);
-    // rotation = Math.pow(rotation, 3);
-
-    // if(driverXbox.getBumper(Hand.kRight)) 
-    // {
-    //   speed = Math.pow(speed, 2);
-    //   rotation = Math.pow(rotation, 2);
-    // }
-
-    // driverXbox.getAButton());
   }
 
   @Override

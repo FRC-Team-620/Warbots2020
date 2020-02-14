@@ -18,7 +18,7 @@ public class Shooter extends SubsystemBase
   //region Constructors
   public Shooter() 
   {
-    shooter = new TalonFX(Pin.ShooterMotor1.id);
+    shooter = new TalonFX(Pin.SpinnerMotor.id);
 
     final var fxConfig = new TalonFXConfiguration();
     fxConfig.statorCurrLimit.currentLimit = 20;

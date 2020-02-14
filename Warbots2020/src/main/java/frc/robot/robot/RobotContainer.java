@@ -7,6 +7,8 @@
 
 package frc.robot.robot;
 
+import java.rmi.server.Skeleton;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
@@ -67,7 +69,13 @@ public class RobotContainer
   public RobotContainer()
   {
     configureButtonBindings();
-    
+   
+    SmartDashboard.putData(drivetrain);
+    SmartDashboard.putData(climber);
+    SmartDashboard.putData(shooter);
+    SmartDashboard.putData(intake);
+    SmartDashboard.putData(loader);
+
     // set default commands
     drivetrain.setDefaultCommand(new DriveWithJoysticks(drivetrain, driver));  
   }
