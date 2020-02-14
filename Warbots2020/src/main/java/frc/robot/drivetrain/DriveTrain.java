@@ -8,7 +8,6 @@
 package frc.robot.drivetrain;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.robot.*;
 import com.kauailabs.navx.frc.AHRS;
@@ -65,6 +64,7 @@ public class DriveTrain extends SubsystemBase
     diffDrive.setDeadband(0.05);
 
     navX = new AHRS(SPI.Port.kMXP);
+
     resetDistance();
   }
   //endregion

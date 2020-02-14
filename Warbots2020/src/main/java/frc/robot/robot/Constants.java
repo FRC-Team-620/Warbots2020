@@ -19,7 +19,7 @@ public final class Constants
 {
     public static final class Intake 
     {
-        public static final double rollerSpeedForward = 0.2; // Placeholder value of 0.2
+        public static final double rollerSpeedForward = 0.2;
         public static final double rollerSpeedReverse = 0.2;
         public static final double captureTimer = 5;
     }
