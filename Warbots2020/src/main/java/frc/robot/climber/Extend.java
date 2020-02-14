@@ -28,6 +28,7 @@ public class Extend extends CommandBase
   @Override
   public void execute() 
   {
+    climber.setAngleLower(180);
   }
 
   // Called once the command ends or is interrupted.
