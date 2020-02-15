@@ -8,6 +8,7 @@
 package frc.robot.shooter;
 
 import java.time.LocalDateTime;
+import frc.robot.robot.*;
 
 public class SpinUp extends ShooterCommand
 {
@@ -16,6 +17,10 @@ public class SpinUp extends ShooterCommand
   public SpinUp(Shooter s, double speed) 
   {
     super(s, speed);
+<<<<<<< HEAD
+=======
+    // this.withTimeout(5);
+>>>>>>> f5ee7517f7b6532aa9715c6e56dad03bb95d059e
   }
   //endregion
 
@@ -38,6 +43,7 @@ public class SpinUp extends ShooterCommand
   @Override
   public void end(boolean interrupted) 
   {
+    //TODO: Schedule blinglights
     shooter.setShootSpeed(0);
   }
 

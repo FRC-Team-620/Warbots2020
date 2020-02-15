@@ -35,6 +35,12 @@ public enum Pin
     BlingLights(3, CommsStandard.PWM),
     //endregion
 
+    //region Servos
+    climberActuatorUpper(0, CommsStandard.PWM),
+    climberActuatorLower(1, CommsStandard.PWM),
+    blingLights(3, CommsStandard.PWM),
+    //endregion
+
     /*^^^^^^^^^^ EDITING END HERE ^^^^^^^^^^^^
      *
      * How to use the Pin document:

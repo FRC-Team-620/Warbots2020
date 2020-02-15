@@ -5,54 +5,55 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.shooter;
+package frc.robot.shuffleboard;
 
-import java.time.LocalDateTime;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.drivetrain.*;
+import frc.robot.climber.*;
+import frc.robot.shooter.*;
+import frc.robot.intake.*;
+import frc.robot.loader.*;
 
-public class SpinUp extends ShooterCommand
+public class Update extends CommandBase 
 {
-  public LocalDateTime endTime;
-  //region Constructors
-  public SpinUp(Shooter s, double speed) 
-  {
-    super(s, speed);
-  }
-  //endregion
 
-  //region Overrides
+  public Update(DriveTrain drivetrain, Climber climber, Shooter shooter, Intake intake, Loader loader) 
+  {
+    // No subsystem dependencies are required, since there are no actuators
+
+    SmartDashboard.putData(drivetrain);
+    SmartDashboard.putData(climber);
+    SmartDashboard.putData(shooter);
+    SmartDashboard.putData(intake);
+    SmartDashboard.putData(loader);
+  }
+
   // Called when the command is initially scheduled.
   @Override
-  public void initialize()
-  {
-    resetEndTime();
+  public void initialize() 
+  {   
+  
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute()
+  public void execute() 
   {
-    shooter.setShootSpeed(targetVelocity);
+    
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) 
   {
-    shooter.setShootSpeed(0);
+
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() 
   {
-    return LocalDateTime.now().isAfter(endTime);
+    return true;
   }
-  //endregion
-
-  //region Methods
-  public void resetEndTime()
-  {
-    endTime = LocalDateTime.now().plusSeconds(10);
-  }
-  //endregion
-}   
+}

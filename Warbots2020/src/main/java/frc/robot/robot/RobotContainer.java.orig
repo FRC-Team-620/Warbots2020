@@ -7,17 +7,20 @@
 
 package frc.robot.robot;
 
+import java.rmi.server.Skeleton;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.climber.*;
 import frc.robot.loader.*;
 import frc.robot.intake.*;
 import frc.robot.shooter.*;
-import frc.robot.shuffleboard.*;
 import frc.robot.drivetrain.*;
 
 public class RobotContainer 
@@ -27,23 +30,28 @@ public class RobotContainer
     private final Climber climber = new Climber();
     private final Shooter shooter = new Shooter();
     private final Intake intake = new Intake();
-    public final Loader loader = new Loader();   
-    public final Shuffleboard shuffleboard = new Shuffleboard(); 
+    public final Loader loader = new Loader();    
    
     // OI
-    XboxController driver = new XboxController(Constants.OIConstants.driverControllerPort);
-    XboxController operator = new XboxController(Constants.OIConstants.operatorControllerPort);
+    XboxController driver = new XboxController(Constants.OI.driverControllerPort);
+    XboxController operator = new XboxController(Constants.OI.operatorControllerPort);
     
     // Autonomous Selector Switches
-    DigitalInput digitalInput0 = new DigitalInput(Constants.OIConstants.autoModeSelectorInput0);
-    DigitalInput digitalInput1 = new DigitalInput(Constants.OIConstants.autoModeSelectorInput1);
-    DigitalInput digitalInput2 = new DigitalInput(Constants.OIConstants.autoModeSelectorInput2);
-    DigitalInput digitalInput3 = new DigitalInput(Constants.OIConstants.autoModeSelectorInput3);
+    DigitalInput digitalInput0 = new DigitalInput(Constants.OI.autoModeSelectorInput0);
+    DigitalInput digitalInput1 = new DigitalInput(Constants.OI.autoModeSelectorInput1);
+    DigitalInput digitalInput2 = new DigitalInput(Constants.OI.autoModeSelectorInput2);
+    DigitalInput digitalInput3 = new DigitalInput(Constants.OI.autoModeSelectorInput3);
 
     // commands
-     private final Command autonomousCommand = new DriveForward(drivetrain, Constants.DriveTrainConstants.autoDriveDistance);
+<<<<<<< HEAD
+    private final Command autonomousCommand = null;
+    /*/ Start the command by spinning up the shooter...
+=======
+     private final Command autonomousCommand = new DriveForward(drivetrain, Constants.DriveTrain.autoDriveDistance);
     
     /*
+    // Start the command by spinning up the shooter...
+>>>>>>> f5ee7517f7b6532aa9715c6e56dad03bb95d059e
     new SpinUp(shooter, Constants.Shooter.spinRate).andThen(
         // Drive Forward
         new DriveForward(drivetrain, Constants.DriveTrain.autoDriveDistance),
@@ -60,25 +68,35 @@ public class RobotContainer
         .andThen(() -> {
           // shooter.disable();
           // loader.disable();
+<<<<<<< HEAD
+        });*/
+=======
         });
-    */
+  */
+>>>>>>> f5ee7517f7b6532aa9715c6e56dad03bb95d059e
 
   public RobotContainer()
   {
     configureButtonBindings();
-  
+   
+    SmartDashboard.putData(drivetrain);
+    SmartDashboard.putData(climber);
+    SmartDashboard.putData(shooter);
+    SmartDashboard.putData(intake);
+    SmartDashboard.putData(loader);
+
     // set default commands
     drivetrain.setDefaultCommand(new DriveWithJoysticks(drivetrain, driver));  
-    shuffleboard.setDefaultCommand(new Update(drivetrain, climber, shooter, intake, loader));
   }
 
   private void configureButtonBindings()
   {
      // Joystick Buttons
-  //  final JoystickButton leftDriverBumper = new JoystickButton(driver, Button.kBumperLeft.value);
-  //  final JoystickButton rightDriverBumper = new JoystickButton(driver, Button.kBumperRight.value);
+    final JoystickButton leftDriverBumper = new JoystickButton(driver, Button.kBumperLeft.value);
+    final JoystickButton rightDriverBumper = new JoystickButton(driver, Button.kBumperRight.value);
     final JoystickButton leftOperatorBumper = new JoystickButton(operator, Button.kBumperLeft.value);
     final JoystickButton rightOperatorBumper = new JoystickButton(operator, Button.kBumperRight.value);
+    final JoystickButton quickTurnButton = new JoystickButton(driver, Button.kA.value);
     final JoystickButton driverStartButton = new JoystickButton(driver, Button.kStart.value);
     final JoystickButton operatorStartButton = new JoystickButton(operator, Button.kStart.value);
     final JoystickButton operatorX = new JoystickButton(operator, Button.kX.value);
@@ -87,13 +105,15 @@ public class RobotContainer
     // TODO Finish button binders
     // TODO Add instant quickturn command
     // TODO Climber code needs to check that both start buttons are pressed
+    var setMaxDriveSpeed = new SetMaxDriveSpeed(drivetrain);
     var capture = new Capture(intake);
     var extend = new Extend(climber);
     var retract = new Retract(climber);
     SpinUp spinUp = new SpinUp(shooter, 1);
     var testLoad = (new TestLoad(loader, spinUp));
 
-     leftOperatorBumper.whenPressed(capture);
+    rightDriverBumper.whenPressed(setMaxDriveSpeed);
+    leftOperatorBumper.whenPressed(capture);
     rightOperatorBumper.whenPressed(testLoad);
     driverStartButton.whenPressed(extend);   
     operatorStartButton.whenPressed(retract);  
