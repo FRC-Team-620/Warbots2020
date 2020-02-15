@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.bling.Bling;
 import frc.robot.climber.*;
 import frc.robot.loader.*;
 import frc.robot.intake.*;
@@ -28,6 +29,7 @@ public class RobotContainer
     private final Shooter shooter = new Shooter();
     private final Intake intake = new Intake();
     public final Loader loader = new Loader();   
+    public final Bling bling = new  Bling();
     public final Shuffleboard shuffleboard = new Shuffleboard(); 
    
     // OI
@@ -69,7 +71,7 @@ public class RobotContainer
   
     // set default commands
     drivetrain.setDefaultCommand(new DriveWithJoysticks(drivetrain, driver));  
-    shuffleboard.setDefaultCommand(new Update(drivetrain, climber, shooter, intake, loader));
+    shuffleboard.setDefaultCommand(new Update(shuffleboard, drivetrain, climber, shooter, intake, loader, bling));
   }
 
   private void configureButtonBindings()
@@ -93,7 +95,7 @@ public class RobotContainer
     SpinUp spinUp = new SpinUp(shooter, 1);
     var testLoad = (new TestLoad(loader, spinUp));
 
-     leftOperatorBumper.whenPressed(capture);
+    leftOperatorBumper.whenPressed(capture);
     rightOperatorBumper.whenPressed(testLoad);
     driverStartButton.whenPressed(extend);   
     operatorStartButton.whenPressed(retract);  

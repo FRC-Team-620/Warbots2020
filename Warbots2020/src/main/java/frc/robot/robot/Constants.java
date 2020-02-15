@@ -51,7 +51,7 @@ public final class Constants
         public static final int autoModeSelectorInput4 = 4;
     }
 
-    public static final class blingLights
+    public static final class BlingConstants
     {
         public static final double oceanColoredRainbow = -0.95;
         public static final double larsonScanner = -0.35;
