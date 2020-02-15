@@ -15,7 +15,7 @@ public class SpinUp extends ShooterCommand
   public SpinUp(Shooter s, double speed) 
   {
     super(s, speed);
-    // this.withTimeout(5);
+    // t  his.withTimeout(5);
   }
   //endregion
 

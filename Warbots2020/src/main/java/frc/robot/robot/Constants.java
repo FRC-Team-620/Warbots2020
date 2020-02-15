@@ -54,4 +54,12 @@ public final class Constants
         public static final int autoModeSelectorInput3 = 3;
         public static final int autoModeSelectorInput4 = 4;
     }
+
+    public static final class blingLights
+    {
+        public static final double oceanColoredRainbow = -0.95;
+        public static final double larsonScanner = -0.35;
+        public static final double fastHeartBeat = 0.07;
+        public static final double solidBlue = 0.87;
+    }
 }
