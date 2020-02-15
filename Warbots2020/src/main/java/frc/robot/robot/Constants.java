@@ -17,17 +17,17 @@ package frc.robot.robot;
  */
 public final class Constants 
 {
-    public static final class Intake 
+    public static final class IntakeConstants
     {
         public static final double rollerSpeedForward = 0.2;
         public static final double rollerSpeedReverse = 0.2;
         public static final double captureTimer = 5;
     }
-    public static final class DriveTrain 
+    public static final class DriveTrainConstants
     {
        public static final double autoDriveDistance = 2.0; 
     }
-    public static final class Shooter 
+    public static final class ShooterConstants
     {
         public static final double spinRate = 0.25;
         public static final double spinRateTolerance = 0.25;
@@ -35,12 +35,12 @@ public final class Constants
         public static final double autoShootTimeSeconds = 5.0;
         public static final double autoTimeoutSeconds = 10.0;
     }
-    public static final class Loader 
+    public static final class LoaderConstants
     {
         public static final int loaderCurrentLimit = 20;
         public static final double loaderTimeout = 5.0;
     } 
-    public static final class OI 
+    public static final class OIConstants
     {
         public static final int driverControllerPort = 0;
         public static final int operatorControllerPort = 1;

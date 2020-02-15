@@ -17,6 +17,7 @@ import frc.robot.climber.*;
 import frc.robot.loader.*;
 import frc.robot.intake.*;
 import frc.robot.shooter.*;
+import frc.robot.shuffleboard.*;
 import frc.robot.drivetrain.*;
 
 public class RobotContainer 
@@ -26,20 +27,21 @@ public class RobotContainer
     private final Climber climber = new Climber();
     private final Shooter shooter = new Shooter();
     private final Intake intake = new Intake();
-    public final Loader loader = new Loader();    
+    public final Loader loader = new Loader();   
+    public final Shuffleboard shuffleboard = new Shuffleboard(); 
    
     // OI
-    XboxController driver = new XboxController(Constants.OI.driverControllerPort);
-    XboxController operator = new XboxController(Constants.OI.operatorControllerPort);
+    XboxController driver = new XboxController(Constants.OIConstants.driverControllerPort);
+    XboxController operator = new XboxController(Constants.OIConstants.operatorControllerPort);
     
     // Autonomous Selector Switches
-    DigitalInput digitalInput0 = new DigitalInput(Constants.OI.autoModeSelectorInput0);
-    DigitalInput digitalInput1 = new DigitalInput(Constants.OI.autoModeSelectorInput1);
-    DigitalInput digitalInput2 = new DigitalInput(Constants.OI.autoModeSelectorInput2);
-    DigitalInput digitalInput3 = new DigitalInput(Constants.OI.autoModeSelectorInput3);
+    DigitalInput digitalInput0 = new DigitalInput(Constants.OIConstants.autoModeSelectorInput0);
+    DigitalInput digitalInput1 = new DigitalInput(Constants.OIConstants.autoModeSelectorInput1);
+    DigitalInput digitalInput2 = new DigitalInput(Constants.OIConstants.autoModeSelectorInput2);
+    DigitalInput digitalInput3 = new DigitalInput(Constants.OIConstants.autoModeSelectorInput3);
 
     // commands
-     private final Command autonomousCommand = new DriveForward(drivetrain, Constants.DriveTrain.autoDriveDistance);
+     private final Command autonomousCommand = new DriveForward(drivetrain, Constants.DriveTrainConstants.autoDriveDistance);
     
     /*
     new SpinUp(shooter, Constants.Shooter.spinRate).andThen(
@@ -64,15 +66,10 @@ public class RobotContainer
   public RobotContainer()
   {
     configureButtonBindings();
-   
-    SmartDashboard.putData(drivetrain);
-    SmartDashboard.putData(climber);
-    SmartDashboard.putData(shooter);
-    SmartDashboard.putData(intake);
-    SmartDashboard.putData(loader);
-
+  
     // set default commands
     drivetrain.setDefaultCommand(new DriveWithJoysticks(drivetrain, driver));  
+    shuffleboard.setDefaultCommand(new Update(drivetrain, climber, shooter, intake, loader));
   }
 
   private void configureButtonBindings()
