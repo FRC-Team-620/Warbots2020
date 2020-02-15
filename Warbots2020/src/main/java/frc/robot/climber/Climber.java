@@ -28,7 +28,6 @@ public class Climber extends SubsystemBase
     climberActuatorLower.setAngle(0);
     
     climberMotor = new TalonFX(Pin.ClimberMotor.id);
-    climberMotor.set(ControlMode.PercentOutput, Pin.ClimberMotor.id);
   }
   //endregion
   //region Overrides
