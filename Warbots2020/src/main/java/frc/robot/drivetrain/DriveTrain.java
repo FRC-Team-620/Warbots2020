@@ -52,7 +52,7 @@ public class DriveTrain extends SubsystemBase
     rf.setOpenLoopRampRate(openLoopRampRate);
     rr.setOpenLoopRampRate(openLoopRampRate);
 
-    var currentLimit = 20;
+    var currentLimit = 38;
     lf.setSmartCurrentLimit(currentLimit);
     lr.setSmartCurrentLimit(currentLimit);
     rf.setSmartCurrentLimit(currentLimit);

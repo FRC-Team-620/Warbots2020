@@ -19,18 +19,19 @@ public class Intake extends SubsystemBase
   public Intake() 
   {
     intakeMotor = new TalonSRX(Pin.IntakeMotor.id);
-    intakeMotor.set(ControlMode.PercentOutput, 0);
-  }
-  //endregion
-
-  //region Overrides
-  @Override
-  public void periodic() 
-  {
-    // This method will be called once per scheduler run
   }
   //endregion
   
+  public void intake()
+  {
+    intakeMotor.set(ControlMode.PercentOutput, 0.75);
+  }
+   
+  public void end()
+  {
+    intakeMotor.set(ControlMode.PercentOutput, 0);
+  }
+
   //region Fields
   private final TalonSRX intakeMotor;
   //endregion

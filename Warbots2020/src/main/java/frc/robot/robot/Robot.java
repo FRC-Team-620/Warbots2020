@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.loader.Load;
 import frc.robot.loader.TestLoad;
 import frc.robot.shooter.*;
+import frc.robot.intake.*;
 
 public class Robot extends TimedRobot 
 {
@@ -52,8 +53,7 @@ public class Robot extends TimedRobot
   public void teleopInit() 
   {
     if(autonomousCommand != null) autonomousCommand.cancel();
-    //var load = new TestLoad(robotContainer.loader);
-    //load.schedule();
+    //robotContainer.intake.intake();
   }
 
   @Override

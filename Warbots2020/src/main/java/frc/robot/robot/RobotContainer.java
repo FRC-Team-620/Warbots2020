@@ -29,7 +29,7 @@ public class RobotContainer
     private final DriveTrain drivetrain = new DriveTrain();
     private final Climber climber = new Climber();
     private final Shooter shooter = new Shooter();
-    private final Intake intake = new Intake();
+    public final Intake intake = new Intake();
     public final Loader loader = new Loader();    
    
     // OI
@@ -43,7 +43,7 @@ public class RobotContainer
     DigitalInput digitalInput3 = new DigitalInput(Constants.OI.autoModeSelectorInput3);
 
     // commands
-     private final Command autonomousCommand = new DriveForward(drivetrain, Constants.DriveTrain.autoDriveDistance);
+    private final Command autonomousCommand = new DriveForward(drivetrain, Constants.DriveTrain.autoDriveDistance);
     
     /*
     new SpinUp(shooter, Constants.Shooter.spinRate).andThen(
@@ -102,7 +102,7 @@ public class RobotContainer
     var testLoad = (new TestLoad(loader, spinUp));
 
     rightDriverBumper.whenPressed(setMaxDriveSpeed);
-    leftOperatorBumper.whenPressed(capture);
+    leftOperatorBumper.whileHeld(capture);
     rightOperatorBumper.whenPressed(testLoad);
     driverStartButton.whenPressed(extend);   
     operatorStartButton.whenPressed(retract);  

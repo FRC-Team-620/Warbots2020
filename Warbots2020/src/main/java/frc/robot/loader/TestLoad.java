@@ -18,7 +18,8 @@ public class TestLoad extends CommandBase
   Loader loader;
   SpinUp stuff;
   boolean lastFrameBallLoaded;
-  public LocalDateTime endTime;
+  LocalDateTime endTime;
+  int framesSinceLastShot;
 
   public TestLoad(Loader l, SpinUp s) 
   {
@@ -34,6 +35,7 @@ public class TestLoad extends CommandBase
   {
     lastFrameBallLoaded = loader.ballLoaded();
     resetEndTime();
+    framesSinceLastShot = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -54,10 +56,15 @@ public class TestLoad extends CommandBase
   @Override
   public boolean isFinished() 
   {
+    if(framesSinceLastShot++ < 12) 
+    {
+      return false;
+    }
     if(!loader.ballLoaded() && lastFrameBallLoaded == true) 
     {
       stuff.resetEndTime();
       resetEndTime();
+      framesSinceLastShot = 0;
     }
     if(loader.ballLoaded() && lastFrameBallLoaded == false) 
     {
