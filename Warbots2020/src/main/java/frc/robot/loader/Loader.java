@@ -22,7 +22,7 @@ public class Loader extends SubsystemBase
   public Loader() 
   {
     var talonSRXConfig = new TalonSRXConfiguration();
-    talonSRXConfig.continuousCurrentLimit = Constants.Loader.loaderCurrentLimit;
+    talonSRXConfig.continuousCurrentLimit = Constants.LoaderConstants.loaderCurrentLimit;
     loaderMotor.configAllSettings(talonSRXConfig);
   }
 

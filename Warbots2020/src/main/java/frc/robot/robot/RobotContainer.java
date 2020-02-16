@@ -7,8 +7,6 @@
 
 package frc.robot.robot;
 
-import java.rmi.server.Skeleton;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
@@ -17,10 +15,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.bling.Bling;
 import frc.robot.climber.*;
 import frc.robot.loader.*;
 import frc.robot.intake.*;
 import frc.robot.shooter.*;
+import frc.robot.shuffleboard.*;
 import frc.robot.drivetrain.*;
 
 public class RobotContainer 
@@ -30,7 +30,9 @@ public class RobotContainer
     private final Climber climber = new Climber();
     private final Shooter shooter = new Shooter();
     public final Intake intake = new Intake();
-    public final Loader loader = new Loader();    
+    public final Loader loader = new Loader();   
+    public final Bling bling = new  Bling();
+    public final Shuffleboard shuffleboard = new Shuffleboard(); 
    
     // OI
     XboxController driver = new XboxController(Constants.OI.driverControllerPort);
@@ -67,6 +69,7 @@ public class RobotContainer
   public RobotContainer()
   {
     configureButtonBindings();
+  
    
     SmartDashboard.putData(drivetrain);
     SmartDashboard.putData(climber);
@@ -76,13 +79,14 @@ public class RobotContainer
 
     // set default commands
     drivetrain.setDefaultCommand(new DriveWithJoysticks(drivetrain, driver));  
+    shuffleboard.setDefaultCommand(new Update(shuffleboard, drivetrain, climber, shooter, intake, loader, bling));
   }
 
   private void configureButtonBindings()
   {
      // Joystick Buttons
-    final JoystickButton leftDriverBumper = new JoystickButton(driver, Button.kBumperLeft.value);
-    final JoystickButton rightDriverBumper = new JoystickButton(driver, Button.kBumperRight.value);
+  //  final JoystickButton leftDriverBumper = new JoystickButton(driver, Button.kBumperLeft.value);
+  //  final JoystickButton rightDriverBumper = new JoystickButton(driver, Button.kBumperRight.value);
     final JoystickButton leftOperatorBumper = new JoystickButton(operator, Button.kBumperLeft.value);
     final JoystickButton rightOperatorBumper = new JoystickButton(operator, Button.kBumperRight.value);
     final JoystickButton quickTurnButton = new JoystickButton(driver, Button.kA.value);
@@ -94,14 +98,12 @@ public class RobotContainer
     // TODO Finish button binders
     // TODO Add instant quickturn command
     // TODO Climber code needs to check that both start buttons are pressed
-    var setMaxDriveSpeed = new SetMaxDriveSpeed(drivetrain);
     var capture = new Capture(intake);
     var extend = new Extend(climber);
     var retract = new Retract(climber);
     SpinUp spinUp = new SpinUp(shooter, 1);
     var testLoad = (new TestLoad(loader, spinUp));
 
-    rightDriverBumper.whenPressed(setMaxDriveSpeed);
     leftOperatorBumper.whileHeld(capture);
     rightOperatorBumper.whenPressed(testLoad);
     driverStartButton.whenPressed(extend);   

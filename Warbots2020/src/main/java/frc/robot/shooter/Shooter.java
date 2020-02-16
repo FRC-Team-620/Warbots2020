@@ -41,7 +41,7 @@ public class Shooter extends SubsystemBase
 
   public double flyWheelSpeed()
   {
-    return shooter.getSelectedSensorVelocity() * Constants.Shooter.flyWheelConversionFactor;
+    return shooter.getSelectedSensorVelocity() * Constants.ShooterConstants.flyWheelConversionFactor;
   }
 
   public Boolean atSetPoint()

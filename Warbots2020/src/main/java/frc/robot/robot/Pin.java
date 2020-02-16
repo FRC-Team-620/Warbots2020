@@ -32,6 +32,7 @@ public enum Pin
 
     //region Sensors
     BallLoadedLimitSwitch(4, CommsStandard.DIO),
+    BlingLights(3, CommsStandard.PWM),
     //endregion
 
     //region Servos

@@ -8,7 +8,6 @@
 package frc.robot.shooter;
 
 import java.time.LocalDateTime;
-import frc.robot.robot.*;
 
 public class SpinUp extends ShooterCommand
 {
@@ -39,7 +38,6 @@ public class SpinUp extends ShooterCommand
   @Override
   public void end(boolean interrupted) 
   {
-    //TODO: Schedule blinglights
     shooter.setShootSpeed(0);
   }
 

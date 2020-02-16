@@ -35,7 +35,7 @@ public class DriveWithJoysticks extends DriveCommand
       speed *= 0.65;
     }
 
-    driveTrain.curvatureInput(speed, rotation, driverXbox.getAButton()); //TODO: use quickturn button from robot container
+    driveTrain.curvatureInput(speed, rotation, driverXbox.getAButton());
   }
 
   @Override
