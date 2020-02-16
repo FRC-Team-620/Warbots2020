@@ -9,11 +9,11 @@ package frc.robot.shuffleboard;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Shuffleboard extends SubsystemBase {
+public class ShuffleBoard extends SubsystemBase {
   /**
    * Creates a new Shuffleboard.
    */
-  public Shuffleboard() {
+  public ShuffleBoard() {
 
   }
 

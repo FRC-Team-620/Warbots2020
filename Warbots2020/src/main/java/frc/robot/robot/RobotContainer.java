@@ -32,7 +32,7 @@ public class RobotContainer
     public final Intake intake = new Intake();
     public final Loader loader = new Loader();   
     public final Bling bling = new  Bling();
-    public final Shuffleboard shuffleboard = new Shuffleboard(); 
+    public final ShuffleBoard shuffleboard = new ShuffleBoard(); 
    
     // OI
     XboxController driver = new XboxController(Constants.OIConstants.driverControllerPort);

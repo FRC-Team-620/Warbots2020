@@ -7,6 +7,8 @@
 
 package frc.robot.shuffleboard;
 
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.drivetrain.*;
@@ -19,7 +21,7 @@ import frc.robot.loader.*;
 public class Update extends CommandBase 
 {
 
-  public Update(Shuffleboard shuffleboard, DriveTrain drivetrain, Climber climber, Shooter shooter, Intake intake, Loader loader, Bling bling) 
+  public Update(ShuffleBoard shuffleboard, DriveTrain drivetrain, Climber climber, Shooter shooter, Intake intake, Loader loader, Bling bling) 
   {
     addRequirements(shuffleboard);
  
@@ -29,6 +31,22 @@ public class Update extends CommandBase
     SmartDashboard.putData(intake);
     SmartDashboard.putData(loader);
     SmartDashboard.putData(bling);
+    //data items
+    //AUTO
+    Shuffleboard.getTab("Autonomous");
+    //DRIVE
+    Shuffleboard.getTab("Drive")
+    .add("Motor Temperature", 100)
+    .withWidget(BuiltInWidgets.kDial)
+    .getEntry();
+    
+    Shuffleboard.getTab("Drive")
+    .add("Motor Voltage", 13.5)
+    .withWidget(BuiltInWidgets.kDial)
+    .getEntry();
+    //VISION
+    Shuffleboard.getTab("Vision");
+    Shuffleboard.getTab("Climber");
   }
 
   // Called when the command is initially scheduled.
