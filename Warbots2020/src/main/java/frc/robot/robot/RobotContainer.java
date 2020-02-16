@@ -35,17 +35,17 @@ public class RobotContainer
     public final Shuffleboard shuffleboard = new Shuffleboard(); 
    
     // OI
-    XboxController driver = new XboxController(Constants.OI.driverControllerPort);
-    XboxController operator = new XboxController(Constants.OI.operatorControllerPort);
+    XboxController driver = new XboxController(Constants.OIConstants.driverControllerPort);
+    XboxController operator = new XboxController(Constants.OIConstants.operatorControllerPort);
     
     // Autonomous Selector Switches
-    DigitalInput digitalInput0 = new DigitalInput(Constants.OI.autoModeSelectorInput0);
-    DigitalInput digitalInput1 = new DigitalInput(Constants.OI.autoModeSelectorInput1);
-    DigitalInput digitalInput2 = new DigitalInput(Constants.OI.autoModeSelectorInput2);
-    DigitalInput digitalInput3 = new DigitalInput(Constants.OI.autoModeSelectorInput3);
+    DigitalInput digitalInput0 = new DigitalInput(Constants.OIConstants.autoModeSelectorInput0);
+    DigitalInput digitalInput1 = new DigitalInput(Constants.OIConstants.autoModeSelectorInput1);
+    DigitalInput digitalInput2 = new DigitalInput(Constants.OIConstants.autoModeSelectorInput2);
+    DigitalInput digitalInput3 = new DigitalInput(Constants.OIConstants.autoModeSelectorInput3);
 
     // commands
-    private final Command autonomousCommand = new DriveForward(drivetrain, Constants.DriveTrain.autoDriveDistance);
+    private final Command autonomousCommand = new DriveForward(drivetrain, Constants.DriveTrainConstants.autoDriveDistance);
     
     /*
     new SpinUp(shooter, Constants.Shooter.spinRate).andThen(

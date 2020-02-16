@@ -19,11 +19,11 @@ public class Climber extends SubsystemBase
   //region Constructors
   public Climber() 
   { 
-    climberActuatorUpper = new Servo(Pin.climberActuatorUpper.id);
+    climberActuatorUpper = new Servo(Pin.ClimberActuatorUpper.id);
     climberActuatorUpper.set(0);
     climberActuatorUpper.setAngle(0);
 
-    climberActuatorLower = new Servo(Pin.climberActuatorLower.id);
+    climberActuatorLower = new Servo(Pin.ClimberActuatorLower.id);
     climberActuatorLower.set(0);
     climberActuatorLower.setAngle(0);
     
