@@ -39,9 +39,15 @@ public class Climber extends SubsystemBase
   //endregion
 
   //region Methods
-  public void setSpeed(final double speed)
+  public void setSpeed(final double speed, final int pos)
   {
     climberMotor.set(ControlMode.PercentOutput, speed);
+    position = pos;
+  }
+
+  public int getPosition()
+  {
+    return climberMotor.getSelectedSensorPosition();
   }
 
   public void setAngleUpper(final double d)
@@ -56,7 +62,7 @@ public class Climber extends SubsystemBase
     climberActuatorLower.setAngle(degrees);
   }
 
-  public boolean atSetPoint()
+  public boolean atSetPointUpper()
   {
     if(climberActuatorUpper.getAngle() == degrees){
       return true;
@@ -64,9 +70,19 @@ public class Climber extends SubsystemBase
     return false;
   }
 
-  public boolean atSetSpeed()
+  public boolean atSetPointLower()
   {
-    return true;//TODO: Find how to get speed and fill method in
+    if(climberActuatorLower.getAngle() == degrees){
+      return true;
+    }
+    return false;
+  }
+
+  public boolean atSetPosition()
+  {
+    if(climberMotor.getSelectedSensorPosition() >= position)
+      return true;
+    return false;
   }
   
   //endregion
@@ -75,5 +91,6 @@ public class Climber extends SubsystemBase
   private final Servo climberActuatorLower;
   private final TalonFX climberMotor;
   private double degrees;
+  private int position;
   //endregion
 }
