@@ -100,7 +100,7 @@ public class RobotContainer
     // TODO Climber code needs to check that both start buttons are pressed
     var capture = new Capture(intake);
     var extend = new Extend(climber);
-    var retract = new Retract(climber);
+    var retract = new Retract(climber, 1);
     SpinUp spinUp = new SpinUp(shooter, 1);
     var testLoad = (new TestLoad(loader, spinUp));
 
