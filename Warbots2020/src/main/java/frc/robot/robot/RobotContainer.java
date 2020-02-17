@@ -12,15 +12,15 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 import frc.robot.bling.Bling;
 import frc.robot.climber.*;
 import frc.robot.loader.*;
 import frc.robot.intake.*;
 import frc.robot.shooter.*;
-import frc.robot.shuffleboard.*;
+import frc.robot.dashboard.*;
+import frc.robot.vision.*;
 import frc.robot.drivetrain.*;
 
 public class RobotContainer 
@@ -29,10 +29,11 @@ public class RobotContainer
     private final DriveTrain drivetrain = new DriveTrain();
     private final Climber climber = new Climber();
     private final Shooter shooter = new Shooter();
-    public final Intake intake = new Intake();
-    public final Loader loader = new Loader();   
-    public final Bling bling = new  Bling();
-    public final ShuffleBoard shuffleboard = new ShuffleBoard(); 
+    private final Intake intake = new Intake();
+    private final Loader loader = new Loader();   
+    private final Bling bling = new  Bling();
+    private final Vision vision = new Vision();
+    private final Dashboard dashboard = new Dashboard(); 
    
     // OI
     XboxController driver = new XboxController(Constants.OIConstants.driverControllerPort);
@@ -69,39 +70,26 @@ public class RobotContainer
   public RobotContainer()
   {
     configureButtonBindings();
-  
-   
-    SmartDashboard.putData(drivetrain);
-    SmartDashboard.putData(climber);
-    SmartDashboard.putData(shooter);
-    SmartDashboard.putData(intake);
-    SmartDashboard.putData(loader);
 
     // set default commands
     drivetrain.setDefaultCommand(new DriveWithJoysticks(drivetrain, driver));  
-    shuffleboard.setDefaultCommand(new Update(shuffleboard, drivetrain, climber, shooter, intake, loader, bling));
+    dashboard.setDefaultCommand(new Update(dashboard, drivetrain, climber, shooter, intake, loader, bling, vision));
   }
 
   private void configureButtonBindings()
   {
      // Joystick Buttons
-  //  final JoystickButton leftDriverBumper = new JoystickButton(driver, Button.kBumperLeft.value);
-  //  final JoystickButton rightDriverBumper = new JoystickButton(driver, Button.kBumperRight.value);
     final JoystickButton leftOperatorBumper = new JoystickButton(operator, Button.kBumperLeft.value);
     final JoystickButton rightOperatorBumper = new JoystickButton(operator, Button.kBumperRight.value);
-    final JoystickButton quickTurnButton = new JoystickButton(driver, Button.kA.value);
     final JoystickButton driverStartButton = new JoystickButton(driver, Button.kStart.value);
     final JoystickButton operatorStartButton = new JoystickButton(operator, Button.kStart.value);
     final JoystickButton operatorX = new JoystickButton(operator, Button.kX.value);
 
     // Command bindings
-    // TODO Finish button binders
-    // TODO Add instant quickturn command
-    // TODO Climber code needs to check that both start buttons are pressed
     var capture = new Capture(intake);
     var extend = new Extend(climber);
-    var retract = new Retract(climber, 1);
-    SpinUp spinUp = new SpinUp(shooter, 1);
+    var retract = new Retract(climber, 0.2);
+    SpinUp spinUp = new SpinUp(shooter, 1.0);
     var testLoad = (new TestLoad(loader, spinUp));
 
     leftOperatorBumper.whileHeld(capture);

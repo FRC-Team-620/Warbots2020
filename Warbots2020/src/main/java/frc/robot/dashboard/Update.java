@@ -5,10 +5,8 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.shuffleboard;
+package frc.robot.dashboard;
 
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.drivetrain.*;
@@ -17,13 +15,14 @@ import frc.robot.climber.*;
 import frc.robot.shooter.*;
 import frc.robot.intake.*;
 import frc.robot.loader.*;
+import frc.robot.vision.*;
 
 public class Update extends CommandBase 
 {
 
-  public Update(ShuffleBoard shuffleboard, DriveTrain drivetrain, Climber climber, Shooter shooter, Intake intake, Loader loader, Bling bling) 
+  public Update(Dashboard dashboard, DriveTrain drivetrain, Climber climber, Shooter shooter, Intake intake, Loader loader, Bling bling, Vision vision) 
   {
-    addRequirements(shuffleboard);
+    addRequirements(dashboard);
  
     SmartDashboard.putData(drivetrain);
     SmartDashboard.putData(climber);
@@ -31,22 +30,7 @@ public class Update extends CommandBase
     SmartDashboard.putData(intake);
     SmartDashboard.putData(loader);
     SmartDashboard.putData(bling);
-    //data items
-    //AUTO
-    Shuffleboard.getTab("Autonomous");
-    //DRIVE
-    Shuffleboard.getTab("Drive")
-    .add("Motor Temperature", 100)
-    .withWidget(BuiltInWidgets.kDial)
-    .getEntry();
-    
-    Shuffleboard.getTab("Drive")
-    .add("Motor Voltage", 13.5)
-    .withWidget(BuiltInWidgets.kDial)
-    .getEntry();
-    //VISION
-    Shuffleboard.getTab("Vision");
-    Shuffleboard.getTab("Climber");
+    SmartDashboard.putData(vision);
   }
 
   // Called when the command is initially scheduled.
