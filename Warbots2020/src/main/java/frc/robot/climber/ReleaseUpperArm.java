@@ -8,6 +8,7 @@
 package frc.robot.climber;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Climber;
 
 public class ReleaseUpperArm extends CommandBase {
   /**

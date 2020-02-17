@@ -8,6 +8,7 @@
 package frc.robot.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Shooter;
 
 public abstract class ShooterCommand extends CommandBase 
 {

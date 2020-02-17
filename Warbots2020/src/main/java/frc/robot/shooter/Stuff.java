@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.robot.Constants;
+import frc.robot.subsystems.Shooter;
 
 public class Stuff extends CommandBase 
 {

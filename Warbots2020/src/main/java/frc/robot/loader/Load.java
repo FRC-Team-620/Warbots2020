@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.shooter.SpinUp;
+import frc.robot.subsystems.Loader;
 
 public class Load extends CommandBase 
 {

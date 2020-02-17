@@ -9,6 +9,8 @@ package frc.robot.shooter;
 
 import java.time.LocalDateTime;
 
+import frc.robot.subsystems.Shooter;
+
 public class SpinUp extends ShooterCommand
 {
   public LocalDateTime endTime;
