@@ -10,6 +10,7 @@ package frc.robot.shooter;
 import java.time.LocalDateTime;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.robot.Constants;
 
 public class Stuff extends CommandBase 
 {
@@ -32,7 +33,7 @@ public class Stuff extends CommandBase
   @Override
   public void execute() 
   {
-    shoot.setShootSpeed(0.25);
+    shoot.setShootSpeed(Constants.ShooterConstants.stuffSpeed);
   }
 
   // Called once the command ends or is interrupted.
