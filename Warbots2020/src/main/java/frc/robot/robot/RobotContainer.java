@@ -88,13 +88,13 @@ public class RobotContainer
     // Command bindings
     var capture = new Capture(intake);
     var extend = new Extend(climber);
-    var retract = new Retract(climber, 0.2);
-    SpinUp spinUp = new SpinUp(shooter, 1.0);
-    var testLoad = (new TestLoad(loader, spinUp));
+    var retract = new Retract(climber, Constants.ClimberConstants.climberSpeed);
+    SpinUp spinUp = new SpinUp(shooter, Constants.ShooterConstants.shootSpeed);
+    var testLoad = new Load(loader, spinUp);
 
     leftOperatorBumper.whileHeld(capture);
     rightOperatorBumper.whenPressed(testLoad);
-    driverStartButton.whenPressed(extend);   
+    driverStartButton.whenPressed(extend);  
     operatorStartButton.whenPressed(retract);  
     operatorX.whenPressed(spinUp);
   }

@@ -7,56 +7,80 @@
 
 package frc.robot.loader;
 
-// TODO - Loader code needs to be completed
+import java.time.LocalDateTime;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-// import frc.robot.robot.*;
+import frc.robot.shooter.SpinUp;
 
-public class Load extends CommandBase
+public class Load extends CommandBase 
 {
-  //region Constructors
-  public Load(Loader l) 
-  {
-    loader = l;
-    addRequirements(loader);
-    // this.withTimeout(Constants.Shooter.loaderTimeout);
-  }
-  //endregion
+  Loader loader;
+  SpinUp stuff;
+  boolean lastFrameBallLoaded;
+  LocalDateTime endTime;
+  int framesSinceLastShot;
 
-  //region Overrides
+  public Load(Loader l, SpinUp s) 
+  {
+    addRequirements(l);
+    loader = l;
+    stuff = s;
+    // Use addRequirements() here to declare subsystem dependencies.
+  }
+
   // Called when the command is initially scheduled.
   @Override
-  public void initialize()
+  public void initialize() 
   {
-    
+    lastFrameBallLoaded = loader.ballLoaded();
+    resetEndTime();
+    framesSinceLastShot = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() 
   {
+    loader.load();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) 
   {
+    loader.stopLoading();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() 
   {
-    // if(lastStateOfSwitch == false && loader.ballLoaded() == true) return true;
-    // lastStateOfSwitch = loader.ballLoaded();
-    // return false;
+    if(framesSinceLastShot++ < 12) 
+    {
+      return false;
+    }
+    if(!loader.ballLoaded() && lastFrameBallLoaded == true) 
+    {
+      stuff.resetEndTime();
+      resetEndTime();
+      framesSinceLastShot = 0;
+    }
+    if(loader.ballLoaded() && lastFrameBallLoaded == false) 
+    {
+      return true; 
+    }
+    if(LocalDateTime.now().isAfter(endTime))
+    {
+      return true;
+    }
+    lastFrameBallLoaded = loader.ballLoaded();
+    return false;
+  }
 
-    return true;
+  //region Methods
+  public void resetEndTime()
+  {
+    endTime = LocalDateTime.now().plusSeconds(10);
   }
   //endregion
-
-  //region Fields
-  private final Loader loader;
-  // private boolean lastStateOfSwitch; 
-  //endregion
-}   
+}

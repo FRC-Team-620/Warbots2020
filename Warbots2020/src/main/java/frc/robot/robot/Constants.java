@@ -17,6 +17,10 @@ package frc.robot.robot;
  */
 public final class Constants 
 {
+    public static final class ClimberConstants
+    {
+        public static final double climberSpeed = 0.2;
+    }
     public static final class IntakeConstants
     {
         public static final double rollerSpeedForward = 0.2;
@@ -29,11 +33,9 @@ public final class Constants
     }
     public static final class ShooterConstants
     {
-        public static final double spinRate = 0.25;
-        public static final double spinRateTolerance = 0.25;
+        public static final double stuffSpeed = 0.25;
+        public static final double shootSpeed = 1.0;
         public static final double flyWheelConversionFactor = 1.0;
-        public static final double autoShootTimeSeconds = 5.0;
-        public static final double autoTimeoutSeconds = 10.0;
     }
     public static final class LoaderConstants
     {

@@ -12,7 +12,6 @@ import frc.robot.robot.*;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.*;
 
-//TODO: Scheduling, tuning 
 public class Shooter extends SubsystemBase 
 {  
   //region Constructors
