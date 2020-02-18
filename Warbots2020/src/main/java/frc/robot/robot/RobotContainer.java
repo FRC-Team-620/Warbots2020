@@ -43,14 +43,14 @@ public class RobotContainer {
     private final Dashboard dashboard = new Dashboard();
 
     // OI
-    XboxController driver = new XboxController(Constants.OIConstants.driverControllerPort);
-    XboxController operator = new XboxController(Constants.OIConstants.operatorControllerPort);
+    XboxController driver = new XboxController(Constants.OIConstants.DRIVER_CONTROLER_PORT);
+    XboxController operator = new XboxController(Constants.OIConstants.OPERATOR_CONTROLER_PORT);
 
     // Autonomous Selector Switches
-    DigitalInput digitalInput0 = new DigitalInput(Constants.OIConstants.autoModeSelectorInput0);
-    DigitalInput digitalInput1 = new DigitalInput(Constants.OIConstants.autoModeSelectorInput1);
-    DigitalInput digitalInput2 = new DigitalInput(Constants.OIConstants.autoModeSelectorInput2);
-    DigitalInput digitalInput3 = new DigitalInput(Constants.OIConstants.autoModeSelectorInput3);
+    DigitalInput digitalInput0 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_0);
+    DigitalInput digitalInput1 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_1);
+    DigitalInput digitalInput2 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_2);
+    DigitalInput digitalInput3 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_3);
 
     // commands
     private final Command autonomousCommand = new DriveForward(drivetrain,

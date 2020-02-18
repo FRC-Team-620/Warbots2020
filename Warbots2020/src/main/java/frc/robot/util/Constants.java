@@ -44,13 +44,13 @@ public final class Constants {
     }
 
     public static final class OIConstants {
-        public static final int driverControllerPort = 0;
-        public static final int operatorControllerPort = 1;
-        public static final int autoModeSelectorInput0 = 0;
-        public static final int autoModeSelectorInput1 = 1;
-        public static final int autoModeSelectorInput2 = 2;
-        public static final int autoModeSelectorInput3 = 3;
-        public static final int autoModeSelectorInput4 = 4;
+        public static final int DRIVER_CONTROLER_PORT = 0;
+        public static final int OPERATOR_CONTROLER_PORT = 1;
+        public static final int AUTO_MODE_SELECTOR_INPUT_0 = 0;
+        public static final int AUTO_MODE_SELECTOR_INPUT_1 = 1;
+        public static final int AUTO_MODE_SELECTOR_INPUT_2 = 2;
+        public static final int AUTO_MODE_SELECTOR_INPUT_3 = 3;
+        public static final int AUTO_MODE_SELECTOR_INPUT_4 = 4;
     }
 
     public static final class BlingConstants {
