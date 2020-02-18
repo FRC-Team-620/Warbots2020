@@ -5,30 +5,50 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.drivetrain;
+package frc.robot.commands.drivetrain;
 
 import frc.robot.subsystems.DriveTrain;
 
-public class AutonomousCommand extends DriveCommand 
+public class DriveForward extends DriveCommand 
 {
   //region Constructors
-  public AutonomousCommand(DriveTrain dt) 
+  public DriveForward(DriveTrain dt, double dist) 
   {
     super(dt);
+    distance = dist;
   }
   //endregion
 
   //region Overrides
   @Override
-  public void execute() 
+  public void initialize() 
   {
-    driveTrain.arcadeInput(.5, 0); //TODO Set default autonomous parameters in constants.java
+    driveTrain.resetDistance();
   }
 
   @Override
-  public boolean isFinished() 
+  public void execute()
   {
-    return false;
+    i++;
+    driveTrain.curvatureInput(-.75, 0, false);
   }
+
+  @Override
+  public boolean isFinished()
+  {
+    return Math.abs(driveTrain.getDistance() - distance) < 2.0;
+  }
+
+  @Override
+  public void end(boolean interrupted)
+  {
+    driveTrain.stop();
+    driveTrain.resetDistance();
+  }
+  //endregion
+
+  //region Fields
+  private double distance;
+  int i = 0;
   //endregion
 }

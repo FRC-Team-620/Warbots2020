@@ -5,24 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.shooter;
+package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.DriveTrain;
 
-public abstract class ShooterCommand extends CommandBase 
+public abstract class DriveCommand extends CommandBase 
 {
   //region Constructors
-  protected ShooterCommand(Shooter s, double speed)
+  protected DriveCommand(DriveTrain dt) 
   {
-    shooter = s;
-    addRequirements(shooter);
-    targetVelocity = speed;
+    driveTrain = dt;
+    addRequirements(dt);
   }
   //endregion
 
   //region Fields
-  protected final double targetVelocity;
-  protected final Shooter shooter;
+  protected final DriveTrain driveTrain;
   //endregion
 }

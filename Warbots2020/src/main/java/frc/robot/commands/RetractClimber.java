@@ -5,47 +5,52 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.climber;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
-public class ReleaseLowerArm extends CommandBase {
-  /**
-   * Creates a new ReleaseLowerArm.
-   */
-  public ReleaseLowerArm(Climber c)
+public class RetractClimber extends CommandBase
+{
+  //region Constructors
+  public RetractClimber(Climber c, double speed) 
   {
     climber = c;
     addRequirements(climber);
+    targetVelocity = speed;
   }
+  //endregion
 
+  //region Overrides
   // Called when the command is initially scheduled.
   @Override
-  public void initialize()
+  public void initialize() 
   {
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute()
+  public void execute() 
   {
-    climber.setAngleLower(90);
+    climber.setSpeed(targetVelocity, 10000);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted)
+  public void end(boolean interrupted) 
   {
-
   }
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished()
+  public boolean isFinished() 
   {
-    return climber.atSetPointLower();
+    return climber.atSetPosition();
   }
-  public final Climber climber;
-}
+  //endregion
+
+  //region Fields
+  private final Climber climber;
+  private double targetVelocity;
+  //endregion
+}   

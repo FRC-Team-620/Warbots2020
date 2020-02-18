@@ -5,49 +5,49 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.shooter;
-
-import java.time.LocalDateTime;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.robot.Constants;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Intake;
 
-public class Stuff extends CommandBase 
+public class EjectIntake extends CommandBase
 {
-  Shooter shoot;
-  LocalDateTime endTime;
-  public Stuff(Shooter s) 
+  //region Constructors
+  public EjectIntake(Intake i) 
   {
-    shoot = s;
-    addRequirements(s);
+    intake = i;
+    addRequirements(intake);
   }
+  //endregion
 
+  //region Overrides
   // Called when the command is initially scheduled.
   @Override
   public void initialize() 
   {
-    //endTime = LocalDateTime.now().plusSeconds(5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() 
   {
-    shoot.setShootSpeed(Constants.ShooterConstants.stuffSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) 
   {
-    shoot.setShootSpeed(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() 
   {
-    return false;//LocalDateTime.now().isAfter(endTime);
+    return false;
   }
-}
+  //endregion
+
+  //region Fields
+  private final Intake intake;
+  //endregion
+}   

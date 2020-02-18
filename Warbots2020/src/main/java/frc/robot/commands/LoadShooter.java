@@ -5,26 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.loader;
+package frc.robot.commands;
 
 import java.time.LocalDateTime;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.shooter.SpinUp;
-import frc.robot.subsystems.Loader;
+import frc.robot.subsystems.Shooter;
 
-public class Load extends CommandBase 
+public class LoadShooter extends CommandBase 
 {
-  Loader loader;
-  SpinUp stuff;
+  Shooter shooter;
+  SpinUpFlyWheel stuff;
   boolean lastFrameBallLoaded;
   LocalDateTime endTime;
   int framesSinceLastShot;
 
-  public Load(Loader l, SpinUp s) 
+  public LoadShooter(Shooter l, SpinUpFlyWheel s) 
   {
     addRequirements(l);
-    loader = l;
+    shooter = l;
     stuff = s;
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -33,7 +32,7 @@ public class Load extends CommandBase
   @Override
   public void initialize() 
   {
-    lastFrameBallLoaded = loader.ballLoaded();
+    lastFrameBallLoaded = shooter.ballLoaded();
     resetEndTime();
     framesSinceLastShot = 0;
   }
@@ -42,14 +41,14 @@ public class Load extends CommandBase
   @Override
   public void execute() 
   {
-    loader.load();
+    shooter.load();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) 
   {
-    loader.stopLoading();
+    shooter.stopLoading();
   }
 
   // Returns true when the command should end.
@@ -60,13 +59,13 @@ public class Load extends CommandBase
     {
       return false;
     }
-    if(!loader.ballLoaded() && lastFrameBallLoaded == true) 
+    if(!shooter.ballLoaded() && lastFrameBallLoaded == true) 
     {
       stuff.resetEndTime();
       resetEndTime();
       framesSinceLastShot = 0;
     }
-    if(loader.ballLoaded() && lastFrameBallLoaded == false) 
+    if(shooter.ballLoaded() && lastFrameBallLoaded == false) 
     {
       return true; 
     }
@@ -74,7 +73,7 @@ public class Load extends CommandBase
     {
       return true;
     }
-    lastFrameBallLoaded = loader.ballLoaded();
+    lastFrameBallLoaded = shooter.ballLoaded();
     return false;
   }
 

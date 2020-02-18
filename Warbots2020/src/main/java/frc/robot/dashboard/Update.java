@@ -16,8 +16,8 @@ import frc.robot.shooter.*;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Loader;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.FlyWheel;
 import frc.robot.intake.*;
 import frc.robot.loader.*;
 import frc.robot.vision.*;
@@ -25,15 +25,15 @@ import frc.robot.vision.*;
 public class Update extends CommandBase 
 {
 
-  public Update(Dashboard dashboard, DriveTrain drivetrain, Climber climber, Shooter shooter, Intake intake, Loader loader, Bling bling, Vision vision) 
+  public Update(Dashboard dashboard, DriveTrain drivetrain, Climber climber, FlyWheel flyWheel, Intake intake, Shooter shooter, Bling bling, Vision vision) 
   {
     addRequirements(dashboard);
  
     SmartDashboard.putData(drivetrain);
     SmartDashboard.putData(climber);
-    SmartDashboard.putData(shooter);
+    SmartDashboard.putData(flyWheel);
     SmartDashboard.putData(intake);
-    SmartDashboard.putData(loader);
+    SmartDashboard.putData(shooter);
     SmartDashboard.putData(bling);
     SmartDashboard.putData(vision);
   }

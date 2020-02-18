@@ -7,50 +7,37 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.*;
+import com.ctre.phoenix.motorcontrol.can.*;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.robot.*;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.*;
 
 public class Shooter extends SubsystemBase 
-{  
-  //region Constructors
+{
+  protected TalonSRX loaderMotor = new TalonSRX(Pin.LoaderMotor.id);;
+  protected DigitalInput ballLoadedSwitch = new DigitalInput(Pin.BallLoadedLimitSwitch.id);
+
   public Shooter() 
   {
-    shooter = new TalonFX(Pin.ShooterMotor1.id);
-
-    final var fxConfig = new TalonFXConfiguration();
-    fxConfig.statorCurrLimit.currentLimit = 20;
-    shooter.configAllSettings(fxConfig);
+    var talonSRXConfig = new TalonSRXConfiguration();
+    talonSRXConfig.continuousCurrentLimit = Constants.LoaderConstants.loaderCurrentLimit;
+    loaderMotor.configAllSettings(talonSRXConfig);
   }
-  // endregion
 
-  // region Overrides
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
-  // endregion
-
-  // region Methods
-  public void setShootSpeed(final double speed)
+  public boolean ballLoaded()
   {
-    shooter.set(ControlMode.PercentOutput, speed);
+    SmartDashboard.putBoolean("Ball Loaded Switch", ballLoadedSwitch.get());
+    return ballLoadedSwitch.get();
   }
 
-  public double flyWheelSpeed()
+  public void load()
   {
-    return shooter.getSelectedSensorVelocity() * Constants.ShooterConstants.flyWheelConversionFactor;
+    loaderMotor.set(ControlMode.PercentOutput, 1);
   }
-
-  public Boolean atSetPoint()
+  public void stopLoading()
   {
-    return true;  // TODO check if controller is at set point
+    loaderMotor.set(ControlMode.PercentOutput, 0);
   }
-
-  //endregion
-
-  //region Fields
-  public TalonFX shooter;
-  //endregion
 }

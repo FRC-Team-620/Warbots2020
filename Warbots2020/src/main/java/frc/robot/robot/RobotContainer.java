@@ -16,14 +16,21 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.bling.Bling;
 import frc.robot.climber.*;
+import frc.robot.commands.CaptureIntake;
+import frc.robot.commands.ExtendClimber;
+import frc.robot.commands.LoadShooter;
+import frc.robot.commands.RetractClimber;
+import frc.robot.commands.SpinUpFlyWheel;
+import frc.robot.commands.drivetrain.DriveForward;
+import frc.robot.commands.drivetrain.DriveWithJoysticks;
 import frc.robot.loader.*;
 import frc.robot.intake.*;
 import frc.robot.shooter.*;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Loader;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.FlyWheel;
 import frc.robot.dashboard.*;
 import frc.robot.vision.*;
 import frc.robot.drivetrain.*;
@@ -33,9 +40,9 @@ public class RobotContainer
     // subsystems
     private final DriveTrain drivetrain = new DriveTrain();
     private final Climber climber = new Climber();
-    private final Shooter shooter = new Shooter();
+    private final FlyWheel flyWheel = new FlyWheel();
     private final Intake intake = new Intake();
-    private final Loader loader = new Loader();   
+    private final Shooter shooter = new Shooter();   
     private final Bling bling = new  Bling();
     private final Vision vision = new Vision();
     private final Dashboard dashboard = new Dashboard(); 
@@ -78,7 +85,7 @@ public class RobotContainer
 
     // set default commands
     drivetrain.setDefaultCommand(new DriveWithJoysticks(drivetrain, driver));  
-    dashboard.setDefaultCommand(new Update(dashboard, drivetrain, climber, shooter, intake, loader, bling, vision));
+    dashboard.setDefaultCommand(new Update(dashboard, drivetrain, climber, flyWheel, intake, shooter, bling, vision));
   }
 
   private void configureButtonBindings()
@@ -91,11 +98,11 @@ public class RobotContainer
     final JoystickButton operatorX = new JoystickButton(operator, Button.kX.value);
 
     // Command bindings
-    var capture = new Capture(intake);
-    var extend = new Extend(climber);
-    var retract = new Retract(climber, Constants.ClimberConstants.climberSpeed);
-    SpinUp spinUp = new SpinUp(shooter, Constants.ShooterConstants.shootSpeed);
-    var testLoad = new Load(loader, spinUp);
+    var capture = new CaptureIntake(intake);
+    var extend = new ExtendClimber(climber);
+    var retract = new RetractClimber(climber, Constants.ClimberConstants.climberSpeed);
+    SpinUpFlyWheel spinUp = new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.shootSpeed);
+    var testLoad = new LoadShooter(shooter, spinUp);
 
     leftOperatorBumper.whileHeld(capture);
     rightOperatorBumper.whenPressed(testLoad);

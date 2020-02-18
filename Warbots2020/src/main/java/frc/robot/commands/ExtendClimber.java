@@ -5,14 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.climber;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
-public class Extend extends CommandBase
+public class ExtendClimber extends CommandBase
 {
-  public Extend(Climber c) 
+  public ExtendClimber(Climber c) 
   {
     climber = c;
     addRequirements(climber);

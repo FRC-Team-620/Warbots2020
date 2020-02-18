@@ -5,16 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.climber;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
-public class ReleaseUpperArm extends CommandBase {
+public class ReleaseUpperArmClimber extends CommandBase {
   /**
    * Creates a new ReleaseUpperArm.
    */
-  public ReleaseUpperArm(Climber c)
+  public ReleaseUpperArmClimber(Climber c)
   {
     climber = c;
     addRequirements(climber);
