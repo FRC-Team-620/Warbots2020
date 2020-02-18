@@ -24,7 +24,7 @@ public class Bling extends SubsystemBase {
     Spark blinkin = new Spark(Pin.BlingLights.id);
 
     public Bling() {
-        blinkin.set(Constants.BlingConstants.oceanColoredRainbow);
+        blinkin.set(Constants.BlingConstants.OCEAN_COLORED_RAINBOW);
     }
 
     @Override

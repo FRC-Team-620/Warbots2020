@@ -54,7 +54,7 @@ public class RobotContainer {
 
     // commands
     private final Command autonomousCommand = new DriveForward(drivetrain,
-            Constants.DriveTrainConstants.autoDriveDistance);
+            Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE);
 
     /*
      * new SpinUp(shooter, Constants.Shooter.spinRate).andThen( // Drive Forward new
@@ -89,8 +89,8 @@ public class RobotContainer {
         // Command bindings
         var capture = new CaptureIntake(intake);
         var extend = new ExtendClimber(climber);
-        var retract = new RetractClimber(climber, Constants.ClimberConstants.climberSpeed);
-        SpinUpFlyWheel spinUp = new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.shootSpeed);
+        var retract = new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED);
+        SpinUpFlyWheel spinUp = new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED);
         var testLoad = new LoadShooter(shooter, spinUp);
 
         leftOperatorBumper.whileHeld(capture);

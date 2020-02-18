@@ -21,7 +21,7 @@ public class Shooter extends SubsystemBase {
 
     public Shooter() {
         var talonSRXConfig = new TalonSRXConfiguration();
-        talonSRXConfig.continuousCurrentLimit = Constants.LoaderConstants.loaderCurrentLimit;
+        talonSRXConfig.continuousCurrentLimit = Constants.LoaderConstants.LOADER_CURRENT_LIMIT;
         loaderMotor.configAllSettings(talonSRXConfig);
     }
 

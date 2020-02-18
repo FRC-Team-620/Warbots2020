@@ -31,7 +31,7 @@ public class StuffFlyWheel extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        shoot.setShootSpeed(Constants.ShooterConstants.stuffSpeed);
+        shoot.setShootSpeed(Constants.ShooterConstants.STUFF_SPEED);
     }
 
     // Called once the command ends or is interrupted.
