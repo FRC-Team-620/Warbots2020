@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.bling.Bling;
-import frc.robot.climber.*;
 import frc.robot.commands.CaptureIntake;
 import frc.robot.commands.ExtendClimber;
 import frc.robot.commands.LoadShooter;
@@ -23,9 +22,6 @@ import frc.robot.commands.RetractClimber;
 import frc.robot.commands.SpinUpFlyWheel;
 import frc.robot.commands.drivetrain.DriveForward;
 import frc.robot.commands.drivetrain.DriveWithJoysticks;
-import frc.robot.loader.*;
-import frc.robot.intake.*;
-import frc.robot.shooter.*;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
@@ -34,7 +30,6 @@ import frc.robot.subsystems.FlyWheel;
 import frc.robot.dashboard.*;
 import frc.robot.vision.*;
 import util.Constants;
-import frc.robot.drivetrain.*;
 
 public class RobotContainer 
 {

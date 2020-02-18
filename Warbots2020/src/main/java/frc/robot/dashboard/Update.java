@@ -9,17 +9,12 @@ package frc.robot.dashboard;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.drivetrain.*;
 import frc.robot.bling.*;
-import frc.robot.climber.*;
-import frc.robot.shooter.*;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.FlyWheel;
-import frc.robot.intake.*;
-import frc.robot.loader.*;
 import frc.robot.vision.*;
 
 public class Update extends CommandBase 

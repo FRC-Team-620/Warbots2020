@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.autonomous;
 
 import frc.robot.commands.drivetrain.DriveCommand;
 import frc.robot.subsystems.DriveTrain;
