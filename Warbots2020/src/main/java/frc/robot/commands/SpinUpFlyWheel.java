@@ -11,50 +11,44 @@ import java.time.LocalDateTime;
 
 import frc.robot.subsystems.FlyWheel;
 
-public class SpinUpFlyWheel extends CommandFlyWheel
-{
-  public LocalDateTime endTime;
-  //region Constructors
-  public SpinUpFlyWheel(FlyWheel s, double speed) 
-  {
-    super(s, speed);
-  }
-  //endregion
+public class SpinUpFlyWheel extends CommandFlyWheel {
+    public LocalDateTime endTime;
 
-  //region Overrides
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize()
-  {
-    resetEndTime();
-  }
+    // region Constructors
+    public SpinUpFlyWheel(FlyWheel s, double speed) {
+        super(s, speed);
+    }
+    // endregion
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute()
-  {
-    flyWheel.setShootSpeed(targetVelocity);
-  }
+    // region Overrides
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+        resetEndTime();
+    }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) 
-  {
-    flyWheel.setShootSpeed(0);
-  }
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        flyWheel.setShootSpeed(targetVelocity);
+    }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() 
-  {
-    return LocalDateTime.now().isAfter(endTime);
-  }
-  //endregion
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+        flyWheel.setShootSpeed(0);
+    }
 
-  //region Methods
-  public void resetEndTime()
-  {
-    endTime = LocalDateTime.now().plusSeconds(10);
-  }
-  //endregion
-}   
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return LocalDateTime.now().isAfter(endTime);
+    }
+    // endregion
+
+    // region Methods
+    public void resetEndTime() {
+        endTime = LocalDateTime.now().plusSeconds(10);
+    }
+    // endregion
+}

@@ -11,28 +11,24 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import util.Pin;
+import frc.robot.util.Pin;
 
-public class Intake extends SubsystemBase
-{ 
-  //region Constructors
-  public Intake() 
-  {
-    intakeMotor = new TalonSRX(Pin.IntakeMotor.id);
-  }
-  //endregion
-  
-  public void intake()
-  {
-    intakeMotor.set(ControlMode.PercentOutput, 0.75);
-  }
-   
-  public void end()
-  {
-    intakeMotor.set(ControlMode.PercentOutput, 0);
-  }
+public class Intake extends SubsystemBase {
+    // region Constructors
+    public Intake() {
+        intakeMotor = new TalonSRX(Pin.IntakeMotor.id);
+    }
+    // endregion
 
-  //region Fields
-  private final TalonSRX intakeMotor;
-  //endregion
+    public void intake() {
+        intakeMotor.set(ControlMode.PercentOutput, 0.75);
+    }
+
+    public void end() {
+        intakeMotor.set(ControlMode.PercentOutput, 0);
+    }
+
+    // region Fields
+    private final TalonSRX intakeMotor;
+    // endregion
 }

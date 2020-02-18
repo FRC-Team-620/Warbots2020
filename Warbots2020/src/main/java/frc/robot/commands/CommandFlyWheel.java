@@ -10,19 +10,17 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.FlyWheel;
 
-public abstract class CommandFlyWheel extends CommandBase 
-{
-  //region Constructors
-  protected CommandFlyWheel(FlyWheel s, double speed)
-  {
-    flyWheel = s;
-    addRequirements(flyWheel);
-    targetVelocity = speed;
-  }
-  //endregion
+public abstract class CommandFlyWheel extends CommandBase {
+    // region Constructors
+    protected CommandFlyWheel(FlyWheel s, double speed) {
+        flyWheel = s;
+        addRequirements(flyWheel);
+        targetVelocity = speed;
+    }
+    // endregion
 
-  //region Fields
-  protected final double targetVelocity;
-  protected final FlyWheel flyWheel;
-  //endregion
+    // region Fields
+    protected final double targetVelocity;
+    protected final FlyWheel flyWheel;
+    // endregion
 }

@@ -11,63 +11,37 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.subsystems.DriveTrain;
 
-public class DriveWithJoysticks extends DriveCommand 
-{
-  //region Constructors
-  public DriveWithJoysticks(DriveTrain dt, XboxController driverXboxController) 
-  {
-    super(dt);
-    driverXbox = driverXboxController;
-  }
-  //endregion
+public class DriveWithJoysticks extends DriveCommand {
+    // region Constructors
+    public DriveWithJoysticks(DriveTrain dt, XboxController driverXboxController) {
+        super(dt);
+        driverXbox = driverXboxController;
+    }
+    // endregion
 
-  //region Overrides
-  @Override
-  public void execute() 
-  {
-    var rotation = -1 * driverXbox.getX(Hand.kLeft);
-    var speed = driverXbox.getY(Hand.kLeft);
+    // region Overrides
+    @Override
+    public void execute() {
+        var rotation = -1 * driverXbox.getX(Hand.kLeft);
+        var speed = driverXbox.getY(Hand.kLeft);
 
-    //speed = Math.pow(speed, 3);
+        // speed = Math.pow(speed, 3);
 
-    if(driverXbox.getBumper(Hand.kRight))
-    {
-      rotation *= 0.65;
-      speed *= 0.65;
+        if (driverXbox.getBumper(Hand.kRight)) {
+            rotation *= 0.65;
+            speed *= 0.65;
+        }
+
+        driveTrain.curvatureInput(speed, rotation, driverXbox.getAButton());
     }
 
-    driveTrain.curvatureInput(speed, rotation, driverXbox.getAButton());
-  }
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
+    // endregion
 
-  @Override
-  public boolean isFinished() 
-  {
-    return false;
-  }
-  //endregion
-
-  //region Field
-  protected XboxController driverXbox;
-  //endregion
+    // region Field
+    protected XboxController driverXbox;
+    // endregion
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

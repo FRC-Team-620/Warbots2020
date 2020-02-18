@@ -10,44 +10,38 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
-public class EjectIntake extends CommandBase
-{
-  //region Constructors
-  public EjectIntake(Intake i) 
-  {
-    intake = i;
-    addRequirements(intake);
-  }
-  //endregion
+public class EjectIntake extends CommandBase {
+    // region Constructors
+    public EjectIntake(Intake i) {
+        intake = i;
+        addRequirements(intake);
+    }
+    // endregion
 
-  //region Overrides
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() 
-  {
-  }
+    // region Overrides
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+    }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() 
-  {
-  }
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+    }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) 
-  {
-  }
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+    }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() 
-  {
-    return false;
-  }
-  //endregion
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
+    // endregion
 
-  //region Fields
-  private final Intake intake;
-  //endregion
-}   
+    // region Fields
+    private final Intake intake;
+    // endregion
+}

@@ -5,45 +5,45 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package util;
+package frc.robot.util;
 
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants.  This class should not be used for any other purpose.  All constants should be
- * declared globally (i.e. public static).  Do not put anything functional in this class.
+ * The Constants class provides a convenient place for teams to hold robot-wide
+ * numerical or boolean constants. This class should not be used for any other
+ * purpose. All constants should be declared globally (i.e. public static). Do
+ * not put anything functional in this class.
  *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
+ * <p>
+ * It is advised to statically import this class (or one of its inner classes)
+ * wherever the constants are needed, to reduce verbosity.
  */
-public final class Constants 
-{
-    public static final class ClimberConstants
-    {
+public final class Constants {
+    public static final class ClimberConstants {
         public static final double climberSpeed = 0.2;
     }
-    public static final class IntakeConstants
-    {
+
+    public static final class IntakeConstants {
         public static final double rollerSpeedForward = 0.2;
         public static final double rollerSpeedReverse = 0.2;
         public static final double captureTimer = 5;
     }
-    public static final class DriveTrainConstants
-    {
-       public static final double autoDriveDistance = 2.0; 
+
+    public static final class DriveTrainConstants {
+        public static final double autoDriveDistance = 2.0;
     }
-    public static final class ShooterConstants
-    {
+
+    public static final class ShooterConstants {
         public static final double stuffSpeed = 0.25;
         public static final double shootSpeed = 1.0;
         public static final double flyWheelConversionFactor = 1.0;
     }
-    public static final class LoaderConstants
-    {
+
+    public static final class LoaderConstants {
         public static final int loaderCurrentLimit = 20;
         public static final double loaderTimeout = 5.0;
-    } 
-    public static final class OIConstants
-    {
+    }
+
+    public static final class OIConstants {
         public static final int driverControllerPort = 0;
         public static final int operatorControllerPort = 1;
         public static final int autoModeSelectorInput0 = 0;
@@ -53,8 +53,7 @@ public final class Constants
         public static final int autoModeSelectorInput4 = 4;
     }
 
-    public static final class BlingConstants
-    {
+    public static final class BlingConstants {
         public static final double oceanColoredRainbow = -0.95;
         public static final double larsonScanner = -0.35;
         public static final double fastHeartBeat = 0.07;

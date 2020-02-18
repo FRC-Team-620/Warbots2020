@@ -5,9 +5,8 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package util;
+package frc.robot.util;
 
-public enum CommsStandard 
-{
+public enum CommsStandard {
     CAN, PWM, DIO
 }

@@ -9,8 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.robot.*;
-import util.Pin;
+import frc.robot.util.Pin;
 
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
@@ -19,116 +18,107 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class DriveTrain extends SubsystemBase 
-{
-  //region Constructors
-  public DriveTrain()
-  {
+public class DriveTrain extends SubsystemBase {
+    // region Constructors
+    public DriveTrain() {
 
-    lf = new CANSparkMax(Pin.LeftFrontMotor.id, MotorType.kBrushless);
-    rf = new CANSparkMax(Pin.RightFrontMotor.id, MotorType.kBrushless);
-    lr = new CANSparkMax(Pin.LeftRearMotor.id, MotorType.kBrushless);
-    rr = new CANSparkMax(Pin.RightRearMotor.id, MotorType.kBrushless);
+        lf = new CANSparkMax(Pin.LeftFrontMotor.id, MotorType.kBrushless);
+        rf = new CANSparkMax(Pin.RightFrontMotor.id, MotorType.kBrushless);
+        lr = new CANSparkMax(Pin.LeftRearMotor.id, MotorType.kBrushless);
+        rr = new CANSparkMax(Pin.RightRearMotor.id, MotorType.kBrushless);
 
-    lf.restoreFactoryDefaults();
-    lr.restoreFactoryDefaults();
-    rf.restoreFactoryDefaults();
-    rr.restoreFactoryDefaults();
+        lf.restoreFactoryDefaults();
+        lr.restoreFactoryDefaults();
+        rf.restoreFactoryDefaults();
+        rr.restoreFactoryDefaults();
 
-    var mode = IdleMode.kBrake;
-    lf.setIdleMode(mode);
-    lr.setIdleMode(mode);
-    rf.setIdleMode(mode);
-    rr.setIdleMode(mode);
+        var mode = IdleMode.kBrake;
+        lf.setIdleMode(mode);
+        lr.setIdleMode(mode);
+        rf.setIdleMode(mode);
+        rr.setIdleMode(mode);
 
-    var conversionFactor = 100.0; //TODO: ask Mr. Mercer for revolution to position conversion factor; determine fudge factor ourselves;
-    lf.getEncoder().setPositionConversionFactor(conversionFactor);
-    lr.getEncoder().setPositionConversionFactor(conversionFactor);
-    rf.getEncoder().setPositionConversionFactor(conversionFactor);
-    rr.getEncoder().setPositionConversionFactor(conversionFactor);
+        var conversionFactor = 100.0; // TODO: ask Mr. Mercer for revolution to position conversion factor; determine
+                                      // fudge factor ourselves;
+        lf.getEncoder().setPositionConversionFactor(conversionFactor);
+        lr.getEncoder().setPositionConversionFactor(conversionFactor);
+        rf.getEncoder().setPositionConversionFactor(conversionFactor);
+        rr.getEncoder().setPositionConversionFactor(conversionFactor);
 
-    var openLoopRampRate = 0.75;
-    lf.setOpenLoopRampRate(openLoopRampRate);
-    lr.setOpenLoopRampRate(openLoopRampRate);
-    rf.setOpenLoopRampRate(openLoopRampRate);
-    rr.setOpenLoopRampRate(openLoopRampRate);
+        var openLoopRampRate = 0.75;
+        lf.setOpenLoopRampRate(openLoopRampRate);
+        lr.setOpenLoopRampRate(openLoopRampRate);
+        rf.setOpenLoopRampRate(openLoopRampRate);
+        rr.setOpenLoopRampRate(openLoopRampRate);
 
-    var currentLimit = 38;
-    lf.setSmartCurrentLimit(currentLimit);
-    lr.setSmartCurrentLimit(currentLimit);
-    rf.setSmartCurrentLimit(currentLimit);
-    rr.setSmartCurrentLimit(currentLimit);
+        var currentLimit = 38;
+        lf.setSmartCurrentLimit(currentLimit);
+        lr.setSmartCurrentLimit(currentLimit);
+        rf.setSmartCurrentLimit(currentLimit);
+        rr.setSmartCurrentLimit(currentLimit);
 
-    lf.follow(lr, false);
-    rf.follow(rr, false);
+        lf.follow(lr, false);
+        rf.follow(rr, false);
 
-    diffDrive = new DifferentialDrive(lr, rr);
-    diffDrive.setDeadband(0.05);
+        diffDrive = new DifferentialDrive(lr, rr);
+        diffDrive.setDeadband(0.05);
 
-    navX = new AHRS(SPI.Port.kMXP);
+        navX = new AHRS(SPI.Port.kMXP);
 
-    resetDistance();
-  }
-  //endregion
+        resetDistance();
+    }
+    // endregion
 
-  //region Methods
-  public void stop()
-  {
-    diffDrive.stopMotor();
-  }
+    // region Methods
+    public void stop() {
+        diffDrive.stopMotor();
+    }
 
-  public void arcadeInput(double speed, double rotation)
-  {
-    diffDrive.arcadeDrive(speed, rotation);
-  }
+    public void arcadeInput(double speed, double rotation) {
+        diffDrive.arcadeDrive(speed, rotation);
+    }
 
-  public double getAvgMotorTemp() 
-  {
-    return (lf.getMotorTemperature() + lr.getMotorTemperature() + rr.getMotorTemperature() + rf.getMotorTemperature()) / 4;
-  }
+    public double getAvgMotorTemp() {
+        return (lf.getMotorTemperature() + lr.getMotorTemperature() + rr.getMotorTemperature()
+                + rf.getMotorTemperature()) / 4;
+    }
 
-  public void curvatureInput(double speed, double rotation, boolean isCurvartureDrive)
-  {
-    diffDrive.curvatureDrive(speed, rotation, isCurvartureDrive);
-  }
+    public void curvatureInput(double speed, double rotation, boolean isCurvartureDrive) {
+        diffDrive.curvatureDrive(speed, rotation, isCurvartureDrive);
+    }
 
-  public double getYaw()
-  {
-    return navX.getYaw();
-  } 
+    public double getYaw() {
+        return navX.getYaw();
+    }
 
-  public void resetYaw()
-  {
-    navX.zeroYaw();
-  }
+    public void resetYaw() {
+        navX.zeroYaw();
+    }
 
-  public double getDistance()
-  {
-    return (lr.getEncoder().getPosition() + rr.getEncoder().getPosition()) / 2;
-  }
+    public double getDistance() {
+        return (lr.getEncoder().getPosition() + rr.getEncoder().getPosition()) / 2;
+    }
 
-  public void resetDistance()
-  {
-    lr.getEncoder().setPosition(0);
-    rr.getEncoder().setPosition(0);
-    leftEncoderOffsetDistance = lr.getEncoder().getPosition();
-    rightEncoderOffsetDistance = rr.getEncoder().getPosition();
-  }
-  //endregion
+    public void resetDistance() {
+        lr.getEncoder().setPosition(0);
+        rr.getEncoder().setPosition(0);
+        leftEncoderOffsetDistance = lr.getEncoder().getPosition();
+        rightEncoderOffsetDistance = rr.getEncoder().getPosition();
+    }
+    // endregion
 
-  //region Overrides
-  @Override
-  public void periodic()
-  {
-    SmartDashboard.putNumber("Motor Temperature", getAvgMotorTemp());
-  }
-  //endregion
+    // region Overrides
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Motor Temperature", getAvgMotorTemp());
+    }
+    // endregion
 
-  //region Fields
-  protected final DifferentialDrive diffDrive;
-  protected final AHRS navX;
-  protected double leftEncoderOffsetDistance;
-  protected double rightEncoderOffsetDistance;
-  protected CANSparkMax lf, rf, rr, lr;
-  //endregion
+    // region Fields
+    protected final DifferentialDrive diffDrive;
+    protected final AHRS navX;
+    protected double leftEncoderOffsetDistance;
+    protected double rightEncoderOffsetDistance;
+    protected CANSparkMax lf, rf, rr, lr;
+    // endregion
 }

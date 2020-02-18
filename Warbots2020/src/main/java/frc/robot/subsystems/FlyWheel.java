@@ -8,52 +8,46 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.robot.*;
-import util.Constants;
-import util.Pin;
+import frc.robot.util.Constants;
+import frc.robot.util.Pin;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.*;
 
-public class FlyWheel extends SubsystemBase 
-{  
-  //region Constructors
-  public FlyWheel() 
-  {
-    shooter = new TalonFX(Pin.ShooterMotor1.id);
+public class FlyWheel extends SubsystemBase {
+    // region Constructors
+    public FlyWheel() {
+        shooter = new TalonFX(Pin.ShooterMotor1.id);
 
-    final var fxConfig = new TalonFXConfiguration();
-    fxConfig.statorCurrLimit.currentLimit = 20;
-    shooter.configAllSettings(fxConfig);
-  }
-  // endregion
+        final var fxConfig = new TalonFXConfiguration();
+        fxConfig.statorCurrLimit.currentLimit = 20;
+        shooter.configAllSettings(fxConfig);
+    }
+    // endregion
 
-  // region Overrides
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
-  // endregion
+    // region Overrides
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+    }
+    // endregion
 
-  // region Methods
-  public void setShootSpeed(final double speed)
-  {
-    shooter.set(ControlMode.PercentOutput, speed);
-  }
+    // region Methods
+    public void setShootSpeed(final double speed) {
+        shooter.set(ControlMode.PercentOutput, speed);
+    }
 
-  public double flyWheelSpeed()
-  {
-    return shooter.getSelectedSensorVelocity() * Constants.ShooterConstants.flyWheelConversionFactor;
-  }
+    public double flyWheelSpeed() {
+        return shooter.getSelectedSensorVelocity() * Constants.ShooterConstants.flyWheelConversionFactor;
+    }
 
-  public Boolean atSetPoint()
-  {
-    return true;  // TODO check if controller is at set point
-  }
+    public Boolean atSetPoint() {
+        return true; // TODO check if controller is at set point
+    }
 
-  //endregion
+    // endregion
 
-  //region Fields
-  public TalonFX shooter;
-  //endregion
+    // region Fields
+    public TalonFX shooter;
+    // endregion
 }

@@ -10,17 +10,15 @@ package frc.robot.commands.drivetrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
-public abstract class DriveCommand extends CommandBase 
-{
-  //region Constructors
-  protected DriveCommand(DriveTrain dt) 
-  {
-    driveTrain = dt;
-    addRequirements(dt);
-  }
-  //endregion
+public abstract class DriveCommand extends CommandBase {
+    // region Constructors
+    protected DriveCommand(DriveTrain dt) {
+        driveTrain = dt;
+        addRequirements(dt);
+    }
+    // endregion
 
-  //region Fields
-  protected final DriveTrain driveTrain;
-  //endregion
+    // region Fields
+    protected final DriveTrain driveTrain;
+    // endregion
 }

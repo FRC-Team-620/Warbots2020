@@ -9,27 +9,27 @@ package frc.robot.bling;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import util.Constants;
-import util.Pin;
+import frc.robot.util.Constants;
+import frc.robot.util.Pin;
 
-public class Bling extends SubsystemBase 
-{
-  //Please use the Addressable LED class. It'll make your life a lot easier. You don't 
-  //want to make a motor controller to control them. They plug directly into the PWM 
-  //port on the RoboRio.
-  //See: https://docs.wpilib.org/en/latest/docs/software/actuators/addressable-leds.html
-  //  - Andrew
-  Spark blinkin = new Spark(Pin.BlingLights.id);
+public class Bling extends SubsystemBase {
+    // Please use the Addressable LED class. It'll make your life a lot easier. You
+    // don't
+    // want to make a motor controller to control them. They plug directly into the
+    // PWM
+    // port on the RoboRio.
+    // See:
+    // https://docs.wpilib.org/en/latest/docs/software/actuators/addressable-leds.html
+    // - Andrew
+    Spark blinkin = new Spark(Pin.BlingLights.id);
 
-  public Bling() 
-  {
-    blinkin.set(Constants.BlingConstants.oceanColoredRainbow);
-  }
+    public Bling() {
+        blinkin.set(Constants.BlingConstants.oceanColoredRainbow);
+    }
 
-  @Override
-  public void periodic()
-  {
-    
-  }
+    @Override
+    public void periodic() {
+
+    }
 
 }

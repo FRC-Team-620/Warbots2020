@@ -10,26 +10,22 @@ package frc.robot.commands.autonomous;
 import frc.robot.commands.drivetrain.DriveCommand;
 import frc.robot.subsystems.DriveTrain;
 
-public class AutonomousCommand extends DriveCommand 
-{
-  //region Constructors
-  public AutonomousCommand(DriveTrain dt) 
-  {
-    super(dt);
-  }
-  //endregion
+public class AutonomousCommand extends DriveCommand {
+    // region Constructors
+    public AutonomousCommand(DriveTrain dt) {
+        super(dt);
+    }
+    // endregion
 
-  //region Overrides
-  @Override
-  public void execute() 
-  {
-    driveTrain.arcadeInput(.5, 0); //TODO Set default autonomous parameters in constants.java
-  }
+    // region Overrides
+    @Override
+    public void execute() {
+        driveTrain.arcadeInput(.5, 0); // TODO Set default autonomous parameters in constants.java
+    }
 
-  @Override
-  public boolean isFinished() 
-  {
-    return false;
-  }
-  //endregion
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
+    // endregion
 }

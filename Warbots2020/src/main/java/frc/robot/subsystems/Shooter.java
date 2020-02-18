@@ -12,34 +12,29 @@ import com.ctre.phoenix.motorcontrol.can.*;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.robot.*;
-import util.Constants;
-import util.Pin;
+import frc.robot.util.Constants;
+import frc.robot.util.Pin;
 
-public class Shooter extends SubsystemBase 
-{
-  protected TalonSRX loaderMotor = new TalonSRX(Pin.LoaderMotor.id);;
-  protected DigitalInput ballLoadedSwitch = new DigitalInput(Pin.BallLoadedLimitSwitch.id);
+public class Shooter extends SubsystemBase {
+    protected TalonSRX loaderMotor = new TalonSRX(Pin.LoaderMotor.id);;
+    protected DigitalInput ballLoadedSwitch = new DigitalInput(Pin.BallLoadedLimitSwitch.id);
 
-  public Shooter() 
-  {
-    var talonSRXConfig = new TalonSRXConfiguration();
-    talonSRXConfig.continuousCurrentLimit = Constants.LoaderConstants.loaderCurrentLimit;
-    loaderMotor.configAllSettings(talonSRXConfig);
-  }
+    public Shooter() {
+        var talonSRXConfig = new TalonSRXConfiguration();
+        talonSRXConfig.continuousCurrentLimit = Constants.LoaderConstants.loaderCurrentLimit;
+        loaderMotor.configAllSettings(talonSRXConfig);
+    }
 
-  public boolean ballLoaded()
-  {
-    SmartDashboard.putBoolean("Ball Loaded Switch", ballLoadedSwitch.get());
-    return ballLoadedSwitch.get();
-  }
+    public boolean ballLoaded() {
+        SmartDashboard.putBoolean("Ball Loaded Switch", ballLoadedSwitch.get());
+        return ballLoadedSwitch.get();
+    }
 
-  public void load()
-  {
-    loaderMotor.set(ControlMode.PercentOutput, 1);
-  }
-  public void stopLoading()
-  {
-    loaderMotor.set(ControlMode.PercentOutput, 0);
-  }
+    public void load() {
+        loaderMotor.set(ControlMode.PercentOutput, 1);
+    }
+
+    public void stopLoading() {
+        loaderMotor.set(ControlMode.PercentOutput, 0);
+    }
 }
