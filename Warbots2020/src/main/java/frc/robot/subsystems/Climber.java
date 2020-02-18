@@ -12,7 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.robot.Pin;
+import util.Pin;
 
 public class Climber extends SubsystemBase 
 {

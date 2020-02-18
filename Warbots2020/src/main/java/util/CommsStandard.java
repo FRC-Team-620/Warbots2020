@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.robot;
+package util;
 
 public enum CommsStandard 
 {
