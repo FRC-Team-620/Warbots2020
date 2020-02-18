@@ -16,6 +16,7 @@ import frc.robot.util.Constants;
 import frc.robot.util.Pin;
 
 public class Shooter extends SubsystemBase {
+    
     protected TalonSRX loaderMotor = new TalonSRX(Pin.LoaderMotor.id);;
     protected DigitalInput ballLoadedSwitch = new DigitalInput(Pin.BallLoadedLimitSwitch.id);
 

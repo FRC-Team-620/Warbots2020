@@ -15,6 +15,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.util.Pin;
 
 public class Climber extends SubsystemBase {
+
+    private final Servo climberActuatorUpper;
+    private final Servo climberActuatorLower;
+    private final TalonFX climberMotor;
+    private double degrees;
+    private int position;
+
     // region Constructors
     public Climber() {
         climberActuatorUpper = new Servo(Pin.ClimberActuatorUpper.id);
@@ -76,12 +83,5 @@ public class Climber extends SubsystemBase {
         return false;
     }
 
-    // endregion
-    // region Fields
-    private final Servo climberActuatorUpper;
-    private final Servo climberActuatorLower;
-    private final TalonFX climberMotor;
-    private double degrees;
-    private int position;
     // endregion
 }

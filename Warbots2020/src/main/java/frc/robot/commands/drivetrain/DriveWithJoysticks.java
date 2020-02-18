@@ -12,6 +12,9 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.subsystems.DriveTrain;
 
 public class DriveWithJoysticks extends DriveCommand {
+
+    protected XboxController driverXbox;
+
     // region Constructors
     public DriveWithJoysticks(DriveTrain dt, XboxController driverXboxController) {
         super(dt);
@@ -41,7 +44,4 @@ public class DriveWithJoysticks extends DriveCommand {
     }
     // endregion
 
-    // region Field
-    protected XboxController driverXbox;
-    // endregion
 }

@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
 public class ReleaseLowerArmClimber extends CommandBase {
+
+    public final Climber climber;
+
     /**
      * Creates a new ReleaseLowerArm.
      */
@@ -43,5 +46,4 @@ public class ReleaseLowerArmClimber extends CommandBase {
         return climber.atSetPointLower();
     }
 
-    public final Climber climber;
 }

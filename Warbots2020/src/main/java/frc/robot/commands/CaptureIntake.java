@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
 public class CaptureIntake extends CommandBase {
+
+    private final Intake intake;
+
     // region Constructors
     public CaptureIntake(Intake i) {
         intake = i;
@@ -44,7 +47,4 @@ public class CaptureIntake extends CommandBase {
     }
     // endregion
 
-    // region Fields
-    private final Intake intake;
-    // endregion
 }

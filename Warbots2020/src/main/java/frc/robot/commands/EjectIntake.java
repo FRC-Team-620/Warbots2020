@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
 public class EjectIntake extends CommandBase {
+
+    private final Intake intake;
+
     // region Constructors
     public EjectIntake(Intake i) {
         intake = i;
@@ -41,7 +44,4 @@ public class EjectIntake extends CommandBase {
     }
     // endregion
 
-    // region Fields
-    private final Intake intake;
-    // endregion
 }

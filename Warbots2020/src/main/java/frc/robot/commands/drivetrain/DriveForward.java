@@ -10,6 +10,10 @@ package frc.robot.commands.drivetrain;
 import frc.robot.subsystems.DriveTrain;
 
 public class DriveForward extends DriveCommand {
+
+    private double distance;
+    int i = 0;
+
     // region Constructors
     public DriveForward(DriveTrain dt, double dist) {
         super(dt);
@@ -41,8 +45,4 @@ public class DriveForward extends DriveCommand {
     }
     // endregion
 
-    // region Fields
-    private double distance;
-    int i = 0;
-    // endregion
 }

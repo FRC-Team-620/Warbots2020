@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
 public class ExtendClimber extends CommandBase {
+
+    private final Climber climber;
+
     public ExtendClimber(Climber c) {
         climber = c;
         addRequirements(climber);
@@ -40,7 +43,4 @@ public class ExtendClimber extends CommandBase {
     }
     // endregion
 
-    // region Fields
-    private final Climber climber;
-    // endregion
 }

@@ -11,6 +11,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.FlyWheel;
 
 public abstract class CommandFlyWheel extends CommandBase {
+
+    protected final double targetVelocity;
+    protected final FlyWheel flyWheel;
+
     // region Constructors
     protected CommandFlyWheel(FlyWheel s, double speed) {
         flyWheel = s;
@@ -19,8 +23,4 @@ public abstract class CommandFlyWheel extends CommandBase {
     }
     // endregion
 
-    // region Fields
-    protected final double targetVelocity;
-    protected final FlyWheel flyWheel;
-    // endregion
 }

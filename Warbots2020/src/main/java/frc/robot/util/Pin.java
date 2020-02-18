@@ -50,7 +50,10 @@ public enum Pin {
      * 
      */;// <= this isn't a stray semicolon, it's being used for the benefit of
         // electronics
-
+    
+    public final int id;
+    public final CommsStandard std;
+    
     // region Constructors
     Pin(int i, CommsStandard s) {
         id = i;
@@ -68,8 +71,5 @@ public enum Pin {
     }
     // endregion
 
-    // region Fields
-    public final int id;
-    public final CommsStandard std;
-    // endregion
+    
 }

@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import frc.robot.subsystems.FlyWheel;
 
 public class SpinUpFlyWheel extends CommandFlyWheel {
+    
     public LocalDateTime endTime;
 
     // region Constructors

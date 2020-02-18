@@ -19,6 +19,13 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrain extends SubsystemBase {
+
+    protected final DifferentialDrive diffDrive;
+    protected final AHRS navX;
+    protected double leftEncoderOffsetDistance;
+    protected double rightEncoderOffsetDistance;
+    protected CANSparkMax lf, rf, rr, lr;
+
     // region Constructors
     public DriveTrain() {
 
@@ -112,13 +119,5 @@ public class DriveTrain extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putNumber("Motor Temperature", getAvgMotorTemp());
     }
-    // endregion
-
-    // region Fields
-    protected final DifferentialDrive diffDrive;
-    protected final AHRS navX;
-    protected double leftEncoderOffsetDistance;
-    protected double rightEncoderOffsetDistance;
-    protected CANSparkMax lf, rf, rr, lr;
     // endregion
 }

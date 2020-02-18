@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
 public abstract class DriveCommand extends CommandBase {
+    
+    protected final DriveTrain driveTrain;
+
     // region Constructors
     protected DriveCommand(DriveTrain dt) {
         driveTrain = dt;
@@ -18,7 +21,4 @@ public abstract class DriveCommand extends CommandBase {
     }
     // endregion
 
-    // region Fields
-    protected final DriveTrain driveTrain;
-    // endregion
 }

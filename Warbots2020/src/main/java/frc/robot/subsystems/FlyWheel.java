@@ -15,6 +15,9 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.*;
 
 public class FlyWheel extends SubsystemBase {
+
+    public TalonFX shooter;
+
     // region Constructors
     public FlyWheel() {
         shooter = new TalonFX(Pin.ShooterMotor1.id);
@@ -47,7 +50,4 @@ public class FlyWheel extends SubsystemBase {
 
     // endregion
 
-    // region Fields
-    public TalonFX shooter;
-    // endregion
 }

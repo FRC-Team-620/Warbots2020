@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
 public class LoadShooter extends CommandBase {
+    
     Shooter shooter;
     SpinUpFlyWheel stuff;
     boolean lastFrameBallLoaded;

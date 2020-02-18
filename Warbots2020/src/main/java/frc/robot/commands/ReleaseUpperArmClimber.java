@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
 public class ReleaseUpperArmClimber extends CommandBase {
+    
+    public final Climber climber;
+    
     /**
      * Creates a new ReleaseUpperArm.
      */
@@ -42,5 +45,4 @@ public class ReleaseUpperArmClimber extends CommandBase {
         return climber.atSetPointUpper();
     }
 
-    public final Climber climber;
 }

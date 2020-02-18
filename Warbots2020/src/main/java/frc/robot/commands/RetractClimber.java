@@ -11,6 +11,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
 public class RetractClimber extends CommandBase {
+
+    private final Climber climber;
+    private double targetVelocity;
+
     // region Constructors
     public RetractClimber(Climber c, double speed) {
         climber = c;
@@ -43,8 +47,4 @@ public class RetractClimber extends CommandBase {
     }
     // endregion
 
-    // region Fields
-    private final Climber climber;
-    private double targetVelocity;
-    // endregion
 }
