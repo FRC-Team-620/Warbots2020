@@ -5,28 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.drivetrain;
+package frc.robot.commands.drivetrain;
 
-public class AutonomousCommand extends DriveCommand 
-{
-  //region Constructors
-  public AutonomousCommand(DriveTrain dt) 
-  {
-    super(dt);
-  }
-  //endregion
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.DriveTrain;
 
-  //region Overrides
-  @Override
-  public void execute() 
-  {
-    driveTrain.arcadeInput(.5, 0); //TODO Set default autonomous parameters in constants.java
-  }
+public abstract class DriveCommand extends CommandBase {
+    
+    protected final DriveTrain driveTrain;
 
-  @Override
-  public boolean isFinished() 
-  {
-    return false;
-  }
-  //endregion
+    // region Constructors
+    protected DriveCommand(DriveTrain dt) {
+        driveTrain = dt;
+        addRequirements(dt);
+    }
+    // endregion
+
 }

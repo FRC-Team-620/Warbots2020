@@ -10,15 +10,15 @@ package frc.robot.dashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Dashboard extends SubsystemBase {
-  /**
-   * Creates a new Dashboard.
-   */
-  public Dashboard() {
+    /**
+     * Creates a new Dashboard.
+     */
+    public Dashboard() {
 
-  }
+    }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+    }
 }

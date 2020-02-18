@@ -5,21 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.drivetrain;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.FlyWheel;
 
-public abstract class DriveCommand extends CommandBase 
-{
-  //region Constructors
-  protected DriveCommand(DriveTrain dt) 
-  {
-    driveTrain = dt;
-    addRequirements(dt);
-  }
-  //endregion
+public abstract class CommandFlyWheel extends CommandBase {
 
-  //region Fields
-  protected final DriveTrain driveTrain;
-  //endregion
+    protected final double targetVelocity;
+    protected final FlyWheel flyWheel;
+
+    // region Constructors
+    protected CommandFlyWheel(FlyWheel s, double speed) {
+        flyWheel = s;
+        addRequirements(flyWheel);
+        targetVelocity = speed;
+    }
+    // endregion
+
 }

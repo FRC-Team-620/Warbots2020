@@ -5,54 +5,45 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.dashboard;
+package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import java.time.LocalDateTime;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.bling.*;
-import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.FlyWheel;
-import frc.robot.vision.*;
+import frc.robot.util.Constants;
 
-public class Update extends CommandBase {
+public class StuffFlyWheel extends CommandBase {
+    
+    FlyWheel shoot;
+    LocalDateTime endTime;
 
-    public Update(Dashboard dashboard, DriveTrain drivetrain, Climber climber, FlyWheel flyWheel, Intake intake,
-            Shooter shooter, Bling bling, Vision vision) {
-        addRequirements(dashboard);
-
-        SmartDashboard.putData(drivetrain);
-        SmartDashboard.putData(climber);
-        SmartDashboard.putData(flyWheel);
-        SmartDashboard.putData(intake);
-        SmartDashboard.putData(shooter);
-        SmartDashboard.putData(bling);
-        SmartDashboard.putData(vision);
+    public StuffFlyWheel(FlyWheel s) {
+        shoot = s;
+        addRequirements(s);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-
+        // endTime = LocalDateTime.now().plusSeconds(5);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-
+        shoot.setShootSpeed(Constants.ShooterConstants.STUFF_SPEED);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-
+        shoot.setShootSpeed(0);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return false;// LocalDateTime.now().isAfter(endTime);
     }
 }
