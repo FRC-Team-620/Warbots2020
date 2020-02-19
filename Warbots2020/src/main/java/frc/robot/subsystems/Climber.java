@@ -18,7 +18,7 @@ public class Climber extends SubsystemBase {
 
     private final Servo climberActuatorUpper;
     private final Servo climberActuatorLower;
-    private final TalonFX climberMotor;
+    public final TalonFX climberMotor;
     private double degrees;
     private int position;
 
@@ -44,7 +44,8 @@ public class Climber extends SubsystemBase {
     // endregion
 
     // region Methods
-    public void setSpeed(final double speed, final int pos) {
+    public void setSpeed(final double speed, final int pos) 
+    {
         climberMotor.set(ControlMode.PercentOutput, speed);
         position = pos;
     }

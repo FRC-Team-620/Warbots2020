@@ -8,6 +8,7 @@
 package frc.robot.robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -31,14 +32,15 @@ import frc.robot.subsystems.FlyWheel;
 import frc.robot.dashboard.*;
 import frc.robot.vision.*;
 
-public class RobotContainer {
+public class RobotContainer
+{
     // subsystems
     private final DriveTrain drivetrain = new DriveTrain();
-    private final Climber climber = new Climber();
+    public final Climber climber = new Climber();
     private final FlyWheel flyWheel = new FlyWheel();
     private final Intake intake = new Intake();
     private final Shooter shooter = new Shooter();
-    private final Bling bling = new Bling();
+    private final Bling bling;
     private final Vision vision = new Vision();
     private final Dashboard dashboard = new Dashboard();
 
@@ -69,8 +71,11 @@ public class RobotContainer {
      * loader.disable(); });
      */
 
-    public RobotContainer() {
+    public RobotContainer(DriverStation ds) 
+    {
         configureButtonBindings();
+
+        bling = new Bling(ds);
 
         // set default commands
         drivetrain.setDefaultCommand(new DriveWithJoysticks(drivetrain, driver));
@@ -78,12 +83,14 @@ public class RobotContainer {
                 new Update(dashboard, drivetrain, climber, flyWheel, intake, shooter, bling, vision));
     }
 
-    private void configureButtonBindings() {
+    private void configureButtonBindings() 
+    {
         // Joystick Buttons
         final JoystickButton leftOperatorBumper = new JoystickButton(operator, Button.kBumperLeft.value);
         final JoystickButton rightOperatorBumper = new JoystickButton(operator, Button.kBumperRight.value);
         final JoystickButton driverStartButton = new JoystickButton(driver, Button.kStart.value);
         final JoystickButton operatorStartButton = new JoystickButton(operator, Button.kStart.value);
+        final JoystickButton operatorBButton = new JoystickButton(operator, Button.kB.value);
         final JoystickButton operatorX = new JoystickButton(operator, Button.kX.value);
 
         // Command bindings
@@ -96,7 +103,7 @@ public class RobotContainer {
         leftOperatorBumper.whileHeld(capture);
         rightOperatorBumper.whenPressed(testLoad);
         driverStartButton.whenPressed(extend);
-        operatorStartButton.whenPressed(retract);
+        operatorBButton.whileHeld(retract);
         operatorX.whenPressed(spinUp);
     }
 
