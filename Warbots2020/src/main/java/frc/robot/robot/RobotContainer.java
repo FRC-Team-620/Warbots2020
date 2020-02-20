@@ -36,7 +36,7 @@ public class RobotContainer
 {
     // subsystems
     private final DriveTrain drivetrain = new DriveTrain();
-    public final Climber climber = new Climber();
+    private final Climber climber = new Climber();
     private final FlyWheel flyWheel = new FlyWheel();
     private final Intake intake = new Intake();
     private final Shooter shooter = new Shooter();
@@ -71,11 +71,11 @@ public class RobotContainer
      * loader.disable(); });
      */
 
-    public RobotContainer(DriverStation ds) 
+    public RobotContainer() 
     {
         configureButtonBindings();
 
-        bling = new Bling(ds);
+        bling = new Bling();
 
         // set default commands
         drivetrain.setDefaultCommand(new DriveWithJoysticks(drivetrain, driver));
