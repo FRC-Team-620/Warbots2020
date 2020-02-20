@@ -21,6 +21,7 @@ import frc.robot.commands.ExtendClimber;
 import frc.robot.commands.LoadShooter;
 import frc.robot.commands.RetractClimber;
 import frc.robot.commands.SpinUpFlyWheel;
+import frc.robot.commands.autonomous.AutonomousCommand;
 import frc.robot.commands.drivetrain.DriveForward;
 import frc.robot.commands.drivetrain.DriveWithJoysticks;
 import frc.robot.subsystems.Climber;
@@ -54,22 +55,9 @@ public class RobotContainer
     DigitalInput digitalInput2 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_2);
     DigitalInput digitalInput3 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_3);
 
-    // commands
-    private final Command autonomousCommand = new DriveForward(drivetrain,
-            Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE);
-
-    /*
-     * new SpinUp(shooter, Constants.Shooter.spinRate).andThen( // Drive Forward new
-     * DriveForward(drivetrain, Constants.DriveTrain.autoDriveDistance), // Wait
-     * until the shooter is at speed before feeding the frisbees new
-     * WaitUntilCommand(shooter::atSetPoint), // Start running the feeder new
-     * Load(loader), // Shoot for the specified time new
-     * WaitCommand(Constants.Shooter.autoShootTimeSeconds)) // Add a timeout (will
-     * end the command if, for instance, the shooter never gets up to // speed)
-     * .withTimeout(Constants.Shooter.autoTimeoutSeconds) // When the command ends,
-     * turn off the shooter and the feeder .andThen(() -> { // shooter.disable(); //
-     * loader.disable(); });
-     */
+    // Autonomous variables
+    public int startingSide;
+    public double waitingTime;
 
     public RobotContainer(DriverStation ds) 
     {
@@ -133,20 +121,26 @@ public class RobotContainer
         // TODO Complete Autonomous Commands
         if (!dio0 && !dio1) {
             // middle
+            startingSide = 1;
         } else if (!dio0 & dio1) {
             // right
+            startingSide = 2;
         } else {
             // left
+            startingSide = 0;
         }
 
         if (!dio2 && !dio3) {
             // none
+            waitingTime = 0.0;
         } else if (!dio2 & dio3) {
             // short
+            waitingTime = 3.0;
         } else {
             // long
+            waitingTime = 7.0;
         }
 
-        return autonomousCommand;
+        return new AutonomousCommand(drivetrain, startingSide, waitingTime);
     }
 }
