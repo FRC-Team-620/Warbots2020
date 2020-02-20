@@ -30,6 +30,7 @@ public final class Constants {
 
     public static final class DriveTrainConstants {
         public static final double AUTO_DRIVE_DISTANCE = 2.0;
+        public static final double AUTO_WAIT_TIME = 0.0;
     }
 
     public static final class ShooterConstants {
