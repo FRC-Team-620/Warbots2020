@@ -24,7 +24,7 @@ public class DriveTrain extends SubsystemBase {
     protected final AHRS navX;
     protected double leftEncoderOffsetDistance;
     protected double rightEncoderOffsetDistance;
-    protected CANSparkMax lf, rf, rr, lr;
+    public CANSparkMax lf, rf, rr, lr;
 
     // region Constructors
     public DriveTrain() {

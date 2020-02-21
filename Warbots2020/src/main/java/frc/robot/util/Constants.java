@@ -19,22 +19,23 @@ package frc.robot.util;
  */
 public final class Constants {
     public static final class ClimberConstants {
-        public static final double CLIMBER_SPEED = 0.2;
+        public static final double CLIMBER_SPEED = 1;
     }
 
     public static final class IntakeConstants {
-        public static final double ROLLER_SPEED_FORWARD = 0.2;
-        public static final double ROLLER_SPEED_REVERSE = 0.2;
+        public static final double ROLLER_SPEED_FORWARD = 0.4;
+        public static final double ROLLER_SPEED_REVERSE = 0.4;
         public static final double CAPTURE_TIMER = 5;
     }
 
     public static final class DriveTrainConstants {
         public static final double AUTO_DRIVE_DISTANCE = 2.0;
+        public static final double AUTO_WAIT_TIME = 0.0;
     }
 
     public static final class ShooterConstants {
         public static final double STUFF_SPEED = 0.25;
-        public static final double SHOOT_SPEED = 1.0;
+        public static final double SHOOT_SPEED = 0.27;
         public static final double FLYWHEEL_CONVERSION_FACTOR = 1.0;
     }
 
@@ -53,7 +54,8 @@ public final class Constants {
         public static final int AUTO_MODE_SELECTOR_INPUT_4 = 4;
     }
 
-    public static final class BlingConstants {
+    public static final class BlingConstants 
+    {
         public static final double OCEAN_COLORED_RAINBOW = -0.95;
         public static final double LARSON_SCANNER = -0.35;
         public static final double FAST_HEART_BEAT = 0.07;

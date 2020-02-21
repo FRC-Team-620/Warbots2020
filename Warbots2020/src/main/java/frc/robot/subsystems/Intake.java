@@ -8,9 +8,12 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.util.Constants;
 import frc.robot.util.Pin;
 
 public class Intake extends SubsystemBase {
@@ -18,13 +21,18 @@ public class Intake extends SubsystemBase {
     private final TalonSRX intakeMotor;
 
     // region Constructors
-    public Intake() {
+    public Intake() 
+    {
         intakeMotor = new TalonSRX(Pin.IntakeMotor.id);
+        var talonSRXConfig = new TalonSRXConfiguration();
+        talonSRXConfig.continuousCurrentLimit = Constants.LoaderConstants.LOADER_CURRENT_LIMIT;
+        intakeMotor.configAllSettings(talonSRXConfig);
+        intakeMotor.setNeutralMode(NeutralMode.Coast);
     }
     // endregion
 
     public void intake() {
-        intakeMotor.set(ControlMode.PercentOutput, 0.75);
+        intakeMotor.set(ControlMode.PercentOutput, Constants.IntakeConstants.ROLLER_SPEED_FORWARD);
     }
 
     public void end() {

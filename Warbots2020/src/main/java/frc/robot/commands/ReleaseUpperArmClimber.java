@@ -13,10 +13,7 @@ import frc.robot.subsystems.Climber;
 public class ReleaseUpperArmClimber extends CommandBase {
     
     public final Climber climber;
-    
-    /**
-     * Creates a new ReleaseUpperArm.
-     */
+    private int frames;
     public ReleaseUpperArmClimber(Climber c) {
         climber = c;
         addRequirements(climber);
@@ -24,8 +21,9 @@ public class ReleaseUpperArmClimber extends CommandBase {
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {
-
+    public void initialize() 
+    {
+        frames = 0;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -36,13 +34,14 @@ public class ReleaseUpperArmClimber extends CommandBase {
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
+    public void end(boolean interrupted) 
+    {
+        climber.setAngleLower(90);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return climber.atSetPointUpper();
+        return frames++ >  25;
     }
-
 }

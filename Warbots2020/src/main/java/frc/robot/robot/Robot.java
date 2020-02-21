@@ -18,7 +18,8 @@ public class Robot extends TimedRobot {
 
     // region Overrides
     @Override
-    public void robotInit() {
+    public void robotInit() 
+    {
         robotContainer = new RobotContainer();
     }
 

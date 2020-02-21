@@ -37,13 +37,15 @@ public class RetractClimber extends CommandBase {
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
+    public void end(boolean interrupted) 
+    {
+        climber.setSpeed(0, 0);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return climber.atSetPosition();
+        return false;//climber.atSetPosition();
     }
     // endregion
 
