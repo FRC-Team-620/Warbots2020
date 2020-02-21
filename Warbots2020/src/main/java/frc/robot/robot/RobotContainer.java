@@ -86,7 +86,7 @@ public class RobotContainer
         var extend = new ExtendClimber(climber);
         var retract = new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED);
         SpinUpFlyWheel spinUp = new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED);
-        var testLoad = new LoadShooter(shooter, spinUp);
+        var testLoad = new LoadShooter(shooter, spinUp, flyWheel);
 
         leftOperatorBumper.whileHeld(capture);
         rightOperatorBumper.whenPressed(testLoad);

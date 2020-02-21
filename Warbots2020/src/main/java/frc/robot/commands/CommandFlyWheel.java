@@ -12,7 +12,7 @@ import frc.robot.subsystems.FlyWheel;
 
 public abstract class CommandFlyWheel extends CommandBase {
 
-    protected final double targetVelocity;
+    public final double targetVelocity;
     protected final FlyWheel flyWheel;
 
     // region Constructors

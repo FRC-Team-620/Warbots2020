@@ -41,7 +41,7 @@ public class FlyWheel extends SubsystemBase {
     }
 
     public double flyWheelSpeed() {
-        return shooter.getSelectedSensorVelocity() * Constants.ShooterConstants.FLYWHEEL_CONVERSION_FACTOR;
+        return shooter.getMotorOutputPercent();
     }
 
     public Boolean atSetPoint() {

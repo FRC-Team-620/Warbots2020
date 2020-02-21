@@ -10,20 +10,23 @@ package frc.robot.commands;
 import java.time.LocalDateTime;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.Shooter;
 
 public class LoadShooter extends CommandBase {
-    
+
     Shooter shooter;
+    FlyWheel flyWheel;
     SpinUpFlyWheel stuff;
     boolean lastFrameBallLoaded;
     LocalDateTime endTime;
     int framesSinceLastShot;
 
-    public LoadShooter(Shooter l, SpinUpFlyWheel s) {
+    public LoadShooter(Shooter l, SpinUpFlyWheel s, FlyWheel f) {
         addRequirements(l);
         shooter = l;
         stuff = s;
+        flyWheel = f;
         // Use addRequirements() here to declare subsystem dependencies.
     }
 
@@ -38,6 +41,7 @@ public class LoadShooter extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        if(checkSafety()) return;
         shooter.load();
     }
 
@@ -58,6 +62,9 @@ public class LoadShooter extends CommandBase {
             resetEndTime();
             framesSinceLastShot = 0;
         }
+        if(checkSafety()) {
+            return true;
+        }
         if (shooter.ballLoaded() && lastFrameBallLoaded == false) {
             return true;
         }
@@ -68,6 +75,10 @@ public class LoadShooter extends CommandBase {
         return false;
     }
 
+    private boolean checkSafety()
+    {
+        return shooter.ballLoaded() && Math.abs(flyWheel.flyWheelSpeed() - stuff.targetVelocity) >= .05;
+    }
     // region Methods
     public void resetEndTime() {
         endTime = LocalDateTime.now().plusSeconds(10);
