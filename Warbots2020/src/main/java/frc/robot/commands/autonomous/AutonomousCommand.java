@@ -51,7 +51,7 @@ public class AutonomousCommand extends SequentialCommandGroup {
                 new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED),
 
                 // Begin firing
-                new LoadShooter(shooter, spinUp),
+                new LoadShooter(shooter, spinUp, flyWheel),
 
                 // Waits for the robot to finish firing
                 new WaitCommand(5),
