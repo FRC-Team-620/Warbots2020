@@ -141,6 +141,7 @@ public class RobotContainer
             waitingTime = 7.0;
         }
 
-        return new AutonomousCommand(drivetrain, startingSide, waitingTime);
+       // return new AutonomousCommand(drivetrain, startingSide, waitingTime);
+       return new DriveForward(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE);
     }
 }
