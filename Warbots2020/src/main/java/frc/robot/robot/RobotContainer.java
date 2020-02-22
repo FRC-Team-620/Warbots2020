@@ -84,7 +84,7 @@ public class RobotContainer
 
         // Command bindings
         var capture = new CaptureIntake(intake);
-et        var extend = new ExtendClimber(climber, .2);
+        var extend = new ExtendClimber(climber, .2);
         var retract = new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED);
         var inverseRetract = new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED);
         SpinUpFlyWheel spinUp = new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED);
