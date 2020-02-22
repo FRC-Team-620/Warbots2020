@@ -7,49 +7,14 @@
 
 package frc.robot.dashboard;
 
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.networktables.NetworkTableInstance;
-
-import frc.robot.bling.*;
-import frc.robot.robot.Robot;
-import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.FlyWheel;
-import frc.robot.vision.*;
 
 public class Update extends CommandBase {
 
-    private DriveTrain train;
-    private Climber climb;
-    private FlyWheel wheel;
-    private Shooter shoot;
-    private PowerDistributionPanel p;
-
-    public Update(Dashboard dashboard, DriveTrain drivetrain, Climber climber, FlyWheel flyWheel, Intake intake,
-            Shooter shooter, Bling bling, Vision vision) {
+    public Update(Dashboard dashboard) {
         addRequirements(dashboard);
-        train = drivetrain;
-        climb = climber;
-        wheel = flyWheel;
-        shoot = shooter;
-        
-        SmartDashboard.putData(drivetrain);
-        SmartDashboard.putData(climber);
-        SmartDashboard.putData(flyWheel);
-        SmartDashboard.putData(intake);
-        SmartDashboard.putData(shooter);
-        SmartDashboard.putData(bling);
-        SmartDashboard.putData(vision);
 
-        p = new PowerDistributionPanel();
         //Create shuffleboardtabs
         //getTab creates the tab if it does not already exist
 

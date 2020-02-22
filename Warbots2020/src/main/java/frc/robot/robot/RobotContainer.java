@@ -43,9 +43,10 @@ public class RobotContainer
     private final FlyWheel flyWheel = new FlyWheel();
     private final Intake intake = new Intake();
     private final Shooter shooter = new Shooter();
-    private final Bling bling;
+    private final Bling bling = new Bling();
     private final Vision vision = new Vision();
-    private final Dashboard dashboard = new Dashboard(drivetrain, climber, shooter, flyWheel, new PowerDistributionPanel());
+    private final PowerDistributionPanel pdp = new PowerDistributionPanel();
+    private final Dashboard dashboard = new Dashboard(drivetrain, climber, flyWheel, intake, shooter, bling, vision, pdp);
 
     // OI
     XboxController driver = new XboxController(Constants.OIConstants.DRIVER_CONTROLER_PORT);
@@ -61,12 +62,9 @@ public class RobotContainer
     {
         configureButtonBindings();
 
-        bling = new Bling();
-
         // set default commands
         drivetrain.setDefaultCommand(new DriveWithJoysticks(drivetrain, driver));
-        dashboard.setDefaultCommand(
-                new Update(dashboard, drivetrain, climber, flyWheel, intake, shooter, bling, vision));
+        dashboard.setDefaultCommand(new Update(dashboard));
     }
 
     private void configureButtonBindings() 
@@ -138,10 +136,10 @@ public class RobotContainer
         final Boolean dio2 = digitalInput2.get();
         final Boolean dio3 = digitalInput3.get();
 
-        SmartDashboard.putBoolean("Digital Input 0", dio0);
-        SmartDashboard.putBoolean("Digital Input 1", dio1);
-        SmartDashboard.putBoolean("Digital Input 2", dio2);
-        SmartDashboard.putBoolean("Digital Input 3", dio3);
+        // SmartDashboard.putBoolean("Digital Input 0", dio0);
+        // SmartDashboard.putBoolean("Digital Input 1", dio1);
+        // SmartDashboard.putBoolean("Digital Input 2", dio2);
+        // SmartDashboard.putBoolean("Digital Input 3", dio3);
 
         if (!dio0 && !dio1) {
             // middle
@@ -168,7 +166,6 @@ public class RobotContainer
        // return new AutonomousCommand(drivetrain, startingSide, waitingTime);
        //return new DriveForward(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE);
         drivetrain.resetYaw();
-        System.out.println(drivetrain.getYaw());
         return new TurnToAngle(90, drivetrain);
     }
 }

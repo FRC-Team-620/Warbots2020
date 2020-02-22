@@ -119,7 +119,6 @@ public class DriveTrain extends SubsystemBase {
     // region Overrides
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Motor Temperature", getAvgMotorTemp());
     }
     // endregion
 }
