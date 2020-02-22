@@ -79,12 +79,14 @@ public class RobotContainer
         final JoystickButton driverStartButton = new JoystickButton(driver, Button.kStart.value);
         final JoystickButton operatorStartButton = new JoystickButton(operator, Button.kStart.value);
         final JoystickButton operatorBButton = new JoystickButton(operator, Button.kB.value);
+        final JoystickButton operatorYButton = new JoystickButton(operator, Button.kY.value);
         final JoystickButton operatorX = new JoystickButton(operator, Button.kX.value);
 
         // Command bindings
         var capture = new CaptureIntake(intake);
         var extend = new ExtendClimber(climber);
-        var retract = new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED);
+        var retract = new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED);
+        var inverseRetract = new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED);
         SpinUpFlyWheel spinUp = new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED);
         var testLoad = new LoadShooter(shooter, spinUp, flyWheel);
 
@@ -92,6 +94,7 @@ public class RobotContainer
         rightOperatorBumper.whenPressed(testLoad);
         driverStartButton.whenPressed(extend);
         operatorBButton.whileHeld(retract);
+        operatorYButton.whileHeld(inverseRetract);
         operatorX.whenPressed(spinUp);
     }
 

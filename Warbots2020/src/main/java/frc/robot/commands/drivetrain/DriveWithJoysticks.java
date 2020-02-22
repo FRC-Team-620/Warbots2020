@@ -31,11 +31,11 @@ public class DriveWithJoysticks extends DriveCommand {
         var speed = 0.0;
         if(driverXbox.getTriggerAxis(Hand.kLeft) > driverXbox.getTriggerAxis(Hand.kRight))
         {
-            speed = -1 * driverXbox.getTriggerAxis(Hand.kLeft);
+            speed = driverXbox.getTriggerAxis(Hand.kLeft);
         }
         else if(driverXbox.getTriggerAxis(Hand.kRight) > driverXbox.getTriggerAxis(Hand.kLeft))
         {
-            speed = driverXbox.getTriggerAxis(Hand.kRight);
+            speed = -1 * driverXbox.getTriggerAxis(Hand.kRight);
         }
 
         if (driverXbox.getBumper(Hand.kRight)) {
