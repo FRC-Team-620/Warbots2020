@@ -24,6 +24,7 @@ import frc.robot.commands.SpinUpFlyWheel;
 import frc.robot.commands.autonomous.AutonomousCommand;
 import frc.robot.commands.drivetrain.DriveForward;
 import frc.robot.commands.drivetrain.DriveWithJoysticks;
+import frc.robot.commands.drivetrain.TurnToAngle;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
@@ -55,10 +56,6 @@ public class RobotContainer
     DigitalInput digitalInput2 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_2);
     DigitalInput digitalInput3 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_3);
 
-    // Autonomous variables
-    public int startingSide;
-    public double waitingTime;
-
     public RobotContainer() 
     {
         configureButtonBindings();
@@ -82,17 +79,28 @@ public class RobotContainer
         final JoystickButton operatorX = new JoystickButton(operator, Button.kX.value);
 
         // Command bindings
-        var capture = new CaptureIntake(intake);
-        var extend = new ExtendClimber(climber);
-        var retract = new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED);
-        SpinUpFlyWheel spinUp = new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED);
-        var testLoad = new LoadShooter(shooter, spinUp, flyWheel);
-
-        leftOperatorBumper.whileHeld(capture);
-        rightOperatorBumper.whenPressed(testLoad);
-        driverStartButton.whenPressed(extend);
-        operatorBButton.whileHeld(retract);
-        operatorX.whenPressed(spinUp);
+        if(intake != null)
+        {
+            var capture = new CaptureIntake(intake);
+            leftOperatorBumper.whileHeld(capture);
+        }
+        if(climber != null)
+        {
+            var extend = new ExtendClimber(climber);
+            var retract = new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED);
+            driverStartButton.whenPressed(extend);
+            operatorBButton.whileHeld(retract);
+        }
+        if(flyWheel != null)
+        {
+            SpinUpFlyWheel spinUp = new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED);
+            operatorX.whenPressed(spinUp);
+            if(shooter != null)
+            {
+                var load = new LoadShooter(shooter, spinUp, flyWheel);
+                rightOperatorBumper.whenPressed(load);
+            }
+        }
     }
 
     public Command getAutonomousCommand() {
@@ -107,6 +115,10 @@ public class RobotContainer
         // 00 - none
         // 01 - short
         // 10 - long
+        
+        //Autonomous Variables
+        final int startingSide;
+        final double waitingTime;
 
         final Boolean dio0 = digitalInput0.get();
         final Boolean dio1 = digitalInput1.get();
@@ -118,7 +130,6 @@ public class RobotContainer
         SmartDashboard.putBoolean("Digital Input 2", dio2);
         SmartDashboard.putBoolean("Digital Input 3", dio3);
 
-        // TODO Complete Autonomous Commands
         if (!dio0 && !dio1) {
             // middle
             startingSide = 1;
@@ -142,6 +153,7 @@ public class RobotContainer
         }
 
        // return new AutonomousCommand(drivetrain, startingSide, waitingTime);
-       return new DriveForward(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE);
+       //return new DriveForward(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE);
+        return new TurnToAngle(90, drivetrain);
     }
 }
