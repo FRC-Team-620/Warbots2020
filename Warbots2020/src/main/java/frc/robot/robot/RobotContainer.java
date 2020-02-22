@@ -9,6 +9,7 @@ package frc.robot.robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -44,7 +45,7 @@ public class RobotContainer
     private final Shooter shooter = new Shooter();
     private final Bling bling;
     private final Vision vision = new Vision();
-    private final Dashboard dashboard = new Dashboard();
+    private final Dashboard dashboard = new Dashboard(drivetrain, climber, shooter, flyWheel, new PowerDistributionPanel());
 
     // OI
     XboxController driver = new XboxController(Constants.OIConstants.DRIVER_CONTROLER_PORT);
@@ -79,30 +80,6 @@ public class RobotContainer
         final JoystickButton operatorX = new JoystickButton(operator, Button.kX.value);
 
         // Command bindings
-<<<<<<< HEAD
-        if(intake != null)
-        {
-            var capture = new CaptureIntake(intake);
-            leftOperatorBumper.whileHeld(capture);
-        }
-        if(climber != null)
-        {
-            var extend = new ExtendClimber(climber);
-            var retract = new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED);
-            driverStartButton.whenPressed(extend);
-            operatorBButton.whileHeld(retract);
-        }
-        if(flyWheel != null)
-        {
-            SpinUpFlyWheel spinUp = new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED);
-            operatorX.whenPressed(spinUp);
-            if(shooter != null)
-            {
-                var load = new LoadShooter(shooter, spinUp, flyWheel);
-                rightOperatorBumper.whenPressed(load);
-            }
-        }
-=======
         var capture = new CaptureIntake(intake);
         var extend = new ExtendClimber(climber, .2);
         var retract = new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED);
@@ -114,7 +91,6 @@ public class RobotContainer
         driverStartButton.whenPressed(extend);
         operatorBButton.whileHeld(retract);
         operatorX.whenPressed(spinUp);
->>>>>>> 3bf9fd1b8fa346e316f97d6a59b6a50604a995bd
     }
 
     public Command getAutonomousCommand() {
