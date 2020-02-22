@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.SerialPort;
 public final class Constants {
     public static final class ClimberConstants {
         public static final double CLIMBER_SPEED = 1;
+        public static final double CLIMBER_WAIT_TIME = .2;
     }
 
     public static final class IntakeConstants {

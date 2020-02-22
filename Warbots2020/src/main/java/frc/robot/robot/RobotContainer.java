@@ -85,7 +85,7 @@ public class RobotContainer
         }
         if(climber != null)
         {
-            var extend = new ExtendClimber(climber, 5.0);
+            var extend = new ExtendClimber(climber);
             var retract = new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED);
             driverStartButton.whenPressed(extend);
             operatorBButton.whileHeld(retract);
@@ -102,7 +102,7 @@ public class RobotContainer
         }
 
         var capture = new CaptureIntake(intake);
-        var extend = new ExtendClimber(climber, .2);
+        var extend = new ExtendClimber(climber);
         var retract = new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED);
         SpinUpFlyWheel spinUp = new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED);
         var testLoad = new LoadShooter(shooter, spinUp, flyWheel);
