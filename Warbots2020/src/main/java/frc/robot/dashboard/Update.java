@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.bling.*;
+import frc.robot.commands.ExtendClimber;
 import frc.robot.robot.Robot;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
@@ -46,6 +47,7 @@ public class Update extends CommandBase {
         SmartDashboard.putData(shooter);
         SmartDashboard.putData(bling);
         SmartDashboard.putData(vision);
+       
 
         p = new PowerDistributionPanel();
         //Create shuffleboardtabs
