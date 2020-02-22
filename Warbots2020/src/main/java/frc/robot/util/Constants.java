@@ -17,6 +17,9 @@ package frc.robot.util;
  * It is advised to statically import this class (or one of its inner classes)
  * wherever the constants are needed, to reduce verbosity.
  */
+
+import edu.wpi.first.wpilibj.SerialPort;
+
 public final class Constants {
     public static final class ClimberConstants {
         public static final double CLIMBER_SPEED = 1;
@@ -34,8 +37,9 @@ public final class Constants {
         public static final double TURN_P = 0.01;
         public static final double TURN_I = 0.0;
         public static final double TURN_D = 0.0;
-        public static final double TURN_TOLERANCE_DEG = 5.0;
-        public static final double TURN_RATE_TOLERANCE_DEG_PER_SEC = 5.0;
+        public static final double TURN_TOLERANCE_DEG = 10.0;
+        public static final double TURN_RATE_TOLERANCE_DEG_PER_SEC =15.0;
+        public static final SerialPort.Port NAV_X_USB = SerialPort.Port.kUSB1;
     }
 
     public static final class ShooterConstants {
