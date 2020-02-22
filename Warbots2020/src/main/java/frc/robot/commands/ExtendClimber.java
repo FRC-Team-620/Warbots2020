@@ -8,15 +8,29 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.Climber;
 
-public class ExtendClimber extends CommandBase {
+public class ExtendClimber extends SequentialCommandGroup {
 
     private final Climber climber;
+    private double waitTime;
 
-    public ExtendClimber(Climber c) {
+    public ExtendClimber(Climber c, double wait) {
         climber = c;
+        waitTime = wait;
         addRequirements(climber);
+
+        addCommands(
+            
+            new ReleaseLowerArmClimber(climber),
+
+            new WaitCommand(waitTime),
+
+            new ReleaseUpperArmClimber(climber)
+
+        );
     }
 
     // region Overrides
@@ -28,7 +42,7 @@ public class ExtendClimber extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        climber.setAngleLower(180);
+
     }
 
     // Called once the command ends or is interrupted.
