@@ -23,6 +23,7 @@ import frc.robot.commands.SpinUpFlyWheel;
 import frc.robot.commands.StuffFlyWheel;
 import frc.robot.commands.drivetrain.DriveForward;
 import frc.robot.commands.drivetrain.TurnToAngle;
+import frc.robot.commands.ExtendClimber;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.Intake;
@@ -47,6 +48,7 @@ public class Dashboard extends SubsystemBase
         // SmartDashboard.putData("Commands", new LoadShooter(shooter);
         SmartDashboard.putData("Commands/ReleaseLowerArmClimber", new ReleaseLowerArmClimber(climber));
         SmartDashboard.putData("Commands/ReleaseUpperArmClimber", new ReleaseUpperArmClimber(climber));
+        SmartDashboard.putData("Commands/ExtendClimber", new ExtendClimber(climber));
         SmartDashboard.putData("Commands/RetractClimber", new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED));
         SmartDashboard.putData("Commands/SpinUpFlyWheel", new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
         SmartDashboard.putData("Commands/StuffFlyWheel", new StuffFlyWheel(flyWheel));

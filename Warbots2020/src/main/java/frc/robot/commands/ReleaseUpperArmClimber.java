@@ -29,14 +29,15 @@ public class ReleaseUpperArmClimber extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        climber.setAngleUpper(90);
+        climber.setAngleUpper(34);
+        System.out.println("********RELEASE UPPER ARM HAS RUN************");
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) 
     {
-        climber.setAngleLower(34);
+        //climber.setAngleLower(34);
     }
 
     // Returns true when the command should end.
