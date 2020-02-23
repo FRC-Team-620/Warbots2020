@@ -8,8 +8,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.util.CommsStandard;
 import frc.robot.util.Constants;
 import frc.robot.util.Pin;
 
@@ -17,19 +17,17 @@ import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class DriveTrain extends SubsystemBase {
+public class DriveTrain extends SubsystemBase 
+{
 
     protected final DifferentialDrive diffDrive;
     protected final AHRS navX;
-    protected double leftEncoderOffsetDistance;
-    protected double rightEncoderOffsetDistance;
     public CANSparkMax lf, rf, rr, lr;
 
     // region Constructors
-    public DriveTrain() {
+    public DriveTrain()
+ {
 
         lf = new CANSparkMax(Pin.LeftFrontMotor.id, MotorType.kBrushless);
         rf = new CANSparkMax(Pin.RightFrontMotor.id, MotorType.kBrushless);
@@ -46,14 +44,7 @@ public class DriveTrain extends SubsystemBase {
         lr.setIdleMode(mode);
         rf.setIdleMode(mode);
         rr.setIdleMode(mode);
-    
-        var conversionFactor = 100.0; // TODO: ask Mr. Mercer for revolution to position conversion factor; determine
-                                      // fudge factor ourselves;                            
-        lf.getEncoder().setPositionConversionFactor(conversionFactor);
-        lr.getEncoder().setPositionConversionFactor(conversionFactor);
-        rf.getEncoder().setPositionConversionFactor(conversionFactor);
-        rr.getEncoder().setPositionConversionFactor(conversionFactor);
-
+                         
         var openLoopRampRate = 0.75;
         lf.setOpenLoopRampRate(openLoopRampRate);
         lr.setOpenLoopRampRate(openLoopRampRate);
@@ -104,15 +95,19 @@ public class DriveTrain extends SubsystemBase {
         navX.zeroYaw();
     }
 
-    public double getDistance() {
-        return (lr.getEncoder().getPosition() + rr.getEncoder().getPosition()) / 2;
+    public double getDistance() 
+    {
+        double distance = -lr.getEncoder().getPosition() 
+            * Constants.DriveTrainConstants.DRIVE_CONVERSION_FACTOR
+            * Constants.DriveTrainConstants.DRIVE_FUDGE_FACTOR;
+        SmartDashboard.putNumber("Drive Distance Left", distance);
+
+        return (distance);
     }
 
     public void resetDistance() {
         lr.getEncoder().setPosition(0);
         rr.getEncoder().setPosition(0);
-        leftEncoderOffsetDistance = lr.getEncoder().getPosition();
-        rightEncoderOffsetDistance = rr.getEncoder().getPosition();
     }
     // endregion
 

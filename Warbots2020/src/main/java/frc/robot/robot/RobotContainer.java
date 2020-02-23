@@ -7,7 +7,6 @@
 
 package frc.robot.robot;
 
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -24,7 +23,7 @@ import frc.robot.commands.LoadShooter;
 import frc.robot.commands.RetractClimber;
 import frc.robot.commands.SpinUpFlyWheel;
 import frc.robot.commands.autonomous.AutonomousCommand;
-import frc.robot.commands.drivetrain.DriveForward;
+import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.drivetrain.DriveWithJoysticks;
 import frc.robot.commands.drivetrain.TurnToAngle;
 import frc.robot.subsystems.Climber;
@@ -62,8 +61,6 @@ public class RobotContainer
     public RobotContainer() 
     {
         configureButtonBindings();
-
-        CameraServer.getInstance().startAutomaticCapture();
 
         // set default commands
         drivetrain.setDefaultCommand(new DriveWithJoysticks(drivetrain, driver));
@@ -167,8 +164,7 @@ public class RobotContainer
         }
 
        // return new AutonomousCommand(drivetrain, startingSide, waitingTime);
-       //return new DriveForward(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE);
-        drivetrain.resetYaw();
-        return new TurnToAngle(90, drivetrain);
+       //return new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE);
+        return new DriveStraight(drivetrain, 100);
     }
 }
