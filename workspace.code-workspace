@@ -3,5 +3,8 @@
 		{
 			"path": "Warbots2020"
 		}
-	]
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "automatic"
+	}
 }

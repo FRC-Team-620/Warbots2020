@@ -7,6 +7,7 @@
 
 package frc.robot.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -61,6 +62,8 @@ public class RobotContainer
     public RobotContainer() 
     {
         configureButtonBindings();
+
+        CameraServer.getInstance().startAutomaticCapture();
 
         // set default commands
         drivetrain.setDefaultCommand(new DriveWithJoysticks(drivetrain, driver));

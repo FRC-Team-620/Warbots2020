@@ -16,10 +16,22 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.bling.Bling;
+import frc.robot.commands.CaptureIntake;
+import frc.robot.commands.EjectIntake;
+import frc.robot.commands.LoadShooter;
+import frc.robot.commands.ReleaseLowerArmClimber;
+import frc.robot.commands.ReleaseUpperArmClimber;
+import frc.robot.commands.RetractClimber;
+import frc.robot.commands.SpinUpFlyWheel;
+import frc.robot.commands.StuffFlyWheel;
+import frc.robot.commands.drivetrain.DriveBackward;
+import frc.robot.commands.drivetrain.DriveForward;
+import frc.robot.commands.drivetrain.TurnToAngle;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
+import frc.robot.util.Constants;
 import frc.robot.vision.Vision;
 
 public class Dashboard extends SubsystemBase 
@@ -31,14 +43,19 @@ public class Dashboard extends SubsystemBase
     
     public Dashboard(DriveTrain drivetrain, Climber climber, FlyWheel flyWheel, Intake intake,
     Shooter shooter, Bling bling, Vision vision, PowerDistributionPanel pdp) {
-        driveTab = Shuffleboard.getTab("Drive");
-        commandsTab = Shuffleboard.getTab("Commmands");
-        visionTab = Shuffleboard.getTab("Vision");
-        
-        Shuffleboard.selectTab("Drive");
-        
-        driveTab.add("Test Number", 1).withPosition(12, 8);
-        driveTab.add("Test Number NoPos", 1);
+
+        SmartDashboard.putData("Commands/Drive Forward", new DriveForward(drivetrain, 500));
+        SmartDashboard.putData("Commands/TurnToAngle", new TurnToAngle(-90, drivetrain));
+        // SmartDashboard.putData("Commands", new DriveBackward(drivetrain, 500));
+        // SmartDashboard.putData("Commands", new CaptureIntake(intake));
+        // SmartDashboard.putData("Commands", new EjectIntake(intake));
+        // // SmartDashboard.putData("Commands", new LoadShooter(shooter, 
+        //     // new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED), flyWheel));
+        // SmartDashboard.putData("Commands", new ReleaseLowerArmClimber(climber));
+        // SmartDashboard.putData("Commands", new ReleaseUpperArmClimber(climber));
+        // SmartDashboard.putData("Commands", new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED));
+        // SmartDashboard.putData("Commands", new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
+        // SmartDashboard.putData("Commands", new StuffFlyWheel(flyWheel));
 
 
         // //Subsystems that ALWAYS exist - do not require if statements
