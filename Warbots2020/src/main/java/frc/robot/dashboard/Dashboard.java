@@ -8,8 +8,6 @@
 package frc.robot.dashboard;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,13 +16,11 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.bling.Bling;
 import frc.robot.commands.CaptureIntake;
 import frc.robot.commands.EjectIntake;
-import frc.robot.commands.LoadShooter;
 import frc.robot.commands.ReleaseLowerArmClimber;
 import frc.robot.commands.ReleaseUpperArmClimber;
 import frc.robot.commands.RetractClimber;
 import frc.robot.commands.SpinUpFlyWheel;
 import frc.robot.commands.StuffFlyWheel;
-import frc.robot.commands.drivetrain.DriveBackward;
 import frc.robot.commands.drivetrain.DriveForward;
 import frc.robot.commands.drivetrain.TurnToAngle;
 import frc.robot.subsystems.Climber;
@@ -42,35 +38,22 @@ public class Dashboard extends SubsystemBase
 
     
     public Dashboard(DriveTrain drivetrain, Climber climber, FlyWheel flyWheel, Intake intake,
-    Shooter shooter, Bling bling, Vision vision, PowerDistributionPanel pdp) {
-
-        SmartDashboard.putData("Commands/Drive Forward", new DriveForward(drivetrain, 500));
+    Shooter shooter, Bling bling, Vision vision, PowerDistributionPanel pdp) 
+    {
+        SmartDashboard.putData("Commands/Drive Forward", new DriveForward(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE));
         SmartDashboard.putData("Commands/TurnToAngle", new TurnToAngle(-90, drivetrain));
-        // SmartDashboard.putData("Commands", new DriveBackward(drivetrain, 500));
-        // SmartDashboard.putData("Commands", new CaptureIntake(intake));
-        // SmartDashboard.putData("Commands", new EjectIntake(intake));
-        // // SmartDashboard.putData("Commands", new LoadShooter(shooter, 
-        //     // new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED), flyWheel));
-        // SmartDashboard.putData("Commands", new ReleaseLowerArmClimber(climber));
-        // SmartDashboard.putData("Commands", new ReleaseUpperArmClimber(climber));
-        // SmartDashboard.putData("Commands", new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED));
-        // SmartDashboard.putData("Commands", new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
-        // SmartDashboard.putData("Commands", new StuffFlyWheel(flyWheel));
+        SmartDashboard.putData("Commands/CaptureIntake", new CaptureIntake(intake));
+        SmartDashboard.putData("Commands/EjectIntake", new EjectIntake(intake));
+        // SmartDashboard.putData("Commands", new LoadShooter(shooter);
+        SmartDashboard.putData("Commands/ReleaseLowerArmClimber", new ReleaseLowerArmClimber(climber));
+        SmartDashboard.putData("Commands/ReleaseUpperArmClimber", new ReleaseUpperArmClimber(climber));
+        SmartDashboard.putData("Commands/RetractClimber", new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED));
+        SmartDashboard.putData("Commands/SpinUpFlyWheel", new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
+        SmartDashboard.putData("Commands/StuffFlyWheel", new StuffFlyWheel(flyWheel));
 
-
-        // //Subsystems that ALWAYS exist - do not require if statements
-        // Shuffleboard.getTab("Drive").add("Motor Temperature", 100).withWidget(BuiltInWidgets.kDial).withPosition(3, 2).getEntry();
-        // Shuffleboard.getTab("Drive").add("Gyro", 360).withWidget(BuiltInWidgets.kGyro).getEntry();
-        // Shuffleboard.getTab("Drive").add("Battery Voltage", 13.5).withWidget(BuiltInWidgets.kDial).getEntry();
-       
-       
-        // //Subsystems that MAY NOT exist - require if statements
-        // if(climber != null)
-        //     Shuffleboard.getTab("Climber").add("Activated?", false).withWidget(BuiltInWidgets.kBooleanBox).getEntry().setBoolean(climber.atSetPosition());
-        // if(flyWheel != null)
-        //     Shuffleboard.getTab("Shooter").add("Flywheel Speed", 1).withWidget(BuiltInWidgets.kDial).getEntry().setDouble(flyWheel.flyWheelSpeed());
-        // if(shooter != null)
-        //     Shuffleboard.getTab("Shooter").add("Ball Loaded", false).withWidget(BuiltInWidgets.kBooleanBox).getEntry().setBoolean(shooter.ballLoaded());
+        SmartDashboard.putNumber("Motor Temperature", 100);
+        SmartDashboard.putNumber("Gyro", 360);
+        SmartDashboard.putNumber("Battery Voltage", 13.5);
     }
 
     @Override
