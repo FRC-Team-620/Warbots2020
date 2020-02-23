@@ -8,35 +8,30 @@
 package frc.robot.robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
 import frc.robot.bling.Bling;
 import frc.robot.commands.CaptureIntake;
 import frc.robot.commands.ExtendClimber;
 import frc.robot.commands.LoadShooter;
 import frc.robot.commands.RetractClimber;
 import frc.robot.commands.SpinUpFlyWheel;
-import frc.robot.commands.autonomous.AutonomousCommand;
 import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.drivetrain.DriveWithJoysticks;
-import frc.robot.commands.drivetrain.TurnToAngle;
+import frc.robot.dashboard.Dashboard;
+import frc.robot.dashboard.Update;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.util.Constants;
-import frc.robot.subsystems.FlyWheel;
-import frc.robot.dashboard.*;
-import frc.robot.vision.*;
+import frc.robot.vision.Vision;
 
-public class RobotContainer
-{
+public class RobotContainer {
     // subsystems
     private final DriveTrain drivetrain = new DriveTrain();
     private final Climber climber = new Climber();
@@ -46,7 +41,8 @@ public class RobotContainer
     private final Bling bling = new Bling();
     private final Vision vision = new Vision();
     private final PowerDistributionPanel pdp = new PowerDistributionPanel();
-    private final Dashboard dashboard = new Dashboard(drivetrain, climber, flyWheel, intake, shooter, bling, vision, pdp);
+    private final Dashboard dashboard = new Dashboard(drivetrain, climber, flyWheel, intake, shooter, bling, vision,
+            pdp);
 
     // OI
     XboxController driver = new XboxController(Constants.OIConstants.DRIVER_CONTROLER_PORT);
@@ -58,8 +54,7 @@ public class RobotContainer
     DigitalInput digitalInput2 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_2);
     DigitalInput digitalInput3 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_3);
 
-    public RobotContainer() 
-    {
+    public RobotContainer() {
         configureButtonBindings();
 
         // set default commands
@@ -67,8 +62,7 @@ public class RobotContainer
         dashboard.setDefaultCommand(new Update(dashboard));
     }
 
-    private void configureButtonBindings() 
-    {
+    private void configureButtonBindings() {
         // Joystick Buttons
         final JoystickButton leftOperatorBumper = new JoystickButton(operator, Button.kBumperLeft.value);
         final JoystickButton rightOperatorBumper = new JoystickButton(operator, Button.kBumperRight.value);
@@ -78,24 +72,20 @@ public class RobotContainer
         final JoystickButton operatorX = new JoystickButton(operator, Button.kX.value);
 
         // Command bindings
-        if(intake != null)
-        {
+        if (intake != null) {
             var capture = new CaptureIntake(intake);
             leftOperatorBumper.whileHeld(capture);
         }
-        if(climber != null)
-        {
+        if (climber != null) {
             var extend = new ExtendClimber(climber);
             var retract = new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED);
             driverStartButton.whenPressed(extend);
             operatorBButton.whileHeld(retract);
         }
-        if(flyWheel != null)
-        {
+        if (flyWheel != null) {
             SpinUpFlyWheel spinUp = new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED);
             operatorX.whenPressed(spinUp);
-            if(shooter != null)
-            {
+            if (shooter != null) {
                 var load = new LoadShooter(shooter, spinUp, flyWheel);
                 rightOperatorBumper.whenPressed(load);
             }
@@ -126,8 +116,8 @@ public class RobotContainer
         // 00 - none
         // 01 - short
         // 10 - long
-        
-        //Autonomous Variables
+
+        // Autonomous Variables
         final int startingSide;
         final double waitingTime;
 
@@ -163,8 +153,9 @@ public class RobotContainer
             waitingTime = 7.0;
         }
 
-       // return new AutonomousCommand(drivetrain, startingSide, waitingTime);
-       //return new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE);
+        // return new AutonomousCommand(drivetrain, startingSide, waitingTime);
+        // return new DriveStraight(drivetrain,
+        // Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE);
         return new DriveStraight(drivetrain, 100);
     }
 }

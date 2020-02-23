@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.LoadShooter;
 import frc.robot.commands.SpinUpFlyWheel;
-import frc.robot.commands.drivetrain.DriveBackward;
 import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.drivetrain.TurnToAngle;
 import frc.robot.subsystems.DriveTrain;
@@ -24,7 +23,7 @@ public class AutonomousCommand extends SequentialCommandGroup {
     public int startingSide; // 0 is left, 1 is middle, 2 is right
     public double waitTime;
     protected DriveTrain drivetrain;
-    
+
     private final FlyWheel flyWheel = new FlyWheel();
     private final Shooter shooter = new Shooter();
     SpinUpFlyWheel spinUp = new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED);
@@ -35,43 +34,38 @@ public class AutonomousCommand extends SequentialCommandGroup {
         waitTime = wT;
         drivetrain = dt;
 
-        if(startingSide == 0) { // Run left side
+        if (startingSide == 0) { // Run left side
             addCommands(
-                // Drives up to the low goal
-                new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE)
-                );
-        }
-        else if(startingSide == 1) { // Run middle side
+                    // Drives up to the low goal
+                    new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE));
+        } else if (startingSide == 1) { // Run middle side
             addCommands(
-                // Drives up to the low goal
-                new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE),
+                    // Drives up to the low goal
+                    new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE),
 
-                // Starts the flywheel
-                new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED),
+                    // Starts the flywheel
+                    new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED),
 
-                // Begin firing
-                new LoadShooter(shooter, spinUp, flyWheel),
+                    // Begin firing
+                    new LoadShooter(shooter, spinUp, flyWheel),
 
-                // Waits for the robot to finish firing
-                new WaitCommand(5),
+                    // Waits for the robot to finish firing
+                    new WaitCommand(5),
 
-                // Backs up 25% the initial distance
-                new DriveBackward(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE / 4),
+                    // Backs up 25% the initial distance
+                    new DriveStraight(drivetrain, -Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE/4),
+//                new DriveBackward(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE / 4), //TODO REPLACE WITH DRIVE Straight
 
-                // Insert turn left command
-                new TurnToAngle(-90, drivetrain),
-                
-                // Drives to the corner of the arena to stop
-                new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE / 2)
-                );
-            
+                    // Insert turn left command
+                    new TurnToAngle(-90, drivetrain),
 
-        }
-        else { // Run right side
+                    // Drives to the corner of the arena to stop
+                    new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE / 2));
+
+        } else { // Run right side
             addCommands(
-                // Drives up to the low goal
-                new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE)
-                );
+                    // Drives up to the low goal
+                    new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE));
 
         }
     }
@@ -80,7 +74,8 @@ public class AutonomousCommand extends SequentialCommandGroup {
     // region Overrides
     @Override
     public void execute() {
-        //driveTrain.arcadeInput(.5, 0); // TODO Set default autonomous parameters in constants.java
+        // driveTrain.arcadeInput(.5, 0); // TODO Set default autonomous parameters in
+        // constants.java
     }
 
     @Override
