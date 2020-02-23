@@ -14,13 +14,13 @@ import frc.robot.subsystems.DriveTrain;
 
 public class DriveWithJoysticks extends CommandBase {
 
-    protected XboxController driverXbox;
+    private XboxController driverXbox;
     private DriveTrain driveTrain;
 
     // region Constructors
-    public DriveWithJoysticks(DriveTrain dt, XboxController driverXboxController) {
-        this.driveTrain = dt;
-        this.driverXbox = driverXboxController;
+    public DriveWithJoysticks(DriveTrain driveTrain, XboxController driverXbox) {
+        this.driveTrain = driveTrain;
+        this.driverXbox = driverXbox;
     }
     // endregion
 

@@ -11,9 +11,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
 public class ReleaseUpperArmClimber extends CommandBase {
-    
-    public final Climber climber;
+
+    private final Climber climber;
     private int frames;
+
     public ReleaseUpperArmClimber(Climber c) {
         climber = c;
         addRequirements(climber);
@@ -21,8 +22,7 @@ public class ReleaseUpperArmClimber extends CommandBase {
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() 
-    {
+    public void initialize() {
         frames = 0;
     }
 
@@ -35,14 +35,13 @@ public class ReleaseUpperArmClimber extends CommandBase {
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) 
-    {
-        //climber.setAngleLower(34);
+    public void end(boolean interrupted) {
+        // climber.setAngleLower(34);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return frames++ >  25;
+        return frames++ > 25;
     }
 }

@@ -12,7 +12,7 @@ import frc.robot.subsystems.Climber;
 
 public class ReleaseLowerArmClimber extends CommandBase {
 
-    public final Climber climber;
+    private final Climber climber;
 
     /**
      * Creates a new ReleaseLowerArm.

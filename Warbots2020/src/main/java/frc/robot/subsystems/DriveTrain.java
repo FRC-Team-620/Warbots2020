@@ -21,9 +21,9 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class DriveTrain extends SubsystemBase 
 {
 
-    protected final DifferentialDrive diffDrive;
-    protected final AHRS navX;
-    public CANSparkMax lf, rf, rr, lr;
+    private final DifferentialDrive diffDrive;
+    private final AHRS navX;
+    private CANSparkMax lf, rf, rr, lr;
 
     // region Constructors
     public DriveTrain()

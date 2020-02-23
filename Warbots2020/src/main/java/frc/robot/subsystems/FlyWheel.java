@@ -15,7 +15,7 @@ import com.ctre.phoenix.motorcontrol.can.*;
 
 public class FlyWheel extends SubsystemBase { //TODO Make A PID Subsystem.
 
-    public TalonFX shooter;
+    private TalonFX shooter;
 
     // region Constructors
     public FlyWheel() {

@@ -18,7 +18,7 @@ public class Climber extends SubsystemBase {
 
     private final Servo climberActuatorUpper;
     private final Servo climberActuatorLower;
-    public final TalonFX climberMotor;
+    private final TalonFX climberMotor;
     private double degrees;
     private int position;
 

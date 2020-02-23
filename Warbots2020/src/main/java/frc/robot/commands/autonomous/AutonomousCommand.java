@@ -17,28 +17,23 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.Shooter;
 import frc.robot.util.Constants;
+import frc.robot.util.StartingLocation;
 
 public class AutonomousCommand extends SequentialCommandGroup {
     // class variables
-    public int startingSide; // 0 is left, 1 is middle, 2 is right
-    public double waitTime;
-    protected DriveTrain drivetrain;
 
     private final FlyWheel flyWheel = new FlyWheel();
     private final Shooter shooter = new Shooter();
-    SpinUpFlyWheel spinUp = new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED);
+    private SpinUpFlyWheel spinUp = new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED);
 
     // region Constructors
-    public AutonomousCommand(DriveTrain dt, int sS, double wT) {
-        startingSide = sS;
-        waitTime = wT;
-        drivetrain = dt;
+    public AutonomousCommand(DriveTrain drivetrain, StartingLocation startingSide, double waitTime) {
 
-        if (startingSide == 0) { // Run left side
+        if (startingSide == StartingLocation.LEFT) { // Run left side
             addCommands(
                     // Drives up to the low goal
                     new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE));
-        } else if (startingSide == 1) { // Run middle side
+        } else if (startingSide == StartingLocation.MIDDLE) { // Run middle side
             addCommands(
                     // Drives up to the low goal
                     new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE),
@@ -53,7 +48,7 @@ public class AutonomousCommand extends SequentialCommandGroup {
                     new WaitCommand(5),
 
                     // Backs up 25% the initial distance
-                    new DriveStraight(drivetrain, -Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE/4),
+                    new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE / 4),
 //                new DriveBackward(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE / 4), //TODO REPLACE WITH DRIVE Straight
 
                     // Insert turn left command
