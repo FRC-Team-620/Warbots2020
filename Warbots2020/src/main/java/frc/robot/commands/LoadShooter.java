@@ -15,18 +15,18 @@ import frc.robot.subsystems.Shooter;
 
 public class LoadShooter extends CommandBase {
 
-    Shooter shooter;
-    FlyWheel flyWheel;
-    SpinUpFlyWheel stuff;
-    boolean lastFrameBallLoaded;
-    LocalDateTime endTime;
-    int framesSinceLastShot;
+    private Shooter shooter;
+    private FlyWheel flyWheel;
+    private SpinUpFlyWheel spinUpFlyWheelCommand;
+    private boolean lastFrameBallLoaded;
+    private LocalDateTime endTime; // Warning never set in constructor or init.
+    private int framesSinceLastShot;
 
-    public LoadShooter(Shooter l, SpinUpFlyWheel s, FlyWheel f) {
-        addRequirements(l);
-        shooter = l;
-        stuff = s;
-        flyWheel = f;
+    public LoadShooter(Shooter shooter, SpinUpFlyWheel spinUpFlyWheelCommand, FlyWheel flyWheel) { //TODO DONT pass a command as constructor to a command.
+        addRequirements(shooter);
+        this.shooter = shooter;
+        this.spinUpFlyWheelCommand = spinUpFlyWheelCommand;
+        this.flyWheel = flyWheel;
         // Use addRequirements() here to declare subsystem dependencies.
     }
 
@@ -58,7 +58,7 @@ public class LoadShooter extends CommandBase {
             return false;
         }
         if (!shooter.ballLoaded() && lastFrameBallLoaded == true) {
-            stuff.resetEndTime();
+            spinUpFlyWheelCommand.resetEndTime();
             resetEndTime();
             framesSinceLastShot = 0;
         }
@@ -77,7 +77,7 @@ public class LoadShooter extends CommandBase {
 
     private boolean checkSafety()
     {
-        return shooter.ballLoaded() && Math.abs(flyWheel.flyWheelSpeed() - stuff.targetVelocity) >= .05;
+        return shooter.ballLoaded() && Math.abs(flyWheel.flyWheelSpeed() - spinUpFlyWheelCommand.getTargetVelocity()) >= .05; //TODO BAD don't check a command for status of subsystem.
     }
     // region Methods
     public void resetEndTime() {

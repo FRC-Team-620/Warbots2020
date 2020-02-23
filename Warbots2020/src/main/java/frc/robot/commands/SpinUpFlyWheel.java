@@ -9,15 +9,21 @@ package frc.robot.commands;
 
 import java.time.LocalDateTime;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.FlyWheel;
 
-public class SpinUpFlyWheel extends CommandFlyWheel {
-    
-    public LocalDateTime endTime;
+public class SpinUpFlyWheel extends CommandBase {
+
+    private LocalDateTime endTime;
+    private final double targetVelocity;
+    private final FlyWheel flyWheel;
 
     // region Constructors
-    public SpinUpFlyWheel(FlyWheel s, double speed) {
-        super(s, speed);
+    public SpinUpFlyWheel(FlyWheel flyWheel, double speed) {
+
+        addRequirements(flyWheel);
+        this.flyWheel = flyWheel;
+        this.targetVelocity = speed;
     }
     // endregion
 
@@ -47,9 +53,11 @@ public class SpinUpFlyWheel extends CommandFlyWheel {
     }
     // endregion
 
-    // region Methods
     public void resetEndTime() {
         endTime = LocalDateTime.now().plusSeconds(10);
     }
-    // endregion
+
+    public double getTargetVelocity() {
+        return targetVelocity;
+    }
 }

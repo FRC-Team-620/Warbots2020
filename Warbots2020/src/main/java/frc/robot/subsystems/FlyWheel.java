@@ -8,23 +8,19 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.util.Constants;
 import frc.robot.util.Pin;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.*;
 
-public class FlyWheel extends SubsystemBase {
+public class FlyWheel extends SubsystemBase { //TODO Make A PID Subsystem.
 
     public TalonFX shooter;
 
     // region Constructors
     public FlyWheel() {
         shooter = new TalonFX(Pin.ShooterMotor1.id);
-
-        final var fxConfig = new TalonFXConfiguration();
-        fxConfig.statorCurrLimit.currentLimit = 20;
-        shooter.configAllSettings(fxConfig);
+        shooter.configAllSettings(new TalonFXConfiguration());
     }
     // endregion
 
