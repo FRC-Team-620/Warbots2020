@@ -15,15 +15,12 @@ public class RetractClimber extends CommandBase {
     private final Climber climber;
     private double targetVelocity;
 
-    // region Constructors
     public RetractClimber(Climber c, double speed) {
         climber = c;
         addRequirements(climber);
         targetVelocity = speed;
     }
-    // endregion
 
-    // region Overrides
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
@@ -47,6 +44,5 @@ public class RetractClimber extends CommandBase {
     public boolean isFinished() {
         return false;//climber.atSetPosition();
     }
-    // endregion
 
 }

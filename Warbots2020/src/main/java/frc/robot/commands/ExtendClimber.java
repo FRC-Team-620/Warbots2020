@@ -33,7 +33,6 @@ public class ExtendClimber extends SequentialCommandGroup {
         );
     }
 
-    // region Overrides
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
@@ -55,6 +54,5 @@ public class ExtendClimber extends SequentialCommandGroup {
     public boolean isFinished() {
         return true;
     }
-    // endregion
 
 }

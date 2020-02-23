@@ -25,7 +25,6 @@ public class DriveTrain extends SubsystemBase
     private final AHRS navX;
     private CANSparkMax lf, rf, rr, lr;
 
-    // region Constructors
     public DriveTrain()
  {
 
@@ -67,9 +66,7 @@ public class DriveTrain extends SubsystemBase
 
         resetDistance();
     }
-    // endregion
 
-    // region Methods
     public void stop() {
         diffDrive.stopMotor();
     }
@@ -109,11 +106,8 @@ public class DriveTrain extends SubsystemBase
         lr.getEncoder().setPosition(0);
         rr.getEncoder().setPosition(0);
     }
-    // endregion
 
-    // region Overrides
     @Override
     public void periodic() {
     }
-    // endregion
 }

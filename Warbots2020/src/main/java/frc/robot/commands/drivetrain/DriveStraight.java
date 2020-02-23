@@ -7,7 +7,6 @@
 
 package frc.robot.commands.drivetrain;
 
-//package edu.wpi.first.wpilibj.examples.gyrodrivecommands.commands;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
@@ -15,11 +14,11 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.util.Constants;
 
 /**
- * A command that will turn the robot to the specified angle.
+ * A command that will Move the robot a specified distance.
  */
 public class DriveStraight extends PIDCommand {
     /**
-     * Turns to robot a specified distance.
+     * Moves the robot a specified distance.
      *
      * @param targetDistance The distance to drive
      * @param drive              The drive subsystem to use

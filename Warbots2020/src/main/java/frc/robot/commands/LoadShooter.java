@@ -22,7 +22,10 @@ public class LoadShooter extends CommandBase {
     private LocalDateTime endTime; // Warning never set in constructor or init.
     private int framesSinceLastShot;
 
-    public LoadShooter(Shooter shooter, SpinUpFlyWheel spinUpFlyWheelCommand, FlyWheel flyWheel) { //TODO DONT pass a command as constructor to a command.
+    public LoadShooter(Shooter shooter, SpinUpFlyWheel spinUpFlyWheelCommand, FlyWheel flyWheel) { // TODO DONT pass a
+                                                                                                   // command as
+                                                                                                   // constructor to a
+                                                                                                   // command.
         addRequirements(shooter);
         this.shooter = shooter;
         this.spinUpFlyWheelCommand = spinUpFlyWheelCommand;
@@ -41,7 +44,8 @@ public class LoadShooter extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if(checkSafety()) return;
+        if (checkSafety())
+            return;
         shooter.load();
     }
 
@@ -62,7 +66,7 @@ public class LoadShooter extends CommandBase {
             resetEndTime();
             framesSinceLastShot = 0;
         }
-        if(checkSafety()) {
+        if (checkSafety()) {
             return true;
         }
         if (shooter.ballLoaded() && lastFrameBallLoaded == false) {
@@ -75,13 +79,17 @@ public class LoadShooter extends CommandBase {
         return false;
     }
 
-    private boolean checkSafety()
-    {
-        return shooter.ballLoaded() && Math.abs(flyWheel.flyWheelSpeed() - spinUpFlyWheelCommand.getTargetVelocity()) >= .05; //TODO BAD don't check a command for status of subsystem.
+    private boolean checkSafety() {
+        return shooter.ballLoaded()
+                && Math.abs(flyWheel.flyWheelSpeed() - spinUpFlyWheelCommand.getTargetVelocity()) >= .05; // TODO BAD
+                                                                                                          // don't check
+                                                                                                          // a command
+                                                                                                          // for status
+                                                                                                          // of
+                                                                                                          // subsystem.
     }
-    // region Methods
+
     public void resetEndTime() {
         endTime = LocalDateTime.now().plusSeconds(10);
     }
-    // endregion
 }

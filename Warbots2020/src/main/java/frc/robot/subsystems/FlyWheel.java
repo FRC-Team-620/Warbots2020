@@ -17,21 +17,16 @@ public class FlyWheel extends SubsystemBase { //TODO Make A PID Subsystem.
 
     private TalonFX shooter;
 
-    // region Constructors
     public FlyWheel() {
         shooter = new TalonFX(Pin.ShooterMotor1.id);
         shooter.configAllSettings(new TalonFXConfiguration());
     }
-    // endregion
 
-    // region Overrides
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
     }
-    // endregion
 
-    // region Methods
     public void setShootSpeed(final double speed) {
         shooter.set(ControlMode.PercentOutput, speed);
     }
@@ -44,6 +39,5 @@ public class FlyWheel extends SubsystemBase { //TODO Make A PID Subsystem.
         return true; // TODO check if controller is at set point
     }
 
-    // endregion
 
 }

@@ -17,14 +17,11 @@ public class DriveWithJoysticks extends CommandBase {
     private XboxController driverXbox;
     private DriveTrain driveTrain;
 
-    // region Constructors
     public DriveWithJoysticks(DriveTrain driveTrain, XboxController driverXbox) {
         this.driveTrain = driveTrain;
         this.driverXbox = driverXbox;
     }
-    // endregion
 
-    // region Overrides
     @Override
     public void execute() {
 
@@ -50,6 +47,5 @@ public class DriveWithJoysticks extends CommandBase {
     public boolean isFinished() {
         return false;
     }
-    // endregion
 
 }

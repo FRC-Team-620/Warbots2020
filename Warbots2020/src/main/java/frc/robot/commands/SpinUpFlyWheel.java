@@ -18,16 +18,13 @@ public class SpinUpFlyWheel extends CommandBase {
     private final double targetVelocity;
     private final FlyWheel flyWheel;
 
-    // region Constructors
     public SpinUpFlyWheel(FlyWheel flyWheel, double speed) {
 
         addRequirements(flyWheel);
         this.flyWheel = flyWheel;
         this.targetVelocity = speed;
     }
-    // endregion
 
-    // region Overrides
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
@@ -51,7 +48,6 @@ public class SpinUpFlyWheel extends CommandBase {
     public boolean isFinished() {
         return LocalDateTime.now().isAfter(endTime);
     }
-    // endregion
 
     public void resetEndTime() {
         endTime = LocalDateTime.now().plusSeconds(10);

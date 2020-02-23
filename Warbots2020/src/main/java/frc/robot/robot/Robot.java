@@ -16,7 +16,6 @@ public class Robot extends TimedRobot {
     private Command autonomousCommand;
     private RobotContainer robotContainer;
 
-    // region Overrides
     @Override
     public void robotInit() 
     {
@@ -51,9 +50,7 @@ public class Robot extends TimedRobot {
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
     }
-    // endregion
 
-    // region Unused Overrides
     @Override
     public void disabledInit() {
     }
@@ -69,5 +66,4 @@ public class Robot extends TimedRobot {
     @Override
     public void testPeriodic() {
     }
-    // endregion
 }

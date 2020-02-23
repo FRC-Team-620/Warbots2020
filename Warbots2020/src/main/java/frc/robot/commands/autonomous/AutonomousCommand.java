@@ -20,13 +20,11 @@ import frc.robot.util.Constants;
 import frc.robot.util.StartingLocation;
 
 public class AutonomousCommand extends SequentialCommandGroup {
-    // class variables
 
     private final FlyWheel flyWheel = new FlyWheel();
     private final Shooter shooter = new Shooter();
     private SpinUpFlyWheel spinUp = new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED);
 
-    // region Constructors
     public AutonomousCommand(DriveTrain drivetrain, StartingLocation startingSide, double waitTime) {
 
         if (startingSide == StartingLocation.LEFT) { // Run left side
@@ -49,7 +47,7 @@ public class AutonomousCommand extends SequentialCommandGroup {
 
                     // Backs up 25% the initial distance
                     new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE / 4),
-//                new DriveBackward(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE / 4), //TODO REPLACE WITH DRIVE Straight
+                    // new DriveBackward(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE / 4), //TODO REPLACE WITH DRIVE Straight
 
                     // Insert turn left command
                     new TurnToAngle(-90, drivetrain),
@@ -64,9 +62,7 @@ public class AutonomousCommand extends SequentialCommandGroup {
 
         }
     }
-    // endregion
 
-    // region Overrides
     @Override
     public void execute() {
         // driveTrain.arcadeInput(.5, 0); // TODO Set default autonomous parameters in
@@ -77,5 +73,4 @@ public class AutonomousCommand extends SequentialCommandGroup {
     public boolean isFinished() {
         return false;
     }
-    // endregion
 }

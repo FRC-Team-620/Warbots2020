@@ -14,14 +14,11 @@ public class EjectIntake extends CommandBase {
 
     private final Intake intake;
 
-    // region Constructors
     public EjectIntake(Intake i) {
         intake = i;
         addRequirements(intake);
     }
-    // endregion
 
-    // region Overrides
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
@@ -42,6 +39,5 @@ public class EjectIntake extends CommandBase {
     public boolean isFinished() {
         return false;
     }
-    // endregion
 
 }
