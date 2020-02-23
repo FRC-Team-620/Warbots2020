@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.util.Constants;
 import frc.robot.util.Pin;
@@ -43,12 +44,7 @@ public class DriveTrain extends SubsystemBase
         lr.setIdleMode(mode);
         rf.setIdleMode(mode);
         rr.setIdleMode(mode);
-                           
-        // lf.getEncoder().setPositionConversionFactor(Constants.DriveTrainConstants.DRIVE_CONVERSION_FACTOR);
-        // lr.getEncoder().setPositionConversionFactor(Constants.DriveTrainConstants.DRIVE_CONVERSION_FACTOR);
-        // rf.getEncoder().setPositionConversionFactor(Constants.DriveTrainConstants.DRIVE_CONVERSION_FACTOR);
-        // rr.getEncoder().setPositionConversionFactor(Constants.DriveTrainConstants.DRIVE_CONVERSION_FACTOR);
-
+                         
         var openLoopRampRate = 0.75;
         lf.setOpenLoopRampRate(openLoopRampRate);
         lr.setOpenLoopRampRate(openLoopRampRate);
@@ -99,8 +95,14 @@ public class DriveTrain extends SubsystemBase
         navX.zeroYaw();
     }
 
-    public double getDistance() {
-        return (lr.getEncoder().getPosition() + rr.getEncoder().getPosition()) / 2 * Constants.DriveTrainConstants.DRIVE_CONVERSION_FACTOR;
+    public double getDistance() 
+    {
+        double distance = -lr.getEncoder().getPosition() 
+            * Constants.DriveTrainConstants.DRIVE_CONVERSION_FACTOR
+            * Constants.DriveTrainConstants.DRIVE_FUDGE_FACTOR;
+        SmartDashboard.putNumber("Drive Distance Left", distance);
+
+        return (distance);
     }
 
     public void resetDistance() {

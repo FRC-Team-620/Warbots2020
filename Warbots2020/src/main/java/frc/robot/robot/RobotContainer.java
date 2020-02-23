@@ -165,6 +165,6 @@ public class RobotContainer
 
        // return new AutonomousCommand(drivetrain, startingSide, waitingTime);
        //return new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE);
-        return new DriveStraight(drivetrain, 60);
+        return new DriveStraight(drivetrain, 100);
     }
 }

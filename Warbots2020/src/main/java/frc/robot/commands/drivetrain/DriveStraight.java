@@ -35,7 +35,7 @@ public class DriveStraight extends PIDCommand {
         // Set reference to target
         targetDistance,
         // Pipe output to drive robot
-        output -> drive.arcadeInput(output, 0),
+        output -> drive.arcadeInput(-output, 0),
         // Require the drive
         drive);
         
