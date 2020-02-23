@@ -1,7 +1,5 @@
 package frc.robot.commands.drivetrain;
 
-//package edu.wpi.first.wpilibj.examples.gyrodrivecommands.commands;
-
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.DriveTrain;
@@ -31,6 +29,8 @@ public class TurnToAngle extends PIDCommand {
         output -> drive.arcadeInput(0, -output),
         // Require the drive
         drive);
+
+      drive.resetYaw();
 
     // Set the controller to be continuous (because it is an angle controller)
     getController().enableContinuousInput(-180, 180);

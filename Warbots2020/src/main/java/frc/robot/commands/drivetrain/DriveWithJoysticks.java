@@ -10,6 +10,7 @@ package frc.robot.commands.drivetrain;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.util.Constants;
 
 public class DriveWithJoysticks extends DriveCommand {
 
@@ -28,7 +29,7 @@ public class DriveWithJoysticks extends DriveCommand {
 
         var rotation = -1 * driverXbox.getX(Hand.kLeft);
         //var speed = driverXbox.getY(Hand.kLeft);
-        
+        System.out.println(driveTrain.getDistance());
         var speed = 0.0;
         if(driverXbox.getTriggerAxis(Hand.kLeft) > driverXbox.getTriggerAxis(Hand.kRight))
         {

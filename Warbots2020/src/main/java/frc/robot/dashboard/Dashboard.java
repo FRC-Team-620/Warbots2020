@@ -21,7 +21,7 @@ import frc.robot.commands.ReleaseUpperArmClimber;
 import frc.robot.commands.RetractClimber;
 import frc.robot.commands.SpinUpFlyWheel;
 import frc.robot.commands.StuffFlyWheel;
-import frc.robot.commands.drivetrain.DriveForward;
+import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.drivetrain.TurnToAngle;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.FlyWheel;
@@ -40,7 +40,7 @@ public class Dashboard extends SubsystemBase
     public Dashboard(DriveTrain drivetrain, Climber climber, FlyWheel flyWheel, Intake intake,
     Shooter shooter, Bling bling, Vision vision, PowerDistributionPanel pdp) 
     {
-        SmartDashboard.putData("Commands/Drive Forward", new DriveForward(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE));
+        SmartDashboard.putData("Commands/Drive Forward", new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE));
         SmartDashboard.putData("Commands/TurnToAngle", new TurnToAngle(-90, drivetrain));
         SmartDashboard.putData("Commands/CaptureIntake", new CaptureIntake(intake));
         SmartDashboard.putData("Commands/EjectIntake", new EjectIntake(intake));
@@ -54,6 +54,7 @@ public class Dashboard extends SubsystemBase
         SmartDashboard.putNumber("Motor Temperature", 100);
         SmartDashboard.putNumber("Gyro", 360);
         SmartDashboard.putNumber("Battery Voltage", 13.5);
+        SmartDashboard.putNumber("Distance Traveled", drivetrain.getDistance());
     }
 
     @Override

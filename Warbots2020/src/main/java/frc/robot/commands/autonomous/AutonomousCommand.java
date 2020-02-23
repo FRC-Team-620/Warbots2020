@@ -7,14 +7,13 @@
 
 package frc.robot.commands.autonomous;
 
-import javax.xml.namespace.QName;
-
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.LoadShooter;
 import frc.robot.commands.SpinUpFlyWheel;
 import frc.robot.commands.drivetrain.DriveBackward;
-import frc.robot.commands.drivetrain.DriveForward;
+import frc.robot.commands.drivetrain.DriveStraight;
+import frc.robot.commands.drivetrain.TurnToAngle;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.Shooter;
@@ -39,13 +38,13 @@ public class AutonomousCommand extends SequentialCommandGroup {
         if(startingSide == 0) { // Run left side
             addCommands(
                 // Drives up to the low goal
-                new DriveForward(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE)
+                new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE)
                 );
         }
         else if(startingSide == 1) { // Run middle side
             addCommands(
                 // Drives up to the low goal
-                new DriveForward(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE),
+                new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE),
 
                 // Starts the flywheel
                 new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED),
@@ -60,10 +59,10 @@ public class AutonomousCommand extends SequentialCommandGroup {
                 new DriveBackward(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE / 4),
 
                 // Insert turn left command
-
+                new TurnToAngle(-90, drivetrain),
                 
                 // Drives to the corner of the arena to stop
-                new DriveForward(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE / 2)
+                new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE / 2)
                 );
             
 
@@ -71,7 +70,7 @@ public class AutonomousCommand extends SequentialCommandGroup {
         else { // Run right side
             addCommands(
                 // Drives up to the low goal
-                new DriveForward(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE)
+                new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE)
                 );
 
         }
