@@ -8,6 +8,7 @@ public class ThreeWaySwitch {
        p1 = new DigitalInput(port1);
        p2 = new DigitalInput(port2);
     }
+    //Returns Switch's position from (0-2)
     public int getPosition() {
         return asBinary(new boolean[] {p1.get(),p2.get()});
     }

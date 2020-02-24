@@ -14,6 +14,10 @@ public class LoadShooter extends CommandBase {
 
     private Shooter shooter;
 
+    /*
+     * Runs shooter motor until a ball is in the loaded position. Does nothing if
+     * ball is already loaded
+     */
     public LoadShooter(Shooter shooter) {
         addRequirements(shooter);
         this.shooter = shooter;

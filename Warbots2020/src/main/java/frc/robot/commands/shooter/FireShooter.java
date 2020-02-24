@@ -7,7 +7,9 @@ import frc.robot.subsystems.Shooter;
 
 public class FireShooter extends SequentialCommandGroup {
 
-
+    /*
+     * Runs one ball past the shooter's ball loaded sensor into the flywheel.
+     */
     public FireShooter(Shooter shooter) {
         addCommands(
                 new LoadShooter(shooter).withTimeout(5), //Try to load ball is not already loaded
