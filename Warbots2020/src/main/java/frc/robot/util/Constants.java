@@ -19,8 +19,7 @@ package frc.robot.util;
  */
 public final class Constants {
     public static final class ClimberConstants {
-        public static final double CLIMBER_UP_SPEED = 1;
-        public static final double CLIMBER_DOWN_SPEED = -0.5;
+        public static final double CLIMBER_SPEED = 1;
     }
 
     public static final class IntakeConstants {
