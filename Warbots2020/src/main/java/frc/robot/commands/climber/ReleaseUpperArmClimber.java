@@ -5,42 +5,44 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
-public class ExtendClimber extends CommandBase {
+public class ReleaseUpperArmClimber extends CommandBase {
 
     private final Climber climber;
+    private int frames;
 
-    public ExtendClimber(Climber c) {
+    public ReleaseUpperArmClimber(Climber c) {
         climber = c;
         addRequirements(climber);
     }
 
-    // region Overrides
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        frames = 0;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        climber.setAngleLower(180);
+        climber.setAngleUpper(34);
+        System.out.println("********RELEASE UPPER ARM HAS RUN************");
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        // climber.setAngleLower(34);
+        climber.setAngleLower(34);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return frames++ > 25;
     }
-    // endregion
-
 }

@@ -5,51 +5,44 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.climber;
 
-import java.time.LocalDateTime;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Climber;
 
-import frc.robot.subsystems.FlyWheel;
+public class RetractClimber extends CommandBase {
 
-public class SpinUpFlyWheel extends CommandFlyWheel {
-    
-    public LocalDateTime endTime;
+    private final Climber climber;
+    private double targetVelocity;
 
-    // region Constructors
-    public SpinUpFlyWheel(FlyWheel s, double speed) {
-        super(s, speed);
+    public RetractClimber(Climber c, double speed) {
+        climber = c;
+        addRequirements(climber);
+        targetVelocity = speed;
     }
-    // endregion
 
-    // region Overrides
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        resetEndTime();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        flyWheel.setShootSpeed(targetVelocity);
+        climber.setSpeed(targetVelocity, 10000);
     }
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
-        flyWheel.setShootSpeed(0);
+    public void end(boolean interrupted) 
+    {
+        climber.setSpeed(0, 0);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return LocalDateTime.now().isAfter(endTime);
+        return false;//climber.atSetPosition();
     }
-    // endregion
 
-    // region Methods
-    public void resetEndTime() {
-        endTime = LocalDateTime.now().plusSeconds(10);
-    }
-    // endregion
 }

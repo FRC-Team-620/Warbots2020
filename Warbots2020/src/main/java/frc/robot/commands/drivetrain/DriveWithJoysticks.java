@@ -7,34 +7,30 @@
 
 package frc.robot.commands.drivetrain;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
-public class DriveWithJoysticks extends DriveCommand {
+public class DriveWithJoysticks extends CommandBase {
 
-    protected XboxController driverXbox;
+    private XboxController driverXbox;
+    private DriveTrain driveTrain;
 
-    // region Constructors
-    public DriveWithJoysticks(DriveTrain dt, XboxController driverXboxController) {
-        super(dt);
-        driverXbox = driverXboxController;
+    public DriveWithJoysticks(DriveTrain driveTrain, XboxController driverXbox) {
+        this.driveTrain = driveTrain;
+        this.driverXbox = driverXbox;
     }
-    // endregion
 
-    // region Overrides
     @Override
     public void execute() {
         var rotation = -1 * driverXbox.getX(Hand.kLeft);
-        //var speed = driverXbox.getY(Hand.kLeft);
-        
+        // var speed = driverXbox.getY(Hand.kLeft);
+        System.out.println(driveTrain.getDistance());
         var speed = 0.0;
-        if(driverXbox.getTriggerAxis(Hand.kLeft) > driverXbox.getTriggerAxis(Hand.kRight))
-        {
+        if (driverXbox.getTriggerAxis(Hand.kLeft) > driverXbox.getTriggerAxis(Hand.kRight)) {
             speed = -1 * driverXbox.getTriggerAxis(Hand.kLeft);
-        }
-        else if(driverXbox.getTriggerAxis(Hand.kRight) > driverXbox.getTriggerAxis(Hand.kLeft))
-        {
+        } else if (driverXbox.getTriggerAxis(Hand.kRight) > driverXbox.getTriggerAxis(Hand.kLeft)) {
             speed = driverXbox.getTriggerAxis(Hand.kRight);
         }
 
@@ -50,6 +46,5 @@ public class DriveWithJoysticks extends DriveCommand {
     public boolean isFinished() {
         return false;
     }
-    // endregion
 
 }

@@ -14,14 +14,11 @@ public class CaptureIntake extends CommandBase {
 
     private final Intake intake;
 
-    // region Constructors
     public CaptureIntake(Intake i) {
         intake = i;
         addRequirements(intake);
     }
-    // endregion
 
-    // region Overrides
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
@@ -45,6 +42,5 @@ public class CaptureIntake extends CommandBase {
     public boolean isFinished() {
         return false;
     }
-    // endregion
 
 }

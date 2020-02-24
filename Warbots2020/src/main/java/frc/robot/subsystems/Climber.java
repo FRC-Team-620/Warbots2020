@@ -18,34 +18,28 @@ public class Climber extends SubsystemBase {
 
     private final Servo climberActuatorUpper;
     private final Servo climberActuatorLower;
-    public final TalonFX climberMotor;
+    private final TalonFX climberMotor;
     private double degrees;
     private int position;
 
-    // region Constructors
     public Climber() {
         climberActuatorUpper = new Servo(Pin.ClimberActuatorUpper.id);
-        //climberActuatorUpper.set(0);
-        climberActuatorUpper.setAngle(0);
+        // climberActuatorUpper.set(0);
+        climberActuatorUpper.setAngle(34);
 
         climberActuatorLower = new Servo(Pin.ClimberActuatorLower.id);
-        //climberActuatorLower.set(0);
-        climberActuatorLower.setAngle(0);
+        // climberActuatorLower.set(0);
+        climberActuatorLower.setAngle(34);
 
         climberMotor = new TalonFX(Pin.ClimberMotor.id);
     }
 
-    // endregion
-    // region Overrides
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
     }
-    // endregion
 
-    // region Methods
-    public void setSpeed(final double speed, final int pos) 
-    {
+    public void setSpeed(final double speed, final int pos) {
         climberMotor.set(ControlMode.PercentOutput, speed);
         position = pos;
     }
@@ -65,14 +59,14 @@ public class Climber extends SubsystemBase {
     }
 
     public boolean atSetPointUpper() {
-        if (climberActuatorUpper.getAngle() == degrees) {
+        if (climberActuatorUpper.getAngle() >= 34) {
             return true;
         }
         return false;
     }
 
     public boolean atSetPointLower() {
-        if (climberActuatorLower.getAngle() == degrees) {
+        if (climberActuatorLower.getAngle() >= 34) {
             return true;
         }
         return false;
@@ -84,5 +78,4 @@ public class Climber extends SubsystemBase {
         return false;
     }
 
-    // endregion
 }

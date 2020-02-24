@@ -10,17 +10,40 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.FlyWheel;
 
-public abstract class CommandFlyWheel extends CommandBase {
+public class CommandFlyWheel extends CommandBase {
 
-    public final double targetVelocity;
-    protected final FlyWheel flyWheel;
+    private final double targetVelocity;
+    private final FlyWheel flyWheel;
 
-    // region Constructors
-    protected CommandFlyWheel(FlyWheel s, double speed) {
-        flyWheel = s;
+    public CommandFlyWheel(FlyWheel flyWheel, double speed) {
         addRequirements(flyWheel);
-        targetVelocity = speed;
+        this.flyWheel = flyWheel;
+        this.targetVelocity = speed;
     }
-    // endregion
+
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+    }
+
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        flyWheel.setShootSpeed(targetVelocity);
+    }
+
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+        if (interrupted) {
+            flyWheel.setShootSpeed(0); //safe feature if interrupted by another command.
+        }
+    }
+
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return this.flyWheel.isAtSpeed();
+    }
 
 }

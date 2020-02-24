@@ -7,42 +7,43 @@
 
 package frc.robot.robot;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
 import frc.robot.bling.Bling;
 import frc.robot.commands.CaptureIntake;
-import frc.robot.commands.ExtendClimber;
-import frc.robot.commands.LoadShooter;
-import frc.robot.commands.RetractClimber;
-import frc.robot.commands.SpinUpFlyWheel;
-import frc.robot.commands.autonomous.AutonomousCommand;
-import frc.robot.commands.drivetrain.DriveForward;
+import frc.robot.commands.CommandFlyWheel;
+import frc.robot.commands.EjectIntake;
+import frc.robot.commands.StuffFlyWheel;
+import frc.robot.commands.climber.ExtendClimber;
+import frc.robot.commands.climber.ReleaseLowerArmClimber;
+import frc.robot.commands.climber.ReleaseUpperArmClimber;
+import frc.robot.commands.climber.RetractClimber;
+import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.drivetrain.DriveWithJoysticks;
+import frc.robot.commands.shooter.LoadShooter;
+import frc.robot.dashboard.Dashboard;
+import frc.robot.dashboard.Update;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.util.Constants;
-import frc.robot.subsystems.FlyWheel;
-import frc.robot.dashboard.*;
-import frc.robot.vision.*;
+import frc.robot.util.ThreeWaySwitch;
+import frc.robot.vision.Vision;
 
-public class RobotContainer
-{
+public class RobotContainer {
     // subsystems
     private final DriveTrain drivetrain = new DriveTrain();
     private final Climber climber = new Climber();
     private final FlyWheel flyWheel = new FlyWheel();
     private final Intake intake = new Intake();
     private final Shooter shooter = new Shooter();
-    private final Bling bling;
+    private final Bling bling = new Bling();
     private final Vision vision = new Vision();
+    private final PowerDistributionPanel pdp = new PowerDistributionPanel();
     private final Dashboard dashboard = new Dashboard();
 
     // OI
@@ -50,49 +51,68 @@ public class RobotContainer
     XboxController operator = new XboxController(Constants.OIConstants.OPERATOR_CONTROLER_PORT);
 
     // Autonomous Selector Switches
-    DigitalInput digitalInput0 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_0);
-    DigitalInput digitalInput1 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_1);
-    DigitalInput digitalInput2 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_2);
-    DigitalInput digitalInput3 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_3);
+//    DigitalInput digitalInput0 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_0);
+//    DigitalInput digitalInput1 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_1);
+//    DigitalInput digitalInput2 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_2);
+//    DigitalInput digitalInput3 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_3);
+    ThreeWaySwitch autoSelector = new ThreeWaySwitch(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_0,
+            Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_1);
+    ThreeWaySwitch delaySelector = new ThreeWaySwitch(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_2,
+            Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_3);
 
-    // Autonomous variables
+    public RobotContainer() {
     public int startingSide;
     public double waitingTime;
 
-    public RobotContainer() 
-    {
         configureButtonBindings();
-
-        bling = new Bling();
-
+        populateDashboard();
         // set default commands
         drivetrain.setDefaultCommand(new DriveWithJoysticks(drivetrain, driver));
-        dashboard.setDefaultCommand(
-                new Update(dashboard, drivetrain, climber, flyWheel, intake, shooter, bling, vision));
+        dashboard.setDefaultCommand(new Update(dashboard));
     }
 
-    private void configureButtonBindings() 
-    {
-        // Joystick Buttons
-        final JoystickButton leftOperatorBumper = new JoystickButton(operator, Button.kBumperLeft.value);
-        final JoystickButton rightOperatorBumper = new JoystickButton(operator, Button.kBumperRight.value);
+    private void populateDashboard() {
+        dashboard.addCommand("Drive Forward",
+                new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE));
+        dashboard.addCommand("TurnToAngle", new TurnToAngle(-90, drivetrain));
+        dashboard.addCommand("CaptureIntake", new CaptureIntake(intake));
+        dashboard.addCommand("EjectIntake", new EjectIntake(intake));
+        dashboard.addCommand("ReleaseLowerArmClimber", new ReleaseLowerArmClimber(climber));
+        dashboard.addCommand("ReleaseLowerArmClimber", new ReleaseUpperArmClimber(climber));
+        dashboard.addCommand("ExtendClimber", new ExtendClimber(climber));
+        dashboard.addCommand("RetractClimber", new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED));
+        dashboard.addCommand("SpinUpFlyWheel", new CommandFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
+        dashboard.addCommand("StuffFlyWheel", new StuffFlyWheel(flyWheel));
+    }
+    private void configureButtonBindings() {
+
+        /*
+         * Operator Controls
+         */
+
+        JoystickButton operatorLeftBumper = new JoystickButton(operator, Button.kBumperLeft.value);
+        operatorLeftBumper.whileHeld(new CaptureIntake(intake));
+
+        JoystickButton operatorRightBumper = new JoystickButton(operator, Button.kBumperRight.value);
+        operatorRightBumper.whenPressed(new LoadShooter(shooter));
+
+        JoystickButton operatorB = new JoystickButton(operator, Button.kB.value);
+        operatorB.whileHeld(new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED));
+
+        JoystickButton operatorX = new JoystickButton(operator, Button.kX.value);
+        operatorX.whenPressed(new CommandFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
+        operatorX.whenReleased(new CommandFlyWheel(flyWheel, 0));
+
+//        JoystickButton operatorStartButton = new JoystickButton(operator, Button.kStart.value);
+
+        /*
+         * Driver Controls
+         */
+
         final JoystickButton driverStartButton = new JoystickButton(driver, Button.kStart.value);
-        final JoystickButton operatorStartButton = new JoystickButton(operator, Button.kStart.value);
-        final JoystickButton operatorBButton = new JoystickButton(operator, Button.kB.value);
-        final JoystickButton operatorX = new JoystickButton(operator, Button.kX.value);
 
-        // Command bindings
-        var capture = new CaptureIntake(intake);
-        var extend = new ExtendClimber(climber);
-        var retract = new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED);
-        SpinUpFlyWheel spinUp = new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED);
-        var testLoad = new LoadShooter(shooter, spinUp, flyWheel);
+        driverStartButton.whenPressed(new ExtendClimber(climber));
 
-        leftOperatorBumper.whileHeld(capture);
-        rightOperatorBumper.whenPressed(testLoad);
-        driverStartButton.whenPressed(extend);
-        operatorBButton.whileHeld(retract);
-        operatorX.whenPressed(spinUp);
     }
 
     public Command getAutonomousCommand() {
@@ -108,40 +128,47 @@ public class RobotContainer
         // 01 - short
         // 10 - long
 
-        final Boolean dio0 = digitalInput0.get();
-        final Boolean dio1 = digitalInput1.get();
-        final Boolean dio2 = digitalInput2.get();
-        final Boolean dio3 = digitalInput3.get();
+        // Autonomous Variables
+//        final int startingSide;
+//        final double waitingTime;
+//
+//        final Boolean dio0 = digitalInput0.get();
+//        final Boolean dio1 = digitalInput1.get();
+//        final Boolean dio2 = digitalInput2.get();
+//        final Boolean dio3 = digitalInput3.get();
+//
+//        // SmartDashboard.putBoolean("Digital Input 0", dio0);
+//        // SmartDashboard.putBoolean("Digital Input 1", dio1);
+//        // SmartDashboard.putBoolean("Digital Input 2", dio2);
+//        // SmartDashboard.putBoolean("Digital Input 3", dio3);
+//
+//        if (!dio0 && !dio1) {
+//            // middle
+//            startingSide = 1;
+//        } else if (!dio0 & dio1) {
+//            // right
+//            startingSide = 2;
+//        } else {
+//            // left
+//            startingSide = 0;
+//        }
+//
+//        if (!dio2 && !dio3) {
+//            // none
+//            waitingTime = 0.0;
+//        } else if (!dio2 & dio3) {
+//            // short
+//            waitingTime = 3.0;
+//        } else {
+//            // long
+//            waitingTime = 7.0;
+//        }
+        final int startingSide = autoSelector.getPosition(); // from 0-2
+        final int waitingTime = delaySelector.getPosition(); // from 0-2
 
-        SmartDashboard.putBoolean("Digital Input 0", dio0);
-        SmartDashboard.putBoolean("Digital Input 1", dio1);
-        SmartDashboard.putBoolean("Digital Input 2", dio2);
-        SmartDashboard.putBoolean("Digital Input 3", dio3);
-
-        // TODO Complete Autonomous Commands
-        if (!dio0 && !dio1) {
-            // middle
-            startingSide = 1;
-        } else if (!dio0 & dio1) {
-            // right
-            startingSide = 2;
-        } else {
-            // left
-            startingSide = 0;
-        }
-
-        if (!dio2 && !dio3) {
-            // none
-            waitingTime = 0.0;
-        } else if (!dio2 & dio3) {
-            // short
-            waitingTime = 3.0;
-        } else {
-            // long
-            waitingTime = 7.0;
-        }
-
-       // return new AutonomousCommand(drivetrain, startingSide, waitingTime);
-       return new DriveForward(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE);
+        // return new AutonomousCommand(drivetrain, startingSide, waitingTime);
+        // return new DriveStraight(drivetrain,
+        // Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE);
+        return new DriveStraight(drivetrain, 100);
     }
 }

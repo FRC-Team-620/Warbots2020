@@ -5,25 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.climber;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
-public class RetractClimber extends CommandBase {
+public class ExtendClimber extends CommandBase {
 
     private final Climber climber;
-    private double targetVelocity;
 
-    // region Constructors
-    public RetractClimber(Climber c, double speed) {
+    public ExtendClimber(Climber c) {
         climber = c;
         addRequirements(climber);
-        targetVelocity = speed;
     }
-    // endregion
 
-    // region Overrides
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
@@ -32,21 +26,18 @@ public class RetractClimber extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        climber.setSpeed(targetVelocity, 10000);
+        climber.setAngleLower(180);
     }
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) 
-    {
-        climber.setSpeed(0, 0);
+    public void end(boolean interrupted) {
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;//climber.atSetPosition();
+        return false;
     }
-    // endregion
 
 }

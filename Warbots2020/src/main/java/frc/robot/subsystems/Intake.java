@@ -20,7 +20,6 @@ public class Intake extends SubsystemBase {
 
     private final TalonSRX intakeMotor;
 
-    // region Constructors
     public Intake() 
     {
         intakeMotor = new TalonSRX(Pin.IntakeMotor.id);
@@ -29,7 +28,6 @@ public class Intake extends SubsystemBase {
         intakeMotor.configAllSettings(talonSRXConfig);
         intakeMotor.setNeutralMode(NeutralMode.Coast);
     }
-    // endregion
 
     public void intake() {
         intakeMotor.set(ControlMode.PercentOutput, Constants.IntakeConstants.ROLLER_SPEED_FORWARD);

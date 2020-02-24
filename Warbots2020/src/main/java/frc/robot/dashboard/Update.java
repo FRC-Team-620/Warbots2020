@@ -7,29 +7,13 @@
 
 package frc.robot.dashboard;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.bling.*;
-import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.FlyWheel;
-import frc.robot.vision.*;
 
 public class Update extends CommandBase {
 
-    public Update(Dashboard dashboard, DriveTrain drivetrain, Climber climber, FlyWheel flyWheel, Intake intake,
-            Shooter shooter, Bling bling, Vision vision) {
+    public Update(Dashboard dashboard) {
         addRequirements(dashboard);
 
-        SmartDashboard.putData(drivetrain);
-        SmartDashboard.putData(climber);
-        SmartDashboard.putData(flyWheel);
-        SmartDashboard.putData(intake);
-        SmartDashboard.putData(shooter);
-        SmartDashboard.putData(bling);
-        SmartDashboard.putData(vision);
     }
 
     // Called when the command is initially scheduled.
