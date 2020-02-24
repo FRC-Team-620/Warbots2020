@@ -13,7 +13,6 @@ public class Update extends CommandBase {
 
     public Update(Dashboard dashboard) {
         addRequirements(dashboard);
-
     }
 
     // Called when the command is initially scheduled.

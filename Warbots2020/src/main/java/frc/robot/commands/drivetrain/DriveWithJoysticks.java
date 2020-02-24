@@ -18,6 +18,7 @@ public class DriveWithJoysticks extends CommandBase {
     private DriveTrain driveTrain;
 
     public DriveWithJoysticks(DriveTrain driveTrain, XboxController driverXbox) {
+        addRequirements(driveTrain);
         this.driveTrain = driveTrain;
         this.driverXbox = driverXbox;
     }

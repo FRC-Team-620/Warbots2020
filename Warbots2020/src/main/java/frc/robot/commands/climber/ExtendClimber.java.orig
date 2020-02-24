@@ -7,7 +7,12 @@
 
 package frc.robot.commands.climber;
 
+<<<<<<< HEAD:Warbots2020/src/main/java/frc/robot/commands/ExtendClimber.java
 import edu.wpi.first.wpilibj2.command.CommandBase;
+=======
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+>>>>>>> 39e426367a7665f269b6302e8af3413ac5b50e10:Warbots2020/src/main/java/frc/robot/commands/climber/ExtendClimber.java
 import frc.robot.subsystems.Climber;
 
 public class ExtendClimber extends CommandBase {

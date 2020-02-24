@@ -7,7 +7,12 @@
 
 package frc.robot.robot;
 
+<<<<<<< HEAD
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
+=======
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+>>>>>>> 39e426367a7665f269b6302e8af3413ac5b50e10
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -23,10 +28,13 @@ import frc.robot.commands.climber.ReleaseUpperArmClimber;
 import frc.robot.commands.climber.RetractClimber;
 import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.drivetrain.DriveWithJoysticks;
+<<<<<<< HEAD
+=======
 import frc.robot.commands.drivetrain.TurnToAngle;
 import frc.robot.commands.shooter.LoadShooter;
 import frc.robot.dashboard.Dashboard;
 import frc.robot.dashboard.Update;
+>>>>>>> 39e426367a7665f269b6302e8af3413ac5b50e10
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.FlyWheel;
@@ -45,7 +53,10 @@ public class RobotContainer {
     private final Shooter shooter = new Shooter();
     private final Bling bling = new Bling();
     private final Vision vision = new Vision();
+<<<<<<< HEAD
+=======
     private final PowerDistributionPanel pdp = new PowerDistributionPanel();
+>>>>>>> 39e426367a7665f269b6302e8af3413ac5b50e10
     private final Dashboard dashboard = new Dashboard();
 
     // OI
@@ -53,6 +64,19 @@ public class RobotContainer {
     XboxController operator = new XboxController(Constants.OIConstants.OPERATOR_CONTROLER_PORT);
 
     // Autonomous Selector Switches
+<<<<<<< HEAD
+    DigitalInput digitalInput0 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_0);
+    DigitalInput digitalInput1 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_1);
+    DigitalInput digitalInput2 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_2);
+    DigitalInput digitalInput3 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_3);
+
+    // Autonomous variables
+    public int startingSide;
+    public double waitingTime;
+
+    public RobotContainer() 
+    {
+=======
 //    DigitalInput digitalInput0 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_0);
 //    DigitalInput digitalInput1 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_1);
 //    DigitalInput digitalInput2 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_2);
@@ -63,6 +87,7 @@ public class RobotContainer {
             Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_3);
 
     public RobotContainer() {
+>>>>>>> 39e426367a7665f269b6302e8af3413ac5b50e10
         configureButtonBindings();
         populateDashboard();
         // set default commands
@@ -83,6 +108,7 @@ public class RobotContainer {
         dashboard.addCommand("SpinUpFlyWheel", new CommandFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
         dashboard.addCommand("StuffFlyWheel", new StuffFlyWheel(flyWheel));
     }
+
     private void configureButtonBindings() {
 
         /*
@@ -109,9 +135,28 @@ public class RobotContainer {
          */
 
         final JoystickButton driverStartButton = new JoystickButton(driver, Button.kStart.value);
+<<<<<<< HEAD
+        final JoystickButton operatorStartButton = new JoystickButton(operator, Button.kStart.value);
+        final JoystickButton operatorBButton = new JoystickButton(operator, Button.kB.value);
+        final JoystickButton operatorX = new JoystickButton(operator, Button.kX.value);
+
+        // Command bindings
+        var capture = new CaptureIntake(intake);
+        var extend = new ExtendClimber(climber);
+        var retract = new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED);
+        SpinUpFlyWheel spinUp = new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED);
+        var testLoad = new LoadShooter(shooter, spinUp, flyWheel);
+
+        leftOperatorBumper.whileHeld(capture);
+        rightOperatorBumper.whenPressed(testLoad);
+        driverStartButton.whenPressed(extend);
+        operatorBButton.whileHeld(retract);
+        operatorX.whenPressed(spinUp);
+=======
 
         driverStartButton.whenPressed(new ExtendClimber(climber));
 
+>>>>>>> 39e426367a7665f269b6302e8af3413ac5b50e10
     }
 
     public Command getAutonomousCommand() {
@@ -127,6 +172,43 @@ public class RobotContainer {
         // 01 - short
         // 10 - long
 
+<<<<<<< HEAD
+        final Boolean dio0 = digitalInput0.get();
+        final Boolean dio1 = digitalInput1.get();
+        final Boolean dio2 = digitalInput2.get();
+        final Boolean dio3 = digitalInput3.get();
+
+        SmartDashboard.putBoolean("Digital Input 0", dio0);
+        SmartDashboard.putBoolean("Digital Input 1", dio1);
+        SmartDashboard.putBoolean("Digital Input 2", dio2);
+        SmartDashboard.putBoolean("Digital Input 3", dio3);
+
+        // TODO Complete Autonomous Commands
+        if (!dio0 && !dio1) {
+            // middle
+            startingSide = 1;
+        } else if (!dio0 & dio1) {
+            // right
+            startingSide = 2;
+        } else {
+            // left
+            startingSide = 0;
+        }
+
+        if (!dio2 && !dio3) {
+            // none
+            waitingTime = 0.0;
+        } else if (!dio2 & dio3) {
+            // short
+            waitingTime = 3.0;
+        } else {
+            // long
+            waitingTime = 7.0;
+        }
+
+       // return new AutonomousCommand(drivetrain, startingSide, waitingTime);
+       return new DriveForward(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE);
+=======
         // Autonomous Variables
 //        final int startingSide;
 //        final double waitingTime;
@@ -169,5 +251,6 @@ public class RobotContainer {
         // return new DriveStraight(drivetrain,
         // Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE);
         return new DriveStraight(drivetrain, 100);
+>>>>>>> 39e426367a7665f269b6302e8af3413ac5b50e10
     }
 }

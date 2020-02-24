@@ -13,6 +13,8 @@ import frc.robot.subsystems.Shooter;
 public class LoadShooter extends CommandBase {
 
     private Shooter shooter;
+    private int framesSinceLastShot;
+    private boolean lastFrameBallLoaded;
 
     /*
      * Runs shooter motor until a ball is in the loaded position. Does nothing if
@@ -27,6 +29,7 @@ public class LoadShooter extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        framesSinceLastShot = 100;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -44,6 +47,16 @@ public class LoadShooter extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return shooter.isLoaded();
+        if (framesSinceLastShot++ < 12) {
+            return false;
+        }
+        if (!shooter.isLoaded() && lastFrameBallLoaded == true) {
+            framesSinceLastShot = 0;
+        }
+        if (shooter.isLoaded() && lastFrameBallLoaded == false) {
+            return true;
+        }
+        lastFrameBallLoaded = shooter.isLoaded();
+        return false;
     }
 }

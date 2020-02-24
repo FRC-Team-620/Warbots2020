@@ -10,7 +10,10 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+<<<<<<< HEAD
+=======
 import frc.robot.util.Constants;
+>>>>>>> 39e426367a7665f269b6302e8af3413ac5b50e10
 import frc.robot.util.Pin;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -43,7 +46,18 @@ public class DriveTrain extends SubsystemBase
         lr.setIdleMode(mode);
         rf.setIdleMode(mode);
         rr.setIdleMode(mode);
+<<<<<<< HEAD
+
+        var conversionFactor = 100.0; // TODO: ask Mr. Mercer for revolution to position conversion factor; determine
+                                      // fudge factor ourselves;
+        lf.getEncoder().setPositionConversionFactor(conversionFactor);
+        lr.getEncoder().setPositionConversionFactor(conversionFactor);
+        rf.getEncoder().setPositionConversionFactor(conversionFactor);
+        rr.getEncoder().setPositionConversionFactor(conversionFactor);
+
+=======
                          
+>>>>>>> 39e426367a7665f269b6302e8af3413ac5b50e10
         var openLoopRampRate = 0.75;
         lf.setOpenLoopRampRate(openLoopRampRate);
         lr.setOpenLoopRampRate(openLoopRampRate);
@@ -61,8 +75,8 @@ public class DriveTrain extends SubsystemBase
 
         diffDrive = new DifferentialDrive(lr, rr);
         diffDrive.setDeadband(0.05);
-        
-        navX = new AHRS(Constants.DriveTrainConstants.NAV_X_USB);
+
+        navX = new AHRS(SPI.Port.kMXP);
 
         resetDistance();
     }

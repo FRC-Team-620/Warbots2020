@@ -34,8 +34,8 @@ public class TurnToAngle extends PIDCommand {
         // Set the controller tolerance - the delta tolerance ensures the robot is
         // stationary at the
         // setpoint before it is considered as having reached the reference
-        getController().setTolerance(Constants.DriveTrainConstants.TURN_TOLERANCE_DEG,
-                Constants.DriveTrainConstants.TURN_RATE_TOLERANCE_DEG_PER_SEC);
+        getController().setTolerance(Constants.DriveTrainConstants.TURN_TOL_DEG,
+                Constants.DriveTrainConstants.TURN_RATE_TOL_DEG_PER_SEC);
     }
 
     @Override
