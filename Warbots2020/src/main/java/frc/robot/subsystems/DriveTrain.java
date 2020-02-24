@@ -44,9 +44,9 @@ public class DriveTrain extends SubsystemBase {
         lr.setIdleMode(mode);
         rf.setIdleMode(mode);
         rr.setIdleMode(mode);
-    
+
         var conversionFactor = 100.0; // TODO: ask Mr. Mercer for revolution to position conversion factor; determine
-                                      // fudge factor ourselves;                            
+                                      // fudge factor ourselves;
         lf.getEncoder().setPositionConversionFactor(conversionFactor);
         lr.getEncoder().setPositionConversionFactor(conversionFactor);
         rf.getEncoder().setPositionConversionFactor(conversionFactor);
