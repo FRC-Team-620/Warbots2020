@@ -9,10 +9,10 @@ package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.LoadShooter;
-import frc.robot.commands.SpinUpFlyWheel;
+import frc.robot.commands.CommandFlyWheel;
 import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.drivetrain.TurnToAngle;
+import frc.robot.commands.shooter.LoadShooter;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.Shooter;
@@ -23,7 +23,6 @@ public class AutonomousCommand extends SequentialCommandGroup {
 
     private final FlyWheel flyWheel = new FlyWheel();
     private final Shooter shooter = new Shooter();
-    private SpinUpFlyWheel spinUp = new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED);
 
     public AutonomousCommand(DriveTrain drivetrain, StartingLocation startingSide, double waitTime) {
 
@@ -37,13 +36,16 @@ public class AutonomousCommand extends SequentialCommandGroup {
                     new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE),
 
                     // Starts the flywheel
-                    new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED),
+                    new CommandFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED),
 
                     // Begin firing
-                    new LoadShooter(shooter, spinUp, flyWheel),
+                    new LoadShooter(shooter).withTimeout(Constants.LoaderConstants.LOADER_TIMEOUT),
 
                     // Waits for the robot to finish firing
                     new WaitCommand(5),
+                    
+                    //Stop FlyWheel
+                    new CommandFlyWheel(flyWheel, 0),
 
                     // Backs up 25% the initial distance
                     new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE / 4),

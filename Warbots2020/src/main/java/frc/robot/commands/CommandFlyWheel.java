@@ -7,19 +7,15 @@
 
 package frc.robot.commands;
 
-import java.time.LocalDateTime;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.FlyWheel;
 
-public class SpinUpFlyWheel extends CommandBase {
+public class CommandFlyWheel extends CommandBase {
 
-    private LocalDateTime endTime;
     private final double targetVelocity;
     private final FlyWheel flyWheel;
 
-    public SpinUpFlyWheel(FlyWheel flyWheel, double speed) {
-
+    public CommandFlyWheel(FlyWheel flyWheel, double speed) {
         addRequirements(flyWheel);
         this.flyWheel = flyWheel;
         this.targetVelocity = speed;
@@ -28,7 +24,6 @@ public class SpinUpFlyWheel extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        resetEndTime();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -40,20 +35,15 @@ public class SpinUpFlyWheel extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        flyWheel.setShootSpeed(0);
+        if (interrupted) {
+            flyWheel.setShootSpeed(0); //safe feature if interrupted by another command.
+        }
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return LocalDateTime.now().isAfter(endTime);
+        return this.flyWheel.isAtSpeed();
     }
 
-    public void resetEndTime() {
-        endTime = LocalDateTime.now().plusSeconds(10);
-    }
-
-    public double getTargetVelocity() {
-        return targetVelocity;
-    }
 }

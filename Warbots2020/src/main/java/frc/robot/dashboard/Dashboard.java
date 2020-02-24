@@ -16,14 +16,14 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.bling.Bling;
 import frc.robot.commands.CaptureIntake;
 import frc.robot.commands.EjectIntake;
-import frc.robot.commands.ReleaseLowerArmClimber;
-import frc.robot.commands.ReleaseUpperArmClimber;
-import frc.robot.commands.RetractClimber;
-import frc.robot.commands.SpinUpFlyWheel;
+import frc.robot.commands.CommandFlyWheel;
 import frc.robot.commands.StuffFlyWheel;
+import frc.robot.commands.climber.ExtendClimber;
+import frc.robot.commands.climber.ReleaseLowerArmClimber;
+import frc.robot.commands.climber.ReleaseUpperArmClimber;
+import frc.robot.commands.climber.RetractClimber;
 import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.drivetrain.TurnToAngle;
-import frc.robot.commands.ExtendClimber;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.Intake;
@@ -50,7 +50,7 @@ public class Dashboard extends SubsystemBase
         SmartDashboard.putData("Commands/ReleaseUpperArmClimber", new ReleaseUpperArmClimber(climber));
         SmartDashboard.putData("Commands/ExtendClimber", new ExtendClimber(climber));
         SmartDashboard.putData("Commands/RetractClimber", new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED));
-        SmartDashboard.putData("Commands/SpinUpFlyWheel", new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
+        SmartDashboard.putData("Commands/SpinUpFlyWheel", new CommandFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
         SmartDashboard.putData("Commands/StuffFlyWheel", new StuffFlyWheel(flyWheel));
 
         SmartDashboard.putNumber("Motor Temperature", 100);

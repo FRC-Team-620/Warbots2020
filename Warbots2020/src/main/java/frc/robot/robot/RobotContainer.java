@@ -15,12 +15,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.bling.Bling;
 import frc.robot.commands.CaptureIntake;
-import frc.robot.commands.ExtendClimber;
-import frc.robot.commands.LoadShooter;
-import frc.robot.commands.RetractClimber;
-import frc.robot.commands.SpinUpFlyWheel;
+import frc.robot.commands.climber.ExtendClimber;
+import frc.robot.commands.climber.RetractClimber;
+import frc.robot.commands.CommandFlyWheel;
 import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.drivetrain.DriveWithJoysticks;
+import frc.robot.commands.shooter.LoadShooter;
 import frc.robot.dashboard.Dashboard;
 import frc.robot.dashboard.Update;
 import frc.robot.subsystems.Climber;
@@ -63,45 +63,37 @@ public class RobotContainer {
     }
 
     private void configureButtonBindings() {
-        // Joystick Buttons
-        final JoystickButton leftOperatorBumper = new JoystickButton(operator, Button.kBumperLeft.value);
-        final JoystickButton rightOperatorBumper = new JoystickButton(operator, Button.kBumperRight.value);
+        
+        /*
+         * Operator Controls
+         */
+        
+        JoystickButton operatorLeftBumper = new JoystickButton(operator, Button.kBumperLeft.value);
+        operatorLeftBumper.whileHeld(new CaptureIntake(intake));
+        
+        JoystickButton operatorRightBumper = new JoystickButton(operator, Button.kBumperRight.value);
+        operatorRightBumper.whenPressed(new LoadShooter(shooter));
+        
+        JoystickButton operatorB = new JoystickButton(operator, Button.kB.value);
+        operatorB.whileHeld(new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED));
+        
+        JoystickButton operatorX = new JoystickButton(operator, Button.kX.value);
+        operatorX.whenPressed(new CommandFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
+        operatorX.whenReleased(new CommandFlyWheel(flyWheel, 0));
+        
+        JoystickButton operatorStartButton = new JoystickButton(operator, Button.kStart.value);
+        
+       
+        
+        /*
+         * Driver Controls
+         */
+        
         final JoystickButton driverStartButton = new JoystickButton(driver, Button.kStart.value);
-        final JoystickButton operatorStartButton = new JoystickButton(operator, Button.kStart.value);
-        final JoystickButton operatorBButton = new JoystickButton(operator, Button.kB.value);
-        final JoystickButton operatorX = new JoystickButton(operator, Button.kX.value);
 
-        // Command bindings
-        if (intake != null) {
-            var capture = new CaptureIntake(intake);
-            leftOperatorBumper.whileHeld(capture);
-        }
-        if (climber != null) {
-            var extend = new ExtendClimber(climber);
-            var retract = new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED);
-            driverStartButton.whenPressed(extend);
-            operatorBButton.whileHeld(retract);
-        }
-        if (flyWheel != null) {
-            SpinUpFlyWheel spinUp = new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED);
-            operatorX.whenPressed(spinUp);
-            if (shooter != null) {
-                var load = new LoadShooter(shooter, spinUp, flyWheel);
-                rightOperatorBumper.whenPressed(load);
-            }
-        }
-
-        var capture = new CaptureIntake(intake);
-        var extend = new ExtendClimber(climber);
-        var retract = new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED);
-        SpinUpFlyWheel spinUp = new SpinUpFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED);
-        var testLoad = new LoadShooter(shooter, spinUp, flyWheel);
-
-        leftOperatorBumper.whileHeld(capture);
-        rightOperatorBumper.whenPressed(testLoad);
-        driverStartButton.whenPressed(extend);
-        operatorBButton.whileHeld(retract);
-        operatorX.whenPressed(spinUp);
+        driverStartButton.whenPressed(new ExtendClimber(climber));
+       
+        
     }
 
     public Command getAutonomousCommand() {
