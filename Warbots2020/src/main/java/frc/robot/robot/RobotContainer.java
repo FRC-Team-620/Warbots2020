@@ -7,7 +7,6 @@
 
 package frc.robot.robot;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
@@ -15,9 +14,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.bling.Bling;
 import frc.robot.commands.CaptureIntake;
+import frc.robot.commands.CommandFlyWheel;
 import frc.robot.commands.climber.ExtendClimber;
 import frc.robot.commands.climber.RetractClimber;
-import frc.robot.commands.CommandFlyWheel;
 import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.drivetrain.DriveWithJoysticks;
 import frc.robot.commands.shooter.LoadShooter;
@@ -29,6 +28,7 @@ import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.util.Constants;
+import frc.robot.util.ThreeWaySwitch;
 import frc.robot.vision.Vision;
 
 public class RobotContainer {
@@ -49,10 +49,12 @@ public class RobotContainer {
     XboxController operator = new XboxController(Constants.OIConstants.OPERATOR_CONTROLER_PORT);
 
     // Autonomous Selector Switches
-    DigitalInput digitalInput0 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_0);
-    DigitalInput digitalInput1 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_1);
-    DigitalInput digitalInput2 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_2);
-    DigitalInput digitalInput3 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_3);
+//    DigitalInput digitalInput0 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_0);
+//    DigitalInput digitalInput1 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_1);
+//    DigitalInput digitalInput2 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_2);
+//    DigitalInput digitalInput3 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_3);
+     ThreeWaySwitch autoSelector = new ThreeWaySwitch(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_0, Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_1);
+     ThreeWaySwitch delaySelector = new ThreeWaySwitch(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_2, Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_3);
 
     public RobotContainer() {
         configureButtonBindings();
@@ -110,40 +112,42 @@ public class RobotContainer {
         // 10 - long
 
         // Autonomous Variables
-        final int startingSide;
-        final double waitingTime;
-
-        final Boolean dio0 = digitalInput0.get();
-        final Boolean dio1 = digitalInput1.get();
-        final Boolean dio2 = digitalInput2.get();
-        final Boolean dio3 = digitalInput3.get();
-
-        // SmartDashboard.putBoolean("Digital Input 0", dio0);
-        // SmartDashboard.putBoolean("Digital Input 1", dio1);
-        // SmartDashboard.putBoolean("Digital Input 2", dio2);
-        // SmartDashboard.putBoolean("Digital Input 3", dio3);
-
-        if (!dio0 && !dio1) {
-            // middle
-            startingSide = 1;
-        } else if (!dio0 & dio1) {
-            // right
-            startingSide = 2;
-        } else {
-            // left
-            startingSide = 0;
-        }
-
-        if (!dio2 && !dio3) {
-            // none
-            waitingTime = 0.0;
-        } else if (!dio2 & dio3) {
-            // short
-            waitingTime = 3.0;
-        } else {
-            // long
-            waitingTime = 7.0;
-        }
+//        final int startingSide;
+//        final double waitingTime;
+//
+//        final Boolean dio0 = digitalInput0.get();
+//        final Boolean dio1 = digitalInput1.get();
+//        final Boolean dio2 = digitalInput2.get();
+//        final Boolean dio3 = digitalInput3.get();
+//
+//        // SmartDashboard.putBoolean("Digital Input 0", dio0);
+//        // SmartDashboard.putBoolean("Digital Input 1", dio1);
+//        // SmartDashboard.putBoolean("Digital Input 2", dio2);
+//        // SmartDashboard.putBoolean("Digital Input 3", dio3);
+//
+//        if (!dio0 && !dio1) {
+//            // middle
+//            startingSide = 1;
+//        } else if (!dio0 & dio1) {
+//            // right
+//            startingSide = 2;
+//        } else {
+//            // left
+//            startingSide = 0;
+//        }
+//
+//        if (!dio2 && !dio3) {
+//            // none
+//            waitingTime = 0.0;
+//        } else if (!dio2 & dio3) {
+//            // short
+//            waitingTime = 3.0;
+//        } else {
+//            // long
+//            waitingTime = 7.0;
+//        }
+        final int startingSide =autoSelector.getPosition(); //from 0-2
+        final int waitingTime = delaySelector.getPosition(); //from 0-2
 
         // return new AutonomousCommand(drivetrain, startingSide, waitingTime);
         // return new DriveStraight(drivetrain,
