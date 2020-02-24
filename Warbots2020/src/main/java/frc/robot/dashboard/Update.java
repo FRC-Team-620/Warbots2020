@@ -14,10 +14,7 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.networktables.NetworkTableInstance;
-
 import frc.robot.bling.*;
-import frc.robot.commands.ExtendClimber;
 import frc.robot.robot.Robot;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
@@ -49,7 +46,6 @@ public class Update extends CommandBase {
         SmartDashboard.putData(shooter);
         SmartDashboard.putData(bling);
         SmartDashboard.putData(vision);
-       
 
         p = new PowerDistributionPanel();
         //Create shuffleboardtabs
@@ -66,10 +62,6 @@ public class Update extends CommandBase {
          * gyro angle
          * elevation and yaw to target
          */
-
-        
-        
-        
     }
 
     // Called when the command is initially scheduled.
@@ -77,13 +69,20 @@ public class Update extends CommandBase {
     public void initialize() {
 
     }
-    
+
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     //Update all entries in the Shuffleboard, just like in the constructor
 
     public void execute() {
-        Shuffleboard.update();
+        //updates motor temperature in the drive tab
+        // Shuffleboard.getTab("Drive").add("Motor Temperature", 100).withWidget(BuiltInWidgets.kDial).getEntry().setDouble(train.getAvgMotorTemp());
+        // Shuffleboard.getTab("Drive").add("Gyro", 360).withWidget(BuiltInWidgets.kGyro).getEntry().setDouble(train.getYaw());
+        // Shuffleboard.getTab("Drive").add("Battery Voltage", 13.5).withWidget(BuiltInWidgets.kDial).getEntry().setDouble(p.getVoltage());
+        // //the camera
+        // Shuffleboard.getTab("Climber").add("Activated?", false).withWidget(BuiltInWidgets.kBooleanBox).getEntry().setBoolean(climb.atSetPosition());
+        // Shuffleboard.getTab("Shooter").add("Flywheel Speed", 1).withWidget(BuiltInWidgets.kDial).getEntry().setDouble(wheel.flyWheelSpeed());
+        // Shuffleboard.getTab("Shooter").add("Ball Loaded", false).withWidget(BuiltInWidgets.kBooleanBox).getEntry().setBoolean(shoot.ballLoaded());
     }
 
     // Called once the command ends or is interrupted.

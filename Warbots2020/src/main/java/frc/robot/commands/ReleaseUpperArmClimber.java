@@ -36,7 +36,7 @@ public class ReleaseUpperArmClimber extends CommandBase {
     @Override
     public void end(boolean interrupted) 
     {
-        climber.setAngleLower(34);
+        climber.setAngleLower(90);
     }
 
     // Returns true when the command should end.

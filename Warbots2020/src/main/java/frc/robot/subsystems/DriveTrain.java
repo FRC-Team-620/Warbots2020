@@ -9,8 +9,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.util.CommsStandard;
-import frc.robot.util.Constants;
 import frc.robot.util.Pin;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -72,7 +70,7 @@ public class DriveTrain extends SubsystemBase {
         diffDrive = new DifferentialDrive(lr, rr);
         diffDrive.setDeadband(0.05);
 
-        navX = new AHRS(Constants.DriveTrainConstants.NAV_X_USB);
+        navX = new AHRS(SPI.Port.kMXP);
 
         resetDistance();
     }

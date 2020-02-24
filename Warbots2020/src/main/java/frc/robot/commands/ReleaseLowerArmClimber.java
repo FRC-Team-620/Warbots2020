@@ -31,7 +31,7 @@ public class ReleaseLowerArmClimber extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        climber.setAngleLower(34);
+        climber.setAngleLower(90);
     }
 
     // Called once the command ends or is interrupted.

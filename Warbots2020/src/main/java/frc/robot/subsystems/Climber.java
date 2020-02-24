@@ -65,7 +65,7 @@ public class Climber extends SubsystemBase {
     }
 
     public boolean atSetPointUpper() {
-        if (climberActuatorUpper.getAngle() >= degrees) {
+        if (climberActuatorUpper.getAngle() == degrees) {
             return true;
         }
         return false;
