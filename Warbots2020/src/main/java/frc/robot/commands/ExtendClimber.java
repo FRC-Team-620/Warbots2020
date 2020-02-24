@@ -11,24 +11,25 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.Climber;
+import frc.robot.util.Constants;
 
 public class ExtendClimber extends SequentialCommandGroup {
 
     private final Climber climber;
-    private double waitTime;
 
-    public ExtendClimber(Climber c, double wait) {
+    public ExtendClimber(Climber c) {
         climber = c;
-        waitTime = wait;
         addRequirements(climber);
 
         addCommands(
             
             new ReleaseLowerArmClimber(climber),
 
-            new WaitCommand(waitTime),
+            new WaitCommand(Constants.ClimberConstants.CLIMBER_WAIT_TIME),
 
-            new ReleaseUpperArmClimber(climber)
+            new ReleaseUpperArmClimber(climber),
+
+            new WaitCommand(Constants.ClimberConstants.CLIMBER_WAIT_TIME)
 
         );
     }
@@ -53,7 +54,7 @@ public class ExtendClimber extends SequentialCommandGroup {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
     // endregion
 

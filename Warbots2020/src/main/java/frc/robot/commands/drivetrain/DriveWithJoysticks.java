@@ -25,18 +25,19 @@ public class DriveWithJoysticks extends DriveCommand {
     // region Overrides
     @Override
     public void execute() {
+
         var rotation = -1 * driverXbox.getX(Hand.kLeft);
-        //var speed = driverXbox.getY(Hand.kLeft);
+        var speed = driverXbox.getY(Hand.kLeft);
         
-        var speed = 0.0;
-        if(driverXbox.getTriggerAxis(Hand.kLeft) > driverXbox.getTriggerAxis(Hand.kRight))
-        {
-            speed = driverXbox.getTriggerAxis(Hand.kLeft);
-        }
-        else if(driverXbox.getTriggerAxis(Hand.kRight) > driverXbox.getTriggerAxis(Hand.kLeft))
-        {
-            speed = -1 * driverXbox.getTriggerAxis(Hand.kRight);
-        }
+        // var speed = 0.0;
+        // if(driverXbox.getTriggerAxis(Hand.kLeft) > driverXbox.getTriggerAxis(Hand.kRight))
+        // {
+        //     speed = driverXbox.getTriggerAxis(Hand.kLeft);
+        // }
+        // else if(driverXbox.getTriggerAxis(Hand.kRight) > driverXbox.getTriggerAxis(Hand.kLeft))
+        // {
+        //     speed = -1 * driverXbox.getTriggerAxis(Hand.kRight);
+        // }
 
         if (driverXbox.getBumper(Hand.kRight)) {
             rotation *= 0.65;
