@@ -26,16 +26,20 @@ public class Shooter extends SubsystemBase {
         loaderMotor.configAllSettings(talonSRXConfig);
     }
 
-    public boolean ballLoaded() {
+    public boolean isLoaded() {
         SmartDashboard.putBoolean("Ball Loaded Switch", ballLoadedSwitch.get());
         return ballLoadedSwitch.get();
     }
+    
+    public void set(double speed) {
+        loaderMotor.set(ControlMode.PercentOutput, speed);
+    }
 
-    public void load() {
+    public void forward() {
         loaderMotor.set(ControlMode.PercentOutput, 1);
     }
 
-    public void stopLoading() {
+    public void stop() {
         loaderMotor.set(ControlMode.PercentOutput, 0);
     }
 }

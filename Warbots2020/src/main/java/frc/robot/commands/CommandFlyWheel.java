@@ -7,30 +7,18 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.subsystems.Climber;
-import frc.robot.util.Constants;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.FlyWheel;
 
-public class ExtendClimber extends SequentialCommandGroup {
+public class CommandFlyWheel extends CommandBase {
 
-    private final Climber climber;
+    private final double targetVelocity;
+    private final FlyWheel flyWheel;
 
-    public ExtendClimber(Climber c) {
-        climber = c;
-        addRequirements(climber);
-
-        addCommands(
-            
-            new ReleaseLowerArmClimber(climber),
-
-            new WaitCommand(Constants.ClimberConstants.CLIMBER_WAIT_TIME),
-
-            new ReleaseUpperArmClimber(climber),
-
-            new WaitCommand(Constants.ClimberConstants.CLIMBER_WAIT_TIME)
-
-        );
+    public CommandFlyWheel(FlyWheel flyWheel, double speed) {
+        addRequirements(flyWheel);
+        this.flyWheel = flyWheel;
+        this.targetVelocity = speed;
     }
 
     // Called when the command is initially scheduled.
@@ -41,18 +29,21 @@ public class ExtendClimber extends SequentialCommandGroup {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-
+        flyWheel.setShootSpeed(targetVelocity);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        if (interrupted) {
+            flyWheel.setShootSpeed(0); //safe feature if interrupted by another command.
+        }
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return true;
+        return this.flyWheel.isAtSpeed();
     }
 
 }

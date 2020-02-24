@@ -5,55 +5,54 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.climber;
 
-import java.time.LocalDateTime;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.subsystems.Climber;
+import frc.robot.util.Constants;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.FlyWheel;
+public class ExtendClimber extends SequentialCommandGroup {
 
-public class SpinUpFlyWheel extends CommandBase {
+    private final Climber climber;
 
-    private LocalDateTime endTime;
-    private final double targetVelocity;
-    private final FlyWheel flyWheel;
+    public ExtendClimber(Climber c) {
+        climber = c;
+        addRequirements(climber);
 
-    public SpinUpFlyWheel(FlyWheel flyWheel, double speed) {
+        addCommands(
+            
+            new ReleaseLowerArmClimber(climber),
 
-        addRequirements(flyWheel);
-        this.flyWheel = flyWheel;
-        this.targetVelocity = speed;
+            new WaitCommand(Constants.ClimberConstants.CLIMBER_WAIT_TIME),
+
+            new ReleaseUpperArmClimber(climber),
+
+            new WaitCommand(Constants.ClimberConstants.CLIMBER_WAIT_TIME)
+
+        );
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        resetEndTime();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        flyWheel.setShootSpeed(targetVelocity);
+
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        flyWheel.setShootSpeed(0);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return LocalDateTime.now().isAfter(endTime);
+        return true;
     }
 
-    public void resetEndTime() {
-        endTime = LocalDateTime.now().plusSeconds(10);
-    }
-
-    public double getTargetVelocity() {
-        return targetVelocity;
-    }
 }
