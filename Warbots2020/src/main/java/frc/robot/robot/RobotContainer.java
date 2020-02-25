@@ -7,6 +7,7 @@
 
 package frc.robot.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
@@ -56,10 +57,6 @@ public class RobotContainer {
     XboxController operator = new XboxController(Constants.OIConstants.OPERATOR_CONTROLER_PORT);
 
     // Autonomous Selector Switches
-//    DigitalInput digitalInput0 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_0);
-//    DigitalInput digitalInput1 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_1);
-//    DigitalInput digitalInput2 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_2);
-//    DigitalInput digitalInput3 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_3);
     ThreeWaySwitch autoSelector = new ThreeWaySwitch(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_0,
             Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_1);
     ThreeWaySwitch delaySelector = new ThreeWaySwitch(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_2,
@@ -68,6 +65,10 @@ public class RobotContainer {
     public RobotContainer() {
         configureButtonBindings();
         populateDashboard();
+        
+        // Start USB Camera
+        CameraServer.getInstance().startAutomaticCapture();
+        
         // set default commands
         drivetrain.setDefaultCommand(new DriveWithJoysticks(drivetrain, driver));
         dashboard.setDefaultCommand(new Update(dashboard));
@@ -80,7 +81,7 @@ public class RobotContainer {
         dashboard.addCommand("CaptureIntake", new CaptureIntake(intake));
         dashboard.addCommand("EjectIntake", new EjectIntake(intake));
         dashboard.addCommand("ReleaseLowerArmClimber", new ReleaseLowerArmClimber(climber));
-        dashboard.addCommand("ReleaseLowerArmClimber", new ReleaseUpperArmClimber(climber));
+        dashboard.addCommand("ReleaseUpperArmClimber", new ReleaseUpperArmClimber(climber));
         dashboard.addCommand("ExtendClimber", new ExtendClimber(climber));
         dashboard.addCommand("RetractClimber", new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED));
         dashboard.addCommand("SpinUpFlyWheel", new CommandFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
@@ -106,16 +107,17 @@ public class RobotContainer {
         operatorX.whenPressed(new CommandFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
         operatorX.whenReleased(new CommandFlyWheel(flyWheel, 0));
 
-//        JoystickButton operatorStartButton = new JoystickButton(operator, Button.kStart.value);
 
         /*
          * Driver Controls
          */
 
         final JoystickButton driverStartButton = new JoystickButton(driver, Button.kStart.value);
+        final JoystickButton operatorStartButton = new JoystickButton(operator, Button.kStart.value);
 
+        // TODO Need to check if BOTH buttons are pressed
         driverStartButton.whenPressed(new ExtendClimber(climber));
-
+        operatorStartButton.whenPressed(new ExtendClimber(climber));
     }
 
     public Command getAutonomousCommand() {
