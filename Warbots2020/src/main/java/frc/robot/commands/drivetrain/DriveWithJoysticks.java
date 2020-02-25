@@ -39,8 +39,9 @@ public class DriveWithJoysticks extends CommandBase {
             rotation *= 0.65;
             speed *= 0.65;
         }
-
-        driveTrain.curvatureInput(speed, rotation, driverXbox.getAButton());
+        
+        var quickTurn = driverXbox.getAButton() || driverXbox.getBumper(Hand.kRight);
+        driveTrain.curvatureInput(speed, rotation, quickTurn);
     }
 
     @Override
