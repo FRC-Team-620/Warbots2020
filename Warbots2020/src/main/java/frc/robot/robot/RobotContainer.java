@@ -77,7 +77,7 @@ public class RobotContainer {
         dashboard.addCommand("CaptureIntake", new CaptureIntake(intake));
         dashboard.addCommand("EjectIntake", new EjectIntake(intake));
         dashboard.addCommand("ReleaseLowerArmClimber", new ReleaseLowerArmClimber(climber));
-        dashboard.addCommand("ReleaseLowerArmClimber", new ReleaseUpperArmClimber(climber));
+        dashboard.addCommand("ReleaseUpperArmClimber", new ReleaseUpperArmClimber(climber));
         dashboard.addCommand("ExtendClimber", new ExtendClimber(climber));
         dashboard.addCommand("RetractClimber", new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED));
         dashboard.addCommand("SpinUpFlyWheel", new CommandFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));

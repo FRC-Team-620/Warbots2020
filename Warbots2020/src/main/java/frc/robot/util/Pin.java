@@ -30,7 +30,7 @@ public enum Pin {
     // endregion
 
     // region Servos
-    ClimberActuatorUpper(0, CommsStandard.PWM), ClimberActuatorLower(1, CommsStandard.PWM),
+    ClimberActuatorLower(0, CommsStandard.PWM), ClimberActuatorUpper(1, CommsStandard.PWM),
     // endregion
 
     // region Miscelaneous

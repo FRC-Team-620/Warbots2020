@@ -25,11 +25,11 @@ public class Climber extends SubsystemBase {
     public Climber() {
         climberActuatorUpper = new Servo(Pin.ClimberActuatorUpper.id);
         // climberActuatorUpper.set(0);
-        climberActuatorUpper.setAngle(34);
+        climberActuatorUpper.setAngle(0);
 
         climberActuatorLower = new Servo(Pin.ClimberActuatorLower.id);
         // climberActuatorLower.set(0);
-        climberActuatorLower.setAngle(34);
+        climberActuatorLower.setAngle(0);
 
         climberMotor = new TalonFX(Pin.ClimberMotor.id);
     }
@@ -48,12 +48,12 @@ public class Climber extends SubsystemBase {
         return climberMotor.getSelectedSensorPosition();
     }
 
-    public void setAngleUpper(final double d) {
+    public void setAngleUpper(double d) {
         degrees = d;
         climberActuatorUpper.setAngle(degrees);
     }
 
-    public void setAngleLower(final double d) {
+    public void setAngleLower(double d) {
         degrees = d;
         climberActuatorLower.setAngle(degrees);
     }
