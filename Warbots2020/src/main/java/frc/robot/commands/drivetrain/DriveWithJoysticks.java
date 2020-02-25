@@ -26,21 +26,21 @@ public class DriveWithJoysticks extends CommandBase {
     @Override
     public void execute() {
         var rotation = -1 * driverXbox.getX(Hand.kLeft);
-        // var speed = driverXbox.getY(Hand.kLeft);
-        System.out.println(driveTrain.getDistance());
+ 
         var speed = 0.0;
         if (driverXbox.getTriggerAxis(Hand.kLeft) > driverXbox.getTriggerAxis(Hand.kRight)) {
-            speed = -1 * driverXbox.getTriggerAxis(Hand.kLeft);
+            speed = 1 * driverXbox.getTriggerAxis(Hand.kLeft);
         } else if (driverXbox.getTriggerAxis(Hand.kRight) > driverXbox.getTriggerAxis(Hand.kLeft)) {
-            speed = driverXbox.getTriggerAxis(Hand.kRight);
+            speed = -1 * driverXbox.getTriggerAxis(Hand.kRight);
         }
 
         if (driverXbox.getBumper(Hand.kRight)) {
             rotation *= 0.65;
             speed *= 0.65;
         }
-
-        driveTrain.curvatureInput(speed, rotation, driverXbox.getAButton());
+        
+        var quickTurn = driverXbox.getAButton() || driverXbox.getBumper(Hand.kRight);
+        driveTrain.curvatureInput(speed, rotation, quickTurn);
     }
 
     @Override
