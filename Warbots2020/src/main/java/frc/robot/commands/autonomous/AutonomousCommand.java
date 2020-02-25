@@ -18,21 +18,23 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.Shooter;
 import frc.robot.util.Constants;
-import frc.robot.util.StartingLocation;
 
 public class AutonomousCommand extends SequentialCommandGroup {
 
     private final FlyWheel flyWheel = new FlyWheel();
     private final Shooter shooter = new Shooter();
 
-    public AutonomousCommand(DriveTrain drivetrain, StartingLocation startingSide, double waitTime) {
+    public AutonomousCommand(DriveTrain drivetrain, int startingSide, double waitTime) {
+
+        new WaitCommand(waitTime);
+        
         switch (startingSide) {
-        case LEFT:
+        case 0:
             addCommands(
                     // Drives up to the low goal
                     new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE));
             break;
-        case MIDDLE:
+        case 1:
             addCommands(
                     // Drives up to the low goal
                     new ParallelCommandGroup(
@@ -44,14 +46,11 @@ public class AutonomousCommand extends SequentialCommandGroup {
                     // Begin firing
                     new LoadShooter(shooter).withTimeout(Constants.LoaderConstants.LOADER_TIMEOUT),
 
-                    // Waits for the robot to finish firing
-                    new WaitCommand(5),
-
                     // Stop FlyWheel
                     new CommandFlyWheel(flyWheel, 0),
 
                     // Backs up 25% the initial distance
-                    new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE / 4),
+                    new DriveStraight(drivetrain, -Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE / 4),
 
                     // Insert turn left command
                     new TurnToAngle(-90, drivetrain),
@@ -59,10 +58,11 @@ public class AutonomousCommand extends SequentialCommandGroup {
                     // Drives to the corner of the arena to stop
                     new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE / 2));
             break;
-        case RIGHT:
+        case 2:
             addCommands(
                     // Drives up to the low goal
-                    new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE));
+                    new TurnToAngle(10, drivetrain));
+
             break;
         }
     }

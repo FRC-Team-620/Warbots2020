@@ -31,7 +31,7 @@ public final class Constants {
     }
 
     public static final class DriveTrainConstants {
-        public static final double AUTO_DRIVE_DISTANCE = 2.0;
+        public static final double AUTO_DRIVE_DISTANCE = 96.0;
         public static final double AUTO_WAIT_TIME = 0.0;
         public static final double TURN_P = 0.01;
         public static final double TURN_I = 0.0;
@@ -39,10 +39,10 @@ public final class Constants {
         public static final double TURN_TOL_DEG = 10.0;
         public static final double TURN_RATE_TOL_DEG_PER_SEC = 15.0;
 
-        public static final double DRIVE_P = 0.01;
+        public static final double DRIVE_P = 0.018;
         public static final double DRIVE_I = 0.0;
         public static final double DRIVE_D = 0.0;
-        public static final double DRIVE_TOL_INCH = 1;
+        public static final double DRIVE_TOL_INCH = 5;
         public static final double DRIVE_RATE_TOL_INCH_PER_SEC = 1;
         public static final double DRIVE_CONVERSION_FACTOR = 2.244;
         // (12 / 84) * (40 / 48) * (6 * Math.PI)); // Converts pulses to inches

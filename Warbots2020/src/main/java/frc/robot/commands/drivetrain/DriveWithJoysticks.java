@@ -27,7 +27,7 @@ public class DriveWithJoysticks extends CommandBase {
     public void execute() {
         var rotation = -1 * driverXbox.getX(Hand.kLeft);
         // var speed = driverXbox.getY(Hand.kLeft);
-        System.out.println(driveTrain.getDistance());
+        
         var speed = 0.0;
         if (driverXbox.getTriggerAxis(Hand.kLeft) > driverXbox.getTriggerAxis(Hand.kRight)) {
             speed = -1 * driverXbox.getTriggerAxis(Hand.kLeft);

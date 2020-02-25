@@ -10,6 +10,7 @@ package frc.robot.robot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.bling.Bling;
@@ -17,6 +18,7 @@ import frc.robot.commands.CaptureIntake;
 import frc.robot.commands.CommandFlyWheel;
 import frc.robot.commands.EjectIntake;
 import frc.robot.commands.StuffFlyWheel;
+import frc.robot.commands.autonomous.AutonomousCommand;
 import frc.robot.commands.climber.ExtendClimber;
 import frc.robot.commands.climber.ReleaseLowerArmClimber;
 import frc.robot.commands.climber.ReleaseUpperArmClimber;
@@ -33,6 +35,7 @@ import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.util.Constants;
+import frc.robot.util.StartingLocation;
 import frc.robot.util.ThreeWaySwitch;
 import frc.robot.vision.Vision;
 
@@ -82,6 +85,7 @@ public class RobotContainer {
         dashboard.addCommand("RetractClimber", new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED));
         dashboard.addCommand("SpinUpFlyWheel", new CommandFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
         dashboard.addCommand("StuffFlyWheel", new StuffFlyWheel(flyWheel));
+        SmartDashboard.putNumber("Distance", drivetrain.getDistance());
     }
     private void configureButtonBindings() {
 
@@ -118,56 +122,12 @@ public class RobotContainer {
         // Digital inputs 0-4 are connected to two 3-position toggle switches
         // Toggle switch 1 is starting position - left|middle|right
         // Toggle switch 2 is delay time - none|short|long
-        // DIO Port 0 / DIO Port 1
-        // 00 - middle
-        // 01 - right
-        // 10 - left
-        // DIO Port 2 / DIO Port 3
-        // 00 - none
-        // 01 - short
-        // 10 - long
 
-        // Autonomous Variables
-//        final int startingSide;
-//        final double waitingTime;
-//
-//        final Boolean dio0 = digitalInput0.get();
-//        final Boolean dio1 = digitalInput1.get();
-//        final Boolean dio2 = digitalInput2.get();
-//        final Boolean dio3 = digitalInput3.get();
-//
-//        // SmartDashboard.putBoolean("Digital Input 0", dio0);
-//        // SmartDashboard.putBoolean("Digital Input 1", dio1);
-//        // SmartDashboard.putBoolean("Digital Input 2", dio2);
-//        // SmartDashboard.putBoolean("Digital Input 3", dio3);
-//
-//        if (!dio0 && !dio1) {
-//            // middle
-//            startingSide = 1;
-//        } else if (!dio0 & dio1) {
-//            // right
-//            startingSide = 2;
-//        } else {
-//            // left
-//            startingSide = 0;
-//        }
-//
-//        if (!dio2 && !dio3) {
-//            // none
-//            waitingTime = 0.0;
-//        } else if (!dio2 & dio3) {
-//            // short
-//            waitingTime = 3.0;
-//        } else {
-//            // long
-//            waitingTime = 7.0;
-//        }
         final int startingSide = autoSelector.getPosition(); // from 0-2
-        final int waitingTime = delaySelector.getPosition(); // from 0-2
+        final double waitingTime = delaySelector.getPosition() * 3; // from 0-2 and converts to seconds
 
-        // return new AutonomousCommand(drivetrain, startingSide, waitingTime);
-        // return new DriveStraight(drivetrain,
-        // Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE);
-        return new DriveStraight(drivetrain, 100);
+        SmartDashboard.putNumber("Starting sude", startingSide);
+
+        return new AutonomousCommand(drivetrain, startingSide, waitingTime);
     }
 }
