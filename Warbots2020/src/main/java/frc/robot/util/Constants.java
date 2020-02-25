@@ -28,6 +28,7 @@ public final class Constants {
         public static final double ROLLER_SPEED_FORWARD = 0.4;
         public static final double ROLLER_SPEED_REVERSE = 0.4;
         public static final double CAPTURE_TIMER = 5;
+        public static final int INTAKE_CURRENT_LIMIT = 25;
     }
 
     public static final class DriveTrainConstants {

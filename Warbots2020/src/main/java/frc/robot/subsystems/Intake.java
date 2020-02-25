@@ -24,7 +24,7 @@ public class Intake extends SubsystemBase {
     {
         intakeMotor = new TalonSRX(Pin.IntakeMotor.id);
         var talonSRXConfig = new TalonSRXConfiguration();
-        talonSRXConfig.continuousCurrentLimit = Constants.LoaderConstants.LOADER_CURRENT_LIMIT;
+        talonSRXConfig.continuousCurrentLimit = Constants.IntakeConstants.INTAKE_CURRENT_LIMIT;
         intakeMotor.configAllSettings(talonSRXConfig);
         intakeMotor.setNeutralMode(NeutralMode.Coast);
     }

@@ -7,6 +7,7 @@
 
 package frc.robot.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
@@ -61,6 +62,9 @@ public class RobotContainer {
     public RobotContainer() {
         configureButtonBindings();
         populateDashboard();
+        
+        // Start USB Camera
+        CameraServer.getInstance().startAutomaticCapture();
         
         // set default commands
         drivetrain.setDefaultCommand(new DriveWithJoysticks(drivetrain, driver));
