@@ -53,10 +53,6 @@ public class RobotContainer {
     XboxController operator = new XboxController(Constants.OIConstants.OPERATOR_CONTROLER_PORT);
 
     // Autonomous Selector Switches
-//    DigitalInput digitalInput0 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_0);
-//    DigitalInput digitalInput1 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_1);
-//    DigitalInput digitalInput2 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_2);
-//    DigitalInput digitalInput3 = new DigitalInput(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_3);
     ThreeWaySwitch autoSelector = new ThreeWaySwitch(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_0,
             Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_1);
     ThreeWaySwitch delaySelector = new ThreeWaySwitch(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_2,
@@ -65,6 +61,7 @@ public class RobotContainer {
     public RobotContainer() {
         configureButtonBindings();
         populateDashboard();
+        
         // set default commands
         drivetrain.setDefaultCommand(new DriveWithJoysticks(drivetrain, driver));
         dashboard.setDefaultCommand(new Update(dashboard));
@@ -102,16 +99,17 @@ public class RobotContainer {
         operatorX.whenPressed(new CommandFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
         operatorX.whenReleased(new CommandFlyWheel(flyWheel, 0));
 
-//        JoystickButton operatorStartButton = new JoystickButton(operator, Button.kStart.value);
 
         /*
          * Driver Controls
          */
 
         final JoystickButton driverStartButton = new JoystickButton(driver, Button.kStart.value);
+        final JoystickButton operatorStartButton = new JoystickButton(operator, Button.kStart.value);
 
+        // TODO Need to check if BOTH buttons are pressed
         driverStartButton.whenPressed(new ExtendClimber(climber));
-
+        operatorStartButton.whenPressed(new ExtendClimber(climber));
     }
 
     public Command getAutonomousCommand() {
@@ -127,43 +125,8 @@ public class RobotContainer {
         // 01 - short
         // 10 - long
 
-        // Autonomous Variables
-//        final int startingSide;
-//        final double waitingTime;
-//
-//        final Boolean dio0 = digitalInput0.get();
-//        final Boolean dio1 = digitalInput1.get();
-//        final Boolean dio2 = digitalInput2.get();
-//        final Boolean dio3 = digitalInput3.get();
-//
-//        // SmartDashboard.putBoolean("Digital Input 0", dio0);
-//        // SmartDashboard.putBoolean("Digital Input 1", dio1);
-//        // SmartDashboard.putBoolean("Digital Input 2", dio2);
-//        // SmartDashboard.putBoolean("Digital Input 3", dio3);
-//
-//        if (!dio0 && !dio1) {
-//            // middle
-//            startingSide = 1;
-//        } else if (!dio0 & dio1) {
-//            // right
-//            startingSide = 2;
-//        } else {
-//            // left
-//            startingSide = 0;
-//        }
-//
-//        if (!dio2 && !dio3) {
-//            // none
-//            waitingTime = 0.0;
-//        } else if (!dio2 & dio3) {
-//            // short
-//            waitingTime = 3.0;
-//        } else {
-//            // long
-//            waitingTime = 7.0;
-//        }
         final int startingSide = autoSelector.getPosition(); // from 0-2
-        final int waitingTime = delaySelector.getPosition(); // from 0-2
+        final int waitingTime = delaySelector.getPosition() * 2; // from 0-2
 
         // return new AutonomousCommand(drivetrain, startingSide, waitingTime);
         // return new DriveStraight(drivetrain,
