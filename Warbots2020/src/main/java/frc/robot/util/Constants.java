@@ -21,12 +21,13 @@ import edu.wpi.first.wpilibj.SerialPort;
  */
 public final class Constants {
     public static final class ClimberConstants {
-        public static final double CLIMBER_SPEED = 1;
+        public static final double CLIMBER_UP_SPEED = 1;
+        public static final double CLIMBER_DOWN_SPEED = -1;
     }
 
     public static final class IntakeConstants {
-        public static final double ROLLER_SPEED_FORWARD = 0.4;
-        public static final double ROLLER_SPEED_REVERSE = 0.4;
+        public static final double ROLLER_SPEED_FORWARD = 0.5;
+        public static final double ROLLER_SPEED_REVERSE = 0.5;
         public static final double CAPTURE_TIMER = 5;
         public static final int INTAKE_CURRENT_LIMIT = 25;
     }

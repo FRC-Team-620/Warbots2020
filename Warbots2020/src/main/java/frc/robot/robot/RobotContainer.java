@@ -80,7 +80,7 @@ public class RobotContainer {
         dashboard.addCommand("ReleaseLowerArmClimber", new ReleaseLowerArmClimber(climber));
         dashboard.addCommand("ReleaseUpperArmClimber", new ReleaseUpperArmClimber(climber));
         dashboard.addCommand("ExtendClimber", new ExtendClimber(climber));
-        dashboard.addCommand("RetractClimber", new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED));
+        dashboard.addCommand("RetractClimber", new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
         dashboard.addCommand("SpinUpFlyWheel", new CommandFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
         dashboard.addCommand("StuffFlyWheel", new StuffFlyWheel(flyWheel));
     }
@@ -97,7 +97,10 @@ public class RobotContainer {
         operatorRightBumper.whenPressed(new LoadShooter(shooter));
 
         JoystickButton operatorB = new JoystickButton(operator, Button.kB.value);
-        operatorB.whileHeld(new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED));
+        operatorB.whileHeld(new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
+
+        JoystickButton operatorY = new JoystickButton(operator, Button.kY.value);
+        operatorY.whileHeld(new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
 
         JoystickButton operatorX = new JoystickButton(operator, Button.kX.value);
         operatorX.whenPressed(new CommandFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
@@ -111,7 +114,7 @@ public class RobotContainer {
         final JoystickButton driverStartButton = new JoystickButton(driver, Button.kStart.value);
         final JoystickButton operatorStartButton = new JoystickButton(operator, Button.kStart.value);
 
-        // TODO Need to check if BOTH buttons are pressed
+        // TODO: Need to check if BOTH buttons are pressed
         driverStartButton.whenPressed(new ExtendClimber(climber));
         operatorStartButton.whenPressed(new ExtendClimber(climber));
     }
