@@ -13,6 +13,7 @@ import frc.robot.subsystems.Climber;
 public class ReleaseLowerArmClimber extends CommandBase {
 
     private final Climber climber;
+    private int frames;
 
     /**
      * Creates a new ReleaseLowerArm.
@@ -25,6 +26,7 @@ public class ReleaseLowerArmClimber extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        frames = 0;
         climber.setAngleLower(34);
         System.out.println("********RELEASE LOWER ARM HAS RUN************");
     }
@@ -45,8 +47,7 @@ public class ReleaseLowerArmClimber extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        //return climber.atSetPointLower();
-        return false;
+        return frames++ > 25;
     }
 
 }

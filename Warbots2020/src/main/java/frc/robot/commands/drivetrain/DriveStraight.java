@@ -35,6 +35,7 @@ public class DriveStraight extends PIDCommand {
                 // Require the drive
                 drive);
 
+
         drive.resetDistance();
         // Set the controller tolerance - the delta tolerance ensures the robot is
         // stationary at the

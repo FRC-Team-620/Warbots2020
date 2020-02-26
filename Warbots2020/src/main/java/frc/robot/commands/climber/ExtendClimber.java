@@ -8,15 +8,25 @@
 package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.Climber;
+import frc.robot.util.Constants;
 
-public class ExtendClimber extends CommandBase {
+public class ExtendClimber extends SequentialCommandGroup {
 
     private final Climber climber;
 
     public ExtendClimber(Climber c) {
         climber = c;
         addRequirements(climber);
+        addCommands(
+            new ReleaseLowerArmClimber(climber),
+
+            new WaitCommand(.2),
+
+            new ReleaseUpperArmClimber(climber)
+        );
     }
 
     // Called when the command is initially scheduled.
@@ -27,7 +37,7 @@ public class ExtendClimber extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        climber.setAngleLower(180);
+        //climber.setAngleLower(180);
     }
 
     // Called once the command ends or is interrupted.

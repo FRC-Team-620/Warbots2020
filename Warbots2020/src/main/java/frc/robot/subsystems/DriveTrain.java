@@ -66,28 +66,34 @@ public class DriveTrain extends SubsystemBase
         resetDistance();
     }
 
-    public void stop() {
+    public void stop() 
+    {
         diffDrive.stopMotor();
     }
 
-    public void arcadeInput(double speed, double rotation) {
+    public void arcadeInput(double speed, double rotation) 
+    {
         diffDrive.arcadeDrive(speed, rotation);
     }
 
-    public double getAvgMotorTemp() {
+    public double getAvgMotorTemp() 
+    {
         return (lf.getMotorTemperature() + lr.getMotorTemperature() + rr.getMotorTemperature()
                 + rf.getMotorTemperature()) / 4;
     }
 
-    public void curvatureInput(double speed, double rotation, boolean isCurvartureDrive) {
-        diffDrive.curvatureDrive(speed, rotation, isCurvartureDrive);
+    public void curvatureInput(double speed, double rotation, boolean isCurvatureDrive) 
+    {
+        diffDrive.curvatureDrive(speed, rotation, isCurvatureDrive);
     }
 
-    public double getYaw() {
+    public double getYaw() 
+    {
         return navX.getYaw();
     }
 
-    public void resetYaw() {
+    public void resetYaw() 
+    {
         navX.zeroYaw();
     }
 
@@ -96,17 +102,20 @@ public class DriveTrain extends SubsystemBase
         double distance = -lr.getEncoder().getPosition() 
             * Constants.DriveTrainConstants.DRIVE_CONVERSION_FACTOR
             * Constants.DriveTrainConstants.DRIVE_FUDGE_FACTOR;
-        SmartDashboard.putNumber("Drive Distance Left", distance);
+        SmartDashboard.putNumber("Drive Distance", distance);
 
         return (distance);
     }
 
-    public void resetDistance() {
+    public void resetDistance() 
+    {
         lr.getEncoder().setPosition(0);
         rr.getEncoder().setPosition(0);
     }
 
     @Override
-    public void periodic() {
+    public void periodic() 
+    {
+        SmartDashboard.putNumber("Motor Temperature", getAvgMotorTemp());
     }
 }

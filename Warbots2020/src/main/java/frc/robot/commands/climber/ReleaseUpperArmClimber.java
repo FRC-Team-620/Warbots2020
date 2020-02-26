@@ -24,6 +24,7 @@ public class ReleaseUpperArmClimber extends CommandBase {
     @Override
     public void initialize() {
         frames = 0;
+        climber.setAngleUpper(34);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -37,7 +38,6 @@ public class ReleaseUpperArmClimber extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         // climber.setAngleLower(34);
-        climber.setAngleLower(34);
     }
 
     // Returns true when the command should end.
