@@ -24,7 +24,7 @@ public class AutonomousCommand extends SequentialCommandGroup {
 
     public AutonomousCommand(DriveTrain drivetrain, FlyWheel flyWheel, Shooter shooter, int startingSide, double waitTime) {
 
-        new DriveStraight(drivetrain, -96);
+        addCommands(new DriveStraight(drivetrain, -96));
 
         // new WaitCommand(waitTime);        
         // switch (startingSide) {
