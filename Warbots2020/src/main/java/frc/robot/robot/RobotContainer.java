@@ -36,7 +36,6 @@ import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.util.Constants;
-import frc.robot.util.StartingLocation;
 import frc.robot.util.ThreeWaySwitch;
 import frc.robot.vision.Vision;
 
