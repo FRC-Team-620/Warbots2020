@@ -16,6 +16,7 @@ import frc.robot.bling.Bling;
 import frc.robot.commands.CaptureIntake;
 import frc.robot.commands.CommandFlyWheel;
 import frc.robot.commands.EjectIntake;
+import frc.robot.commands.SpinUpFlywheel;
 import frc.robot.commands.StuffFlyWheel;
 import frc.robot.commands.climber.ExtendClimber;
 import frc.robot.commands.climber.ReleaseLowerArmClimber;
@@ -92,15 +93,20 @@ public class RobotContainer {
         JoystickButton operatorLeftBumper = new JoystickButton(operator, Button.kBumperLeft.value);
         operatorLeftBumper.whileHeld(new CaptureIntake(intake));
 
-        JoystickButton operatorRightBumper = new JoystickButton(operator, Button.kBumperRight.value);
-        operatorRightBumper.whenPressed(new LoadShooter(shooter));
-
         JoystickButton operatorB = new JoystickButton(operator, Button.kB.value);
         operatorB.whileHeld(new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_SPEED));
 
         JoystickButton operatorX = new JoystickButton(operator, Button.kX.value);
-        operatorX.whenPressed(new CommandFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
-        operatorX.whenReleased(new CommandFlyWheel(flyWheel, 0));
+        var spinUp = new SpinUpFlywheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED);
+        operatorX.whenPressed(spinUp);
+        //operatorX.whenPressed(new CommandFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
+        //operatorX.whenReleased(new CommandFlyWheel(flyWheel, 0));
+
+        JoystickButton operatorRightBumper = new JoystickButton(operator, Button.kBumperRight.value);
+        operatorRightBumper.whenPressed(new LoadShooter(shooter, spinUp));
+
+        //JoystickButton operatorA = new JoystickButton(operator, Button.kA.value);
+        //operatorA.whenPressed(new FireShooter(shooter));
 
 //        JoystickButton operatorStartButton = new JoystickButton(operator, Button.kStart.value);
 

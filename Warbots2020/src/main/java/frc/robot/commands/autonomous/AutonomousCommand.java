@@ -42,7 +42,7 @@ public class AutonomousCommand extends SequentialCommandGroup {
                             new CommandFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED)),
 
                     // Begin firing
-                    new LoadShooter(shooter).withTimeout(Constants.LoaderConstants.LOADER_TIMEOUT),
+                    //new LoadShooter(shooter, spinup).withTimeout(Constants.LoaderConstants.LOADER_TIMEOUT),
 
                     // Waits for the robot to finish firing
                     new WaitCommand(5),

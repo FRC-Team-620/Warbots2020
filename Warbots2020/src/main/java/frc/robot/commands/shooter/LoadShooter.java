@@ -1,62 +1,89 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.commands.shooter;
 
+// TODO - Loader code needs to be completed
+import java.time.LocalDateTime;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.*;
+import frc.robot.util.Constants;
+import frc.robot.commands.SpinUpFlywheel;
+ 
+public class LoadShooter extends CommandBase 
+{
+  //region Constructors
+  Shooter loader;
+  SpinUpFlywheel stuff;
+  boolean lastFrameBallLoaded;
+  LocalDateTime endTime;
+  int framesSinceLastShot;
 
-public class LoadShooter extends CommandBase {
-
-    private Shooter shooter;
-    private int framesSinceLastShot;
-    private boolean lastFrameBallLoaded;
-
-    /*
-     * Runs shooter motor until a ball is in the loaded position. Does nothing if
-     * ball is already loaded
-     */
-    public LoadShooter(Shooter shooter) {
-        addRequirements(shooter);
-        this.shooter = shooter;
-        // Use addRequirements() here to declare subsystem dependencies.
+  public LoadShooter(Shooter l, SpinUpFlywheel s) 
+  {
+    addRequirements(l);
+    loader = l;
+    addRequirements(loader);
+    // this.withTimeout(Constants.Shooter.loaderTimeout);
+    stuff = s;
+    // Use addRequirements() here to declare subsystem dependencies.
+  }
+  //endregion
+ 
+  //region Overrides
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() 
+  {
+    
+    lastFrameBallLoaded = loader.isLoaded();
+    resetEndTime();
+    framesSinceLastShot = 0;
+  }
+ 
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() 
+  {
+    loader.set(1);
+  }
+ 
+  // Called once the command ends or is interrupted.
+  @Override
+  public void end(boolean interrupted) 
+  {
+    loader.stop();
+  }
+ 
+  // Returns true when the command should end.
+  @Override
+  public boolean isFinished() 
+  { 
+    if(framesSinceLastShot++ < 12) 
+    {
+      return false;
     }
-
-    // Called when the command is initially scheduled.
-    @Override
-    public void initialize() {
-        framesSinceLastShot = 100;
+    if(!loader.isLoaded() && lastFrameBallLoaded == true) 
+    {
+      stuff.resetEndTime();
+      resetEndTime();
+      framesSinceLastShot = 0;
     }
-
-    // Called every time the scheduler runs while the command is scheduled.
-    @Override
-    public void execute() {
-        shooter.forward();
+    if(loader.isLoaded() && lastFrameBallLoaded == false) 
+    {
+      return true; 
     }
-
-    // Called once the command ends or is interrupted.
-    @Override
-    public void end(boolean interrupted) {
-        shooter.stop();
+    if(LocalDateTime.now().isAfter(endTime))
+    {
+      return true;
     }
-
-    // Returns true when the command should end.
-    @Override
-    public boolean isFinished() {
-        if (framesSinceLastShot++ < 12) {
-            return false;
-        }
-        if (!shooter.isLoaded() && lastFrameBallLoaded == true) {
-            framesSinceLastShot = 0;
-        }
-        if (shooter.isLoaded() && lastFrameBallLoaded == false) {
-            return true;
-        }
-        lastFrameBallLoaded = shooter.isLoaded();
-        return false;
-    }
-}
+    lastFrameBallLoaded = loader.isLoaded();
+    return false;
+  }
+  //endregion
+ 
+  //region Methods
+  public void resetEndTime()
+  {
+    endTime = LocalDateTime.now().plusSeconds(10);
+  }
+  //endregion
+} 

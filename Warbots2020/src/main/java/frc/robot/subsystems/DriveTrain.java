@@ -26,8 +26,7 @@ public class DriveTrain extends SubsystemBase
     private CANSparkMax lf, rf, rr, lr;
 
     public DriveTrain()
- {
-
+    {
         lf = new CANSparkMax(Pin.LeftFrontMotor.id, MotorType.kBrushless);
         rf = new CANSparkMax(Pin.RightFrontMotor.id, MotorType.kBrushless);
         lr = new CANSparkMax(Pin.LeftRearMotor.id, MotorType.kBrushless);
