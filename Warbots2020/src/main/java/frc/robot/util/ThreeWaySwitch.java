@@ -42,7 +42,7 @@ public class ThreeWaySwitch implements Sendable, AutoCloseable {
     /**
      * Takes an array of booleans and parses them into a integer. Where each index
      * in the array of booleans represents a power of 2. IE [false,true,true] would
-     * parse to 8
+     * parse to 6
      * 
      * @param values boolean value bits
      * @return int the parsed value of the booleans
