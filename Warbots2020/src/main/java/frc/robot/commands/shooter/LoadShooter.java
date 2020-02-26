@@ -21,7 +21,6 @@ public class LoadShooter extends CommandBase
   {
     addRequirements(l);
     loader = l;
-    addRequirements(loader);
     // this.withTimeout(Constants.Shooter.loaderTimeout);
     stuff = s;
     // Use addRequirements() here to declare subsystem dependencies.
