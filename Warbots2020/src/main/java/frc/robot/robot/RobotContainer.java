@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.bling.Bling;
 import frc.robot.commands.CaptureIntake;
@@ -51,16 +53,21 @@ public class RobotContainer {
     private final Vision vision = new Vision();
     private final PowerDistributionPanel pdp = new PowerDistributionPanel();
     private final Dashboard dashboard = new Dashboard();
-
-    // OI
-    XboxController driver = new XboxController(Constants.OIConstants.DRIVER_CONTROLER_PORT);
-    XboxController operator = new XboxController(Constants.OIConstants.OPERATOR_CONTROLER_PORT);
-
+    
     // Autonomous Selector Switches
     ThreeWaySwitch autoSelector = new ThreeWaySwitch(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_0,
             Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_1);
     ThreeWaySwitch delaySelector = new ThreeWaySwitch(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_2,
             Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_3);
+
+    final int startingSide = autoSelector.getPosition(); // from 0-2
+    final double waitingTime = delaySelector.getPosition() * 3; // from 0-2 and converts to seconds
+
+    SequentialCommandGroup m_autocommand = new SequentialCommandGroup(new WaitCommand(5), new DriveStraight(drivetrain, 96));
+
+    // OI
+    XboxController driver = new XboxController(Constants.OIConstants.DRIVER_CONTROLER_PORT);
+    XboxController operator = new XboxController(Constants.OIConstants.OPERATOR_CONTROLER_PORT);
 
     public RobotContainer() {
         configureButtonBindings();
@@ -125,11 +132,13 @@ public class RobotContainer {
         // Toggle switch 1 is starting position - left|middle|right
         // Toggle switch 2 is delay time - none|short|long
 
-        final int startingSide = autoSelector.getPosition(); // from 0-2
-        final double waitingTime = delaySelector.getPosition() * 3; // from 0-2 and converts to seconds
+        // final int startingSide = autoSelector.getPosition(); // from 0-2
+        // final double waitingTime = delaySelector.getPosition() * 3; // from 0-2 and converts to seconds
 
-        SmartDashboard.putNumber("Starting sude", startingSide);
+        // SmartDashboard.putNumber("Starting sude", startingSide);
 
-        return new AutonomousCommand(drivetrain, startingSide, waitingTime);
+        // return new AutonomousCommand(drivetrain, startingSide, waitingTime);
+
+        return m_autocommand;
     }
 }
