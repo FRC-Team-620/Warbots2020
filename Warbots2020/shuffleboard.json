@@ -12,8 +12,8 @@
         "tiles": {
           "0,0": {
             "size": [
-              8,
-              9
+              7,
+              6
             ],
             "content": {
               "_type": "Camera Stream",
@@ -29,7 +29,7 @@
               "imageHeight": -1
             }
           },
-          "15,3": {
+          "9,4": {
             "size": [
               2,
               2
@@ -45,7 +45,7 @@
               "Visuals/Number of tick marks": 5
             }
           },
-          "17,3": {
+          "12,4": {
             "size": [
               2,
               2
@@ -59,7 +59,7 @@
               "Visuals/Show value": true
             }
           },
-          "10,3": {
+          "16,0": {
             "size": [
               3,
               3
@@ -71,6 +71,18 @@
               "Visuals/Starting angle": 180.0,
               "Visuals/Show tick mark ring": true,
               "Visuals/Counter clockwise": false
+            }
+          },
+          "9,0": {
+            "size": [
+              5,
+              4
+            ],
+            "content": {
+              "_type": "PDP",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistributionPanel[0]",
+              "_title": "PDP",
+              "Visuals/Show voltage and current values": true
             }
           }
         }
@@ -249,12 +261,12 @@
                 {
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[1]",
-                  "_title": "/LiveWindow/Ungrouped/PIDController[1]"
+                  "_title": "LiveWindow/Ungrouped/PIDController[1]"
                 },
                 {
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[2]",
-                  "_title": "/LiveWindow/Ungrouped/PIDController[2]"
+                  "_title": "LiveWindow/Ungrouped/PIDController[2]"
                 }
               ]
             }
@@ -271,7 +283,7 @@
               "Visuals/Orientation": "HORIZONTAL"
             }
           },
-          "8,0": {
+          "7,1": {
             "size": [
               5,
               4
