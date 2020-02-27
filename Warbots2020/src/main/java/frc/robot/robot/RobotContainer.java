@@ -13,15 +13,19 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.bling.Bling;
+
 import frc.robot.commands.CaptureIntake;
 import frc.robot.commands.CommandFlyWheel;
 import frc.robot.commands.EjectIntake;
 import frc.robot.commands.SpinUpFlywheel;
 import frc.robot.commands.StuffFlyWheel;
+import frc.robot.commands.autonomous.AutoCrossBaseline;
 import frc.robot.commands.autonomous.AutonomousCommand;
 import frc.robot.commands.climber.ExtendClimber;
 import frc.robot.commands.climber.ReleaseLowerArmClimber;
@@ -63,7 +67,7 @@ public class RobotContainer {
     final int startingSide = autoSelector.getPosition(); // from 0-2
     final double waitingTime = delaySelector.getPosition() * 3; // from 0-2 and converts to seconds
 
-    SequentialCommandGroup m_autocommand = new SequentialCommandGroup(new WaitCommand(5), new DriveStraight(drivetrain, 96));
+    SequentialCommandGroup m_autocommand = new SequentialCommandGroup(new InstantCommand(drivetrain::resetDistance), new DriveStraight(drivetrain, -100));
 
     // OI
     XboxController driver = new XboxController(Constants.OIConstants.DRIVER_CONTROLER_PORT);
@@ -83,7 +87,9 @@ public class RobotContainer {
 
     private void populateDashboard() {
         dashboard.addCommand("Drive Forward",
-                new DriveStraight(drivetrain, Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE));
+                new AutoCrossBaseline(drivetrain, flyWheel, shooter));
+        // dashboard.addCommand("Drive Back",
+        //         new DriveStraight(drivetrain, -Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE));
         dashboard.addCommand("TurnToAngle", new TurnToAngle(-90, drivetrain));
         dashboard.addCommand("CaptureIntake", new CaptureIntake(intake));
         dashboard.addCommand("EjectIntake", new EjectIntake(intake));

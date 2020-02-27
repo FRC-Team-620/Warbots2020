@@ -21,7 +21,7 @@ public class TurnToAngle extends PIDCommand {
                 // Close loop on heading
                 drive::getYaw,
                 // Set reference to target
-                targetAngleDegrees,
+                (drive.getYaw() + targetAngleDegrees),
                 // Pipe output to turn robot
                 output -> drive.arcadeInput(0, -output),
                 // Require the drive

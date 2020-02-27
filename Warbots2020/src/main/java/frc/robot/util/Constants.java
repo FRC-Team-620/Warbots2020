@@ -41,11 +41,11 @@ public final class Constants {
         public static final double TURN_TOL_DEG = 10.0;
         public static final double TURN_RATE_TOL_DEG_PER_SEC = 15.0;
 
-        public static final double DRIVE_P = 0.018;
+        public static final double DRIVE_P = 0.024;
         public static final double DRIVE_I = 0.0;
-        public static final double DRIVE_D = 0.0;
+        public static final double DRIVE_D = 0.005;
         public static final double DRIVE_TOL_INCH = 5;
-        public static final double DRIVE_RATE_TOL_INCH_PER_SEC = 1;
+        public static final double DRIVE_RATE_TOL_INCH_PER_SEC = 0.2;
         public static final double DRIVE_CONVERSION_FACTOR = 2.244;
         // (12 / 84) * (40 / 48) * (6 * Math.PI)); // Converts pulses to inches
         public static final double DRIVE_FUDGE_FACTOR = 0.85;

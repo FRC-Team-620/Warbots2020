@@ -9,7 +9,9 @@ package frc.robot.commands.drivetrain;
 
 
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.dashboard.Dashboard;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.util.Constants;
 
@@ -17,6 +19,8 @@ import frc.robot.util.Constants;
  * A command that will Move the robot a specified distance.
  */
 public class DriveStraight extends PIDCommand {
+
+    DriveTrain drivetrain;
     /**
      * Moves the robot a specified distance.
      *
@@ -35,8 +39,8 @@ public class DriveStraight extends PIDCommand {
                 // Require the drive
                 drive);
 
+        drivetrain = drive;
 
-        drive.resetDistance();
         // Set the controller tolerance - the delta tolerance ensures the robot is
         // stationary at the
         // setpoint before it is considered as having reached the reference
@@ -47,6 +51,15 @@ public class DriveStraight extends PIDCommand {
     @Override
     public boolean isFinished() {
         // End when the controller is at the reference.
+        SmartDashboard.putBoolean("At Setpoint Auto:", getController().atSetpoint());
         return getController().atSetpoint();
+    }
+
+    public void End() {
+        drivetrain.resetDistance();
+    }
+
+    public void interrupted() {
+        drivetrain.resetDistance();
     }
 }
