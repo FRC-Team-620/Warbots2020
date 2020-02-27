@@ -93,7 +93,9 @@ public class RobotContainer {
         dashboard.addCommand("RetractClimber", new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
         dashboard.addCommand("SpinUpFlyWheel", new CommandFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
         dashboard.addCommand("StuffFlyWheel", new StuffFlyWheel(flyWheel));
-        SmartDashboard.putNumber("Distance", drivetrain.getDistance());
+        SmartDashboard.putNumber("Distance", drivetrain.getDistance()); //TODO distance will not update
+        
+        dashboard.addSubsystem(drivetrain); // Should show the navx
     }
     private void configureButtonBindings() {
 
