@@ -117,7 +117,7 @@ public class RobotContainer {
         //operatorX.whenReleased(new CommandFlyWheel(flyWheel, 0));
 
         JoystickButton operatorRightBumper = new JoystickButton(operator, Button.kBumperRight.value);
-        operatorRightBumper.whenPressed(new LoadShooter(shooter, spinUp));
+        operatorRightBumper.whenPressed(new LoadShooter(shooter, spinUp)).whenPressed(spinUp);
 
         //JoystickButton operatorA = new JoystickButton(operator, Button.kA.value);
         //operatorA.whenPressed(new FireShooter(shooter));
