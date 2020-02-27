@@ -53,5 +53,10 @@ public class SpinUpFlywheel extends CommandBase
   {
     endTime = LocalDateTime.now().plusSeconds(10);
   }
+
+  public boolean atSpeed()
+  {
+    return Math.abs(shooter.getFlyWheelSpeed() - targetVelocity) < 0.1;
+  }
   //endregion
 }   

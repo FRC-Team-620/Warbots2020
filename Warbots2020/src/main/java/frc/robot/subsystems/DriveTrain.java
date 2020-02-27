@@ -62,7 +62,9 @@ public class DriveTrain extends SubsystemBase
         diffDrive.setDeadband(0.05);
         
         navX = new AHRS(Constants.DriveTrainConstants.NAV_X_USB);
-
+        
+        
+        addChild("Navx", navX); //Add Navx sendable to SmartDashboard./with element.
         resetDistance();
     }
 

@@ -32,6 +32,10 @@ public class FlyWheel extends SubsystemBase { // TODO Make A PID Subsystem.
         shooter.set(ControlMode.PercentOutput, speed); //TODO might have to look into motor safety feature of wpilib if flywheel randomly spins down.
     }
 
+    public void setShootVelocity(double speed) {
+        shooter.set(ControlMode.Velocity, speed); //TODO might have to look into motor safety feature of wpilib if flywheel randomly spins down.
+    }
+
     //Returns true when Shooter is spun up to speed.
     //Currently set to always be true. This will be used when using PID loop control.
     //So you can sequentaly call SpinUpFlywheel -> FireShooter -> StopFlyWheel

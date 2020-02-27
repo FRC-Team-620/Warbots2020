@@ -70,6 +70,10 @@ public class LoadShooter extends CommandBase
     {
       return true; 
     }
+    if(loader.isLoaded() && lastFrameBallLoaded == true && !stuff.atSpeed())
+    {
+      return true;
+    }
     if(LocalDateTime.now().isAfter(endTime))
     {
       return true;
