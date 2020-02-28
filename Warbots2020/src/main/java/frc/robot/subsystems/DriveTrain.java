@@ -24,6 +24,12 @@ public class DriveTrain extends SubsystemBase
     private final DifferentialDrive diffDrive;
     private final AHRS navX;
     private CANSparkMax lf, rf, rr, lr;
+<<<<<<< HEAD
+    private Boolean quickTurn = false;
+=======
+    private boolean quickTurn = false;
+>>>>>>> 3f029c370d3f382cd0b4bba45d1d3a4d17053dac
+    private boolean slowDown = false;
 
     public DriveTrain()
     {
@@ -113,6 +119,35 @@ public class DriveTrain extends SubsystemBase
     {
         lr.getEncoder().setPosition(0);
         rr.getEncoder().setPosition(0);
+    }
+
+    public void setQuickTurn() 
+    {
+        quickTurn = true;
+    }
+
+    public void clearQuickTurn()
+    {
+        quickTurn = false;
+    }
+
+    public boolean getQuickTurn()
+    {   
+        return quickTurn;
+    }
+
+    public void setSlowDown() 
+    {
+        slowDown = true;
+    }
+
+    public void clearSlowDown()
+    {
+        slowDown = false;
+    }
+    public boolean getSlowDown()
+    {   
+        return slowDown;
     }
 
     @Override

@@ -32,11 +32,11 @@ public class Bling extends SubsystemBase {
     private int g = 255;
     private int b = 255;
 
-    public boolean endgame;
-    public boolean slowDrive;
-    public boolean ballLoaded;
-    public boolean flywheelOn;
-    public boolean armsUp;
+    public boolean endgame = false;
+    public boolean slowDrive = false;
+    public boolean ballLoaded = false;
+    public boolean flywheelOn = false;
+    public boolean armsUp = false;
 
     public Bling() {
         led.setLength(buffer.getLength());
@@ -52,6 +52,60 @@ public class Bling extends SubsystemBase {
         }
 
         led.setData(buffer);
+    }
+
+    public void setSlowDrive()
+    {
+        endgame = false;
+        slowDrive = true;
+        ballLoaded = false;
+        flywheelOn = false;
+        armsUp = false;
+    }
+
+    public void setBallLoaded()
+    {
+        endgame = false;
+        slowDrive = false;
+        ballLoaded = true;
+        flywheelOn = false;
+        armsUp = false;
+    }
+
+    public void setFlyWheelOn()
+    {
+        endgame = false;
+        slowDrive = false;
+        ballLoaded = false;
+        flywheelOn = true;
+        armsUp = false;    
+    }
+
+    public void setArmsUp()
+    {
+        endgame = false;
+        slowDrive = false;
+        ballLoaded = false;
+        flywheelOn = false;
+        armsUp = true;
+    }
+
+    public void setEndGame()
+    {
+        endgame = true;
+        slowDrive = false;
+        ballLoaded = false;
+        flywheelOn = false;
+        armsUp = false;
+    }
+
+    public void setDefault()
+    {
+        endgame = false;
+        slowDrive = false;
+        ballLoaded = false;
+        flywheelOn = false;
+        armsUp = false;
     }
 
     private void selectColor() {
