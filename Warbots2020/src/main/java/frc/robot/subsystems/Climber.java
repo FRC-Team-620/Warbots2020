@@ -16,8 +16,8 @@ import frc.robot.util.Pin;
 
 public class Climber extends SubsystemBase {
 
-    private final Servo climberActuatorUpper;
-    private final Servo climberActuatorLower;
+    public final Servo climberActuatorUpper;
+    public final Servo climberActuatorLower;
     private final TalonFX climberMotor;
     private double degrees;
     private int position;

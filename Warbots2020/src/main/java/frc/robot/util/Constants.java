@@ -53,7 +53,7 @@ public final class Constants {
     }
 
     public static final class ShooterConstants {
-        public static final double STUFF_SPEED = 0.25;
+        public static final double STUFF_SPEED = 0.27;
         public static final double SHOOT_SPEED = 1;//0.27;
         public static final double FLYWHEEL_CONVERSION_FACTOR = 1.0;
     }

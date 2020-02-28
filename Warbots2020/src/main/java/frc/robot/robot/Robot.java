@@ -8,9 +8,11 @@
 package frc.robot.robot;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.util.Pin;
 
 public class Robot extends TimedRobot {
     
@@ -62,6 +64,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
+        robotContainer.climber.setAngleUpper(70);//use 70 for climber servo
     }
 
     @Override

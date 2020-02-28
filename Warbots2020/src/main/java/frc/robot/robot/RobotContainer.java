@@ -49,7 +49,7 @@ import frc.robot.vision.Vision;
 public class RobotContainer {
     // subsystems
     private final DriveTrain drivetrain = new DriveTrain();
-    private final Climber climber = new Climber();
+    public final Climber climber = new Climber();
     private final FlyWheel flyWheel = new FlyWheel();
     private final Intake intake = new Intake();
     private final Shooter shooter = new Shooter();
@@ -119,7 +119,7 @@ public class RobotContainer {
         operatorY.whileHeld(new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
 
         JoystickButton operatorX = new JoystickButton(operator, Button.kX.value);
-        var spinUp = new SpinUpFlywheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED);
+        var spinUp = new SpinUpFlywheel(flyWheel, Constants.ShooterConstants.STUFF_SPEED);
         operatorX.whenPressed(spinUp);
         //operatorX.whenPressed(new CommandFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
         //operatorX.whenReleased(new CommandFlyWheel(flyWheel, 0));
@@ -135,12 +135,12 @@ public class RobotContainer {
          * Driver Controls
          */
 
-        final JoystickButton driverStartButton = new JoystickButton(driver, Button.kStart.value);
-        final JoystickButton operatorStartButton = new JoystickButton(operator, Button.kStart.value);
+        final JoystickButton driverXButton = new JoystickButton(driver, Button.kX.value);
+        //final JoystickButton operatorStartButton = new JoystickButton(operator, Button.kStart.value);
 
         // TODO: Need to check if BOTH buttons are pressed
-        driverStartButton.whenPressed(new ExtendClimber(climber));
-        operatorStartButton.whenPressed(new ExtendClimber(climber));
+        driverXButton.whenPressed(new ExtendClimber(climber));
+        //operatorStartButton.whenPressed(new ExtendClimber(climber));
     }
 
     public Command getAutonomousCommand() {
