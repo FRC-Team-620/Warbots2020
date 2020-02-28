@@ -24,8 +24,8 @@ public class DriveTrain extends SubsystemBase
     private final DifferentialDrive diffDrive;
     private final AHRS navX;
     private CANSparkMax lf, rf, rr, lr;
-    private Boolean quickTurn;
-    private Boolean slowDown;
+    private Boolean quickTurn = false;
+    private boolean slowDown = false;
 
     public DriveTrain()
     {
@@ -127,6 +127,11 @@ public class DriveTrain extends SubsystemBase
         quickTurn = false;
     }
 
+    public boolean getQuickTurn()
+    {   
+        return quickTurn;
+    }
+
     public void setSlowDown() 
     {
         slowDown = true;
@@ -135,6 +140,10 @@ public class DriveTrain extends SubsystemBase
     public void clearSlowDown()
     {
         slowDown = false;
+    }
+    public boolean getSlowDown()
+    {   
+        return slowDown;
     }
 
     @Override
