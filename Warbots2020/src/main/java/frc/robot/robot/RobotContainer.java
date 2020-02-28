@@ -25,8 +25,9 @@ import frc.robot.commands.CommandFlyWheel;
 import frc.robot.commands.EjectIntake;
 import frc.robot.commands.SpinUpFlywheel;
 import frc.robot.commands.StuffFlyWheel;
-import frc.robot.commands.autonomous.AutoCrossBaseline;
-import frc.robot.commands.autonomous.AutonomousCommand;
+import frc.robot.commands.autonomous.AutoLeft;
+import frc.robot.commands.autonomous.AutoMiddle;
+import frc.robot.commands.autonomous.AutoRight;
 import frc.robot.commands.climber.ExtendClimber;
 import frc.robot.commands.climber.ReleaseLowerArmClimber;
 import frc.robot.commands.climber.ReleaseUpperArmClimber;
@@ -64,10 +65,11 @@ public class RobotContainer {
     ThreeWaySwitch delaySelector = new ThreeWaySwitch(Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_2,
             Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_3);
 
+    // Autonomous data
+    public SequentialCommandGroup m_autocommand;
+    double waitTime;
     final int startingSide = autoSelector.getPosition(); // from 0-2
     final double waitingTime = delaySelector.getPosition() * 3; // from 0-2 and converts to seconds
-
-    SequentialCommandGroup m_autocommand = new SequentialCommandGroup(new InstantCommand(drivetrain::resetDistance), new DriveStraight(drivetrain, -100));
 
     // OI
     XboxController driver = new XboxController(Constants.OIConstants.DRIVER_CONTROLER_PORT);
@@ -83,11 +85,16 @@ public class RobotContainer {
         // set default commands
         drivetrain.setDefaultCommand(new DriveWithJoysticks(drivetrain, driver));
         dashboard.setDefaultCommand(new Update(dashboard));
+
+        // Sets up Autonomous
+        setAutonomous();
     }
 
     private void populateDashboard() {
-        dashboard.addCommand("Drive Forward",
-                new AutoCrossBaseline(drivetrain, flyWheel, shooter));
+        SmartDashboard.putNumber("Auto Selector", autoSelector.getPosition());
+        SmartDashboard.putNumber("Wait Selector", delaySelector.getPosition());
+        dashboard.addCommand("Auto Middle Command",
+                new AutoMiddle(drivetrain, flyWheel, shooter, 0));
         // dashboard.addCommand("Drive Back",
         //         new DriveStraight(drivetrain, -Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE));
         dashboard.addCommand("TurnToAngle", new TurnToAngle(-90, drivetrain));
@@ -144,17 +151,32 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        // Digital inputs 0-4 are connected to two 3-position toggle switches
-        // Toggle switch 1 is starting position - left|middle|right
-        // Toggle switch 2 is delay time - none|short|long
-
-        // final int startingSide = autoSelector.getPosition(); // from 0-2
-        // final double waitingTime = delaySelector.getPosition() * 3; // from 0-2 and converts to seconds
-
-        // SmartDashboard.putNumber("Starting sude", startingSide);
-
-        // return new AutonomousCommand(drivetrain, startingSide, waitingTime);
-
         return m_autocommand;
+    }
+
+    // Sets up Autonomous
+    public void setAutonomous() {
+
+        // Sets the wait times
+        if(delaySelector.getPosition() == 0) {
+            waitTime = 0.0;
+        }
+        else if(delaySelector.getPosition() == 1) {
+            waitTime = 5.0;
+        }
+        else {
+            waitTime = 10.0;
+        }
+    
+        if(autoSelector.getPosition() == 0) { // Left side
+            m_autocommand = new AutoLeft(drivetrain, flyWheel, shooter, waitTime);
+        }
+        else if(autoSelector.getPosition() == 1) { // Middle side
+            m_autocommand = new AutoMiddle(drivetrain, flyWheel, shooter, waitTime);
+        }
+        else { // Right side
+            m_autocommand = new AutoRight(drivetrain, flyWheel, shooter, waitTime);
+        }
+    
     }
 }

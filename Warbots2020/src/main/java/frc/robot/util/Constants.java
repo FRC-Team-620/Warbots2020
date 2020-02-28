@@ -33,7 +33,7 @@ public final class Constants {
     }
 
     public static final class DriveTrainConstants {
-        public static final double AUTO_DRIVE_DISTANCE = 96.0;
+        public static final double AUTO_DRIVE_DISTANCE = 99.0;
         public static final double AUTO_WAIT_TIME = 0.0;
         public static final double TURN_P = 0.01;
         public static final double TURN_I = 0.0;
