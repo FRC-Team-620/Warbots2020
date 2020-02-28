@@ -17,10 +17,10 @@ public class DriveWithJoysticks extends CommandBase {
     private XboxController driverXbox;
     private DriveTrain driveTrain;
 
-    public DriveWithJoysticks(DriveTrain driveTrain, XboxController driverXbox) {
-        addRequirements(driveTrain);
-        this.driveTrain = driveTrain;
-        this.driverXbox = driverXbox;
+    public DriveWithJoysticks(DriveTrain dt, XboxController dX) {
+        addRequirements(dt);
+        driveTrain = dt;
+        driverXbox = dX;
     }
 
     @Override
@@ -35,12 +35,12 @@ public class DriveWithJoysticks extends CommandBase {
             speed = -1 * driverXbox.getTriggerAxis(Hand.kRight);
         }
 
-        if (driverXbox.getBumper(Hand.kRight)) {
+        if (driveTrain.getSlowDown()) {
             rotation *= 0.65;
             speed *= 0.65;
         }
         
-        var quickTurn = driverXbox.getAButton() || driverXbox.getBumper(Hand.kRight);
+        boolean quickTurn = driveTrain.getSlowDown() || driveTrain.getQuickTurn();
         driveTrain.curvatureInput(speed, rotation, quickTurn);
     }
 

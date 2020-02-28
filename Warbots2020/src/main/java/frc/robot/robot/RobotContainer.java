@@ -145,6 +145,15 @@ public class RobotContainer {
         final JoystickButton driverStartButton = new JoystickButton(driver, Button.kStart.value);
         final JoystickButton operatorStartButton = new JoystickButton(operator, Button.kStart.value);
 
+        final JoystickButton driverRightBumper = new JoystickButton(driver, Button.kBumperRight.value);
+        final JoystickButton driverA = new JoystickButton(driver, Button.kA.value);
+        
+        driverA.whenPressed(new InstantCommand(drivetrain::setQuickTurn));
+        driverA.whenReleased(new InstantCommand(drivetrain::clearQuickTurn));
+        driverRightBumper.whenPressed(new SequentialCommandGroup(new InstantCommand(drivetrain::setSlowDown), new InstantCommand(bling::setSlowDrive)));
+        driverRightBumper.whenReleased(new SequentialCommandGroup(new InstantCommand(drivetrain::clearSlowDown), new InstantCommand(bling::setDefault)));
+
+
         // TODO: Need to check if BOTH buttons are pressed
         driverStartButton.whenPressed(new ExtendClimber(climber));
         operatorStartButton.whenPressed(new ExtendClimber(climber));
