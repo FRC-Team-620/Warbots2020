@@ -28,10 +28,12 @@ import frc.robot.commands.StuffFlyWheel;
 import frc.robot.commands.autonomous.AutoLeft;
 import frc.robot.commands.autonomous.AutoMiddle;
 import frc.robot.commands.autonomous.AutoRight;
+import frc.robot.commands.climber.BattlefieldExtendClimberArms;
 import frc.robot.commands.climber.ExtendClimber;
 import frc.robot.commands.climber.ReleaseLowerArmClimber;
 import frc.robot.commands.climber.ReleaseUpperArmClimber;
 import frc.robot.commands.climber.RetractClimber;
+import frc.robot.commands.drivetrain.BattlefieldDriveForward;
 import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.drivetrain.DriveWithJoysticks;
 import frc.robot.commands.drivetrain.TurnToAngle;
@@ -66,7 +68,7 @@ public class RobotContainer {
             Constants.OIConstants.AUTO_MODE_SELECTOR_INPUT_3);
 
     // Autonomous data
-    public SequentialCommandGroup m_autocommand;
+    public Command m_autocommand;
     double waitTime;
     final int startingSide = autoSelector.getPosition(); // from 0-2
     final double waitingTime = delaySelector.getPosition() * 3; // from 0-2 and converts to seconds
@@ -87,7 +89,7 @@ public class RobotContainer {
         dashboard.setDefaultCommand(new Update(dashboard));
 
         // Sets up Autonomous
-        setAutonomous();
+        //setAutonomous();
     }
 
     private void populateDashboard() {
@@ -111,10 +113,11 @@ public class RobotContainer {
         dashboard.addSubsystem(drivetrain); // Should show the navx
     }
     private void configureButtonBindings() {
-
         /*
          * Operator Controls
          */
+
+        m_autocommand = new BattlefieldDriveForward(drivetrain).withTimeout(1);
 
         JoystickButton operatorLeftBumper = new JoystickButton(operator, Button.kBumperLeft.value);
         operatorLeftBumper.whileHeld(new CaptureIntake(intake));
@@ -153,14 +156,19 @@ public class RobotContainer {
         driverRightBumper.whenPressed(new SequentialCommandGroup(new InstantCommand(drivetrain::setSlowDown), new InstantCommand(bling::setSlowDrive)));
         driverRightBumper.whenReleased(new SequentialCommandGroup(new InstantCommand(drivetrain::clearSlowDown), new InstantCommand(bling::setDefault)));
 
-
         // TODO: Need to check if BOTH buttons are pressed
-        driverXButton.whenPressed(new ExtendClimber(climber));
+        driverXButton.whenPressed(new BattlefieldExtendClimberArms(climber).withTimeout(0.5));
         //operatorStartButton.whenPressed(new ExtendClimber(climber));
     }
 
     public Command getAutonomousCommand() {
         return m_autocommand;
+    }
+
+    public void init()
+    {
+        climber.setAngleLower(0);
+        climber.setAngleUpper(0);
     }
 
     // Sets up Autonomous

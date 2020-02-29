@@ -22,6 +22,7 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() 
     {
+        CommandScheduler.getInstance().cancelAll();
         robotContainer = new RobotContainer();
     }
 
@@ -32,6 +33,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
+        robotContainer.init();
         autonomousCommand = robotContainer.getAutonomousCommand();
         System.out.println("Auto bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
         if (autonomousCommand != null)
@@ -46,6 +48,7 @@ public class Robot extends TimedRobot {
     public void teleopInit() {
         if (autonomousCommand != null)
             autonomousCommand.cancel();
+        robotContainer.init();
     }
 
     @Override
@@ -64,7 +67,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
-        robotContainer.climber.setAngleUpper(70);//use 70 for climber servo
     }
 
     @Override
