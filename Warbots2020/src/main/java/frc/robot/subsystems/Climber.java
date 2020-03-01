@@ -8,6 +8,9 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.Servo;
@@ -32,6 +35,10 @@ public class Climber extends SubsystemBase {
         climberActuatorLower.setAngle(0);
 
         climberMotor = new TalonFX(Pin.ClimberMotor.id);
+        climberMotor.configOpenloopRamp(0.6);
+        climberMotor.setNeutralMode(NeutralMode.Coast);
+        //climberMotor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 70, 80, 2));
+        //climberMotor.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 70, 80, 2));
     }
 
     @Override

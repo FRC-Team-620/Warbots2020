@@ -42,13 +42,17 @@ public class Bling extends SubsystemBase {
         led.setLength(buffer.getLength());
         led.setData(buffer);
         led.start();
+        r = 255;
+        g = 0;
+        b = 0;
     }
 
     @Override
     public void periodic() {
-        selectColor();
+        //selectColor();
         for (var i = 0; i < buffer.getLength(); i++) {
-            buffer.setRGB(i, r, g, b);
+            if(i % 2 == 0) buffer.setRGB(i, r, g, b);
+            else buffer.setRGB(i, 255, 255, 255);
         }
 
         led.setData(buffer);

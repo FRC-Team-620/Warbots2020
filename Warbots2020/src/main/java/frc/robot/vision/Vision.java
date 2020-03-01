@@ -25,7 +25,7 @@ public class Vision extends SubsystemBase {
     @Override
     public void periodic() {
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(0);
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+        //NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(0);
         // // read values periodically
         // double x = tx.getDouble(0.0);
@@ -36,6 +36,21 @@ public class Vision extends SubsystemBase {
         // SmartDashboard.putNumber("LimelightX", x);
         // SmartDashboard.putNumber("LimelightY", y);
         // SmartDashboard.putNumber("LimelightArea", area);
+    }
+
+    public double getTx()
+    {
+        return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0.0);
+    }
+
+    public void turnOffLights()
+    {
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+    }
+
+    public void turnOnLights()
+    {
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
     }
 
     public double getRPM()

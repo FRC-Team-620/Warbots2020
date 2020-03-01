@@ -38,6 +38,7 @@ public class Robot extends TimedRobot {
         System.out.println("Auto bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
         if (autonomousCommand != null)
             autonomousCommand.schedule();
+        robotContainer.shooter.set(1);
     }
 
     @Override
@@ -46,6 +47,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
+        robotContainer.shooter.stop();
         if (autonomousCommand != null)
             autonomousCommand.cancel();
         robotContainer.init();

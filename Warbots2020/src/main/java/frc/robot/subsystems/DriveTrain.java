@@ -45,13 +45,13 @@ public class DriveTrain extends SubsystemBase
         rf.setIdleMode(mode);
         rr.setIdleMode(mode);
                          
-        var openLoopRampRate = 0.75;
+        var openLoopRampRate = 0.6;
         lf.setOpenLoopRampRate(openLoopRampRate);
         lr.setOpenLoopRampRate(openLoopRampRate);
         rf.setOpenLoopRampRate(openLoopRampRate);
         rr.setOpenLoopRampRate(openLoopRampRate);
 
-        var currentLimit = 38;
+        var currentLimit = 55;
         lf.setSmartCurrentLimit(currentLimit);
         lr.setSmartCurrentLimit(currentLimit);
         rf.setSmartCurrentLimit(currentLimit);

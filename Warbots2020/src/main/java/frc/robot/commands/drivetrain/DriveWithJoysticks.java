@@ -37,7 +37,6 @@ public class DriveWithJoysticks extends CommandBase {
 
         if (driveTrain.getSlowDown()) {
             rotation *= 0.65;
-            speed *= 0.65;
         }
         
         boolean quickTurn = driveTrain.getSlowDown() || driveTrain.getQuickTurn();

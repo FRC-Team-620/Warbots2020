@@ -26,7 +26,7 @@ public final class Constants {
     }
 
     public static final class IntakeConstants {
-        public static final double ROLLER_SPEED_FORWARD = 0.75;
+        public static final double ROLLER_SPEED_FORWARD = 1;//0.75;
         public static final double ROLLER_SPEED_REVERSE = 0.75;
         public static final double CAPTURE_TIMER = 5;
         public static final int INTAKE_CURRENT_LIMIT = 25;

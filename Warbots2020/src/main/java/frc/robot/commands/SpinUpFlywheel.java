@@ -8,8 +8,8 @@ import frc.robot.subsystems.FlyWheel;
 public class SpinUpFlywheel extends CommandBase
 {
   public LocalDateTime endTime;
-  private double targetVelocity;
-  private FlyWheel shooter;
+  public double targetVelocity;
+  protected FlyWheel shooter;
   //region Constructors
   public SpinUpFlywheel(FlyWheel s, double speed) 
   {

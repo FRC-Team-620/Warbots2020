@@ -11,7 +11,7 @@ import frc.robot.commands.SpinUpFlywheel;
 public class LoadShooter extends CommandBase 
 {
   //region Constructors
-  Shooter loader;
+  protected Shooter loader;
   SpinUpFlywheel stuff;
   boolean lastFrameBallLoaded;
   LocalDateTime endTime;
@@ -32,7 +32,6 @@ public class LoadShooter extends CommandBase
   @Override
   public void initialize() 
   {
-    
     lastFrameBallLoaded = loader.isLoaded();
     resetEndTime();
     framesSinceLastShot = 0;

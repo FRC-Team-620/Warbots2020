@@ -7,6 +7,9 @@
 
 package frc.robot.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoMode;
+import edu.wpi.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
@@ -25,15 +28,12 @@ import frc.robot.commands.CommandFlyWheel;
 import frc.robot.commands.EjectIntake;
 import frc.robot.commands.SpinUpFlywheel;
 import frc.robot.commands.StuffFlyWheel;
-import frc.robot.commands.autonomous.AutoLeft;
-import frc.robot.commands.autonomous.AutoMiddle;
-import frc.robot.commands.autonomous.AutoRight;
+import frc.robot.commands.autonomous.*;
 import frc.robot.commands.climber.BattlefieldExtendClimberArms;
 import frc.robot.commands.climber.ExtendClimber;
 import frc.robot.commands.climber.ReleaseLowerArmClimber;
 import frc.robot.commands.climber.ReleaseUpperArmClimber;
 import frc.robot.commands.climber.RetractClimber;
-import frc.robot.commands.drivetrain.BattlefieldDriveForward;
 import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.drivetrain.DriveWithJoysticks;
 import frc.robot.commands.drivetrain.TurnToAngle;
@@ -47,6 +47,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.util.Constants;
 import frc.robot.util.ThreeWaySwitch;
+import frc.robot.vision.Align;
 import frc.robot.vision.Vision;
 
 public class RobotContainer {
@@ -55,7 +56,7 @@ public class RobotContainer {
     public final Climber climber = new Climber();
     private final FlyWheel flyWheel = new FlyWheel();
     private final Intake intake = new Intake();
-    private final Shooter shooter = new Shooter();
+    public final Shooter shooter = new Shooter();
     private final Bling bling = new Bling();
     private final Vision vision = new Vision();
     private final PowerDistributionPanel pdp = new PowerDistributionPanel();
@@ -82,7 +83,15 @@ public class RobotContainer {
         populateDashboard();
         
         // Start USB Camera
-        CameraServer.getInstance().startAutomaticCapture();
+        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        camera.setFPS(30);
+        var width = 640;
+        var height = 480;
+        camera.setResolution(width / 4, height / 4);
+        camera.setExposureManual(50);
+        //camera.setWhiteBalanceManual(50);
+        // var videoMode = new VideoMode(pixelFormat, width, height, fps);
+        camera.setPixelFormat(PixelFormat.kMJPEG);
         
         // set default commands
         drivetrain.setDefaultCommand(new DriveWithJoysticks(drivetrain, driver));
@@ -93,31 +102,30 @@ public class RobotContainer {
     }
 
     private void populateDashboard() {
-        SmartDashboard.putNumber("Auto Selector", autoSelector.getPosition());
-        SmartDashboard.putNumber("Wait Selector", delaySelector.getPosition());
-        dashboard.addCommand("Auto Middle Command",
-                new AutoMiddle(drivetrain, flyWheel, shooter, 0));
-        // dashboard.addCommand("Drive Back",
-        //         new DriveStraight(drivetrain, -Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE));
-        dashboard.addCommand("TurnToAngle", new TurnToAngle(-90, drivetrain));
-        dashboard.addCommand("CaptureIntake", new CaptureIntake(intake));
-        dashboard.addCommand("EjectIntake", new EjectIntake(intake));
-        dashboard.addCommand("ReleaseLowerArmClimber", new ReleaseLowerArmClimber(climber));
-        dashboard.addCommand("ReleaseUpperArmClimber", new ReleaseUpperArmClimber(climber));
-        dashboard.addCommand("ExtendClimber", new ExtendClimber(climber));
-        dashboard.addCommand("RetractClimber", new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
-        dashboard.addCommand("SpinUpFlyWheel", new CommandFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
-        dashboard.addCommand("StuffFlyWheel", new StuffFlyWheel(flyWheel));
-        SmartDashboard.putNumber("Distance", drivetrain.getDistance()); //TODO distance will not update
-        
-        dashboard.addSubsystem(drivetrain); // Should show the navx
+        // SmartDashboard.putNumber("Auto Selector", autoSelector.getPosition());
+        // SmartDashboard.putNumber("Wait Selector", delaySelector.getPosition());
+        // dashboard.addCommand("Auto Middle Command",
+        //         new AutoMiddle(drivetrain, flyWheel, shooter, 0));
+        // // dashboard.addCommand("Drive Back",
+        // //         new DriveStraight(drivetrain, -Constants.DriveTrainConstants.AUTO_DRIVE_DISTANCE));
+        // dashboard.addCommand("TurnToAngle", new TurnToAngle(-90, drivetrain));
+        // dashboard.addCommand("CaptureIntake", new CaptureIntake(intake));
+        // dashboard.addCommand("EjectIntake", new EjectIntake(intake));
+        // dashboard.addCommand("ReleaseLowerArmClimber", new ReleaseLowerArmClimber(climber));
+        // dashboard.addCommand("ReleaseUpperArmClimber", new ReleaseUpperArmClimber(climber));
+        // dashboard.addCommand("ExtendClimber", new ExtendClimber(climber));
+        // dashboard.addCommand("RetractClimber", new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
+        // dashboard.addCommand("SpinUpFlyWheel", new CommandFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
+        // dashboard.addCommand("StuffFlyWheel", new StuffFlyWheel(flyWheel));
+        // SmartDashboard.putNumber("Distance", drivetrain.getDistance()); //TODO distance will not update
+        //dashboard.addSubsystem(drivetrain); // Should show the navx
     }
     private void configureButtonBindings() {
         /*
          * Operator Controls
          */
 
-        m_autocommand = new BattlefieldDriveForward(drivetrain).withTimeout(1);
+        m_autocommand = new BattlefieldDriveForward(drivetrain).withTimeout(3);
 
         JoystickButton operatorLeftBumper = new JoystickButton(operator, Button.kBumperLeft.value);
         operatorLeftBumper.whileHeld(new CaptureIntake(intake));
@@ -125,21 +133,25 @@ public class RobotContainer {
         JoystickButton operatorB = new JoystickButton(operator, Button.kB.value);
         operatorB.whileHeld(new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
 
-        JoystickButton operatorY = new JoystickButton(operator, Button.kY.value);
-        operatorY.whileHeld(new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
+        JoystickButton operatorStart = new JoystickButton(operator, Button.kStart.value);
+        operatorStart.whileHeld(new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
 
-        JoystickButton operatorX = new JoystickButton(operator, Button.kX.value);
         var spinUp = new SpinUpFlywheel(flyWheel, Constants.ShooterConstants.STUFF_SPEED);
+        JoystickButton operatorX = new JoystickButton(operator, Button.kX.value);
         operatorX.whenPressed(spinUp);
+        JoystickButton operatorY = new JoystickButton(operator, Button.kY.value);
+        operatorY.whenPressed(() -> spinUp.targetVelocity = Constants.ShooterConstants.SHOOT_SPEED);
+        JoystickButton operatorA = new JoystickButton(operator, Button.kA.value);
+        operatorA.whenPressed(() -> spinUp.targetVelocity = Constants.ShooterConstants.STUFF_SPEED);
         //operatorX.whenPressed(new CommandFlyWheel(flyWheel, Constants.ShooterConstants.SHOOT_SPEED));
         //operatorX.whenReleased(new CommandFlyWheel(flyWheel, 0));
 
         JoystickButton operatorRightBumper = new JoystickButton(operator, Button.kBumperRight.value);
         operatorRightBumper.whenPressed(new LoadShooter(shooter, spinUp)).whenPressed(spinUp);
 
-        //JoystickButton operatorA = new JoystickButton(operator, Button.kA.value);
+        JoystickButton driverY = new JoystickButton(driver, Button.kY.value);
+        //driverY.whenPressed(new Align(vision, drivetrain));
         //operatorA.whenPressed(new FireShooter(shooter));
-
 
         /*
          * Driver Controls
@@ -157,12 +169,17 @@ public class RobotContainer {
         driverRightBumper.whenReleased(new SequentialCommandGroup(new InstantCommand(drivetrain::clearSlowDown), new InstantCommand(bling::setDefault)));
 
         // TODO: Need to check if BOTH buttons are pressed
-        driverXButton.whenPressed(new BattlefieldExtendClimberArms(climber).withTimeout(0.5));
+        driverXButton.whenPressed(new BattlefieldExtendClimberArms(climber).withTimeout(2));
         //operatorStartButton.whenPressed(new ExtendClimber(climber));
     }
 
     public Command getAutonomousCommand() {
-        return m_autocommand;
+        var shoot = new BattlefieldAutoShoot(flyWheel);
+        var bas = new BattlefieldAutoShooter(shooter, shoot);
+        var bdu = new BattlefieldDriveUp(drivetrain, shoot);
+        var ba = new BattlefieldAuto(bdu, bas);
+        return ba;
+        //return m_autocommand;
     }
 
     public void init()
