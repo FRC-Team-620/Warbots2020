@@ -24,9 +24,7 @@ public class DriveTrain extends SubsystemBase
     private final DifferentialDrive diffDrive;
     private final AHRS navX;
     private CANSparkMax lf, rf, rr, lr;
-    private Boolean quickTurn = false;
-=======
->>>>>>> 3f029c370d3f382cd0b4bba45d1d3a4d17053dac
+    private boolean quickTurn = false;
     private boolean slowDown = false;
 
     public DriveTrain()
