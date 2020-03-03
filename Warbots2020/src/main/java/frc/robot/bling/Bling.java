@@ -122,9 +122,9 @@ public class Bling extends SubsystemBase {
         else if (slowDrive)
             setColor(109, 255, 233);
         else if (endgame)
-            setColor(0, 255, 0);
-        else
             setColor(255, 0, 0);
+        else
+            setColor(255, 255, 255);
     }
 
     private void setColor(int rVal, int gVal, int bVal) {
