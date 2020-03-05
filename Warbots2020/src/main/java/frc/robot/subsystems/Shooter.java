@@ -9,6 +9,11 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.*;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,14 +21,11 @@ import frc.robot.util.Constants;
 import frc.robot.util.Pin;
 
 public class Shooter extends SubsystemBase {
-    
-    private TalonSRX loaderMotor = new TalonSRX(Pin.LoaderMotor.id);;
+    private CANSparkMax loaderMotor = new CANSparkMax(Pin.LoaderMotor.id, MotorType.kBrushless);
     private DigitalInput ballLoadedSwitch = new DigitalInput(Pin.BallLoadedLimitSwitch.id);
 
     public Shooter() {
-        var talonSRXConfig = new TalonSRXConfiguration();
-        talonSRXConfig.continuousCurrentLimit = Constants.LoaderConstants.LOADER_CURRENT_LIMIT;
-        loaderMotor.configAllSettings(talonSRXConfig);
+        loaderMotor.setIdleMode(IdleMode.kBrake);
     }
 
     public boolean isLoaded() {
@@ -32,14 +34,14 @@ public class Shooter extends SubsystemBase {
     }
     
     public void set(double speed) {
-        loaderMotor.set(ControlMode.PercentOutput, speed);
+        loaderMotor.set(-speed);
     }
 
     public void forward() {
-        loaderMotor.set(ControlMode.PercentOutput, 1);
+        loaderMotor.set(-1);
     }
 
     public void stop() {
-        loaderMotor.set(ControlMode.PercentOutput, 0);
+        loaderMotor.set(0);
     }
 }

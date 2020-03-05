@@ -41,7 +41,7 @@ public class LoadShooter extends CommandBase
   @Override
   public void execute() 
   {
-    loader.set(1);
+    loader.set(Constants.LoaderConstants.LOADER_SPEED);
   }
  
   // Called once the command ends or is interrupted.
