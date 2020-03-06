@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
 public class Align extends CommandBase {
-    protected double pGain = 0.14;//1.0 / 90.0;
+    protected double pGain = -0.035;//1725;//1.0 / 90.0;
     protected Vision vision;
     protected DriveTrain driveTrain;
 
@@ -38,13 +38,13 @@ public class Align extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        vision.turnOffLights();
         driveTrain.arcadeInput(0, 0);
+        //vision.turnOffLights();
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Math.abs(vision.getTx()) < 2;
+        return Math.abs(vision.getTx()) < 2.5;
     }
 }

@@ -150,7 +150,7 @@ public class RobotContainer {
         operatorRightBumper.whenPressed(new LoadShooter(shooter, spinUp)).whenPressed(spinUp);
 
         JoystickButton driverY = new JoystickButton(driver, Button.kY.value);
-        //driverY.whenPressed(new Align(vision, drivetrain));
+        driverY.whenPressed(new Align(vision, drivetrain));
         //operatorA.whenPressed(new FireShooter(shooter));
 
         /*
