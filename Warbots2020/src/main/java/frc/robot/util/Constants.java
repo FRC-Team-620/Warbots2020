@@ -61,7 +61,7 @@ public final class Constants {
     public static final class LoaderConstants {
         public static final int LOADER_CURRENT_LIMIT = 20;
         public static final double LOADER_TIMEOUT = 5.0;
-        public static final double LOADER_SPEED = 0.4;
+        public static final double LOADER_SPEED = 0.24;
     }
     
 

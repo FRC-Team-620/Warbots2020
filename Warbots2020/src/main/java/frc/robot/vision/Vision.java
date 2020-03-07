@@ -51,27 +51,44 @@ public class Vision extends SubsystemBase {
     public void turnOnLights()
     {
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
     }
 
     public double getRPM()
     {
-        var theta = (double) NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getNumber(0);
+        var verticalAngle = (int) NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getNumber(0);
 
-        var d = 0.2032;
-        var hg = 2.4384;
-        var hc = 0.4572;
-        var gamma = 37.0;
-        var alpha = 40.0;
-        var hs = 0.6096;
-        var g = 9.81;
-
-        var num = d + (hg - hc)/Math.tan(gamma + theta);
-        var denom = Math.cos(alpha) * Math.sqrt(2 * (hg - hs)/g);
-        var v0 = num/denom;
-        var rpm = (v0 / 0.1596) * 60;
-
-        return rpm;
+        switch (verticalAngle)
+        {
+            case -14: return 3828;
+            case -13: return 3653;
+            case -12: return 3491;
+            case -11: return 3341;
+            case -10: return 3201;
+            case -9: return 3071;
+            case -8: return 2949;
+            case -7: return 2834;
+            case -6: return 2726;
+            case -5: return 2625;
+            case -4: return 2528;
+            case -3: return 2437;
+            case -2: return 2350;
+            case -1: return 2268;
+            case 0: return 2189;
+            case 1: return 2114;
+            case 2: return 2043;
+            case 3: return 1974;
+            case 4: return 1908;
+            case 5: return 1845;
+            case 6: return 1784;
+            case 7: return 1725;
+            case 8: return 1669;
+            case 9: return 1614;
+            case 10: return 1561;
+            case 11: return 1510;
+            case 12: return 1461;
+            case 13: return 1413;
+            case 14: return 1366;
+            default: return 0;
+        }
     }
 }
