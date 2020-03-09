@@ -35,7 +35,7 @@ public class Climber extends SubsystemBase {
         climberActuatorLower.setAngle(0);
 
         climberMotor = new TalonFX(Pin.ClimberMotor.id);
-        climberMotor.configOpenloopRamp(0.6);
+        climberMotor.configOpenloopRamp(0.6); // ONLY RAMP RATE THAT WORKS DON'T CHANGE PLEASE
         climberMotor.setNeutralMode(NeutralMode.Coast);
         //climberMotor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 70, 80, 2));
         //climberMotor.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 70, 80, 2));

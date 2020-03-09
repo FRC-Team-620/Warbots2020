@@ -59,7 +59,7 @@ public class RobotContainer {
     private final Intake intake = new Intake();
     public final Shooter shooter = new Shooter();
     private final Bling bling = new Bling();
-    //private final Vision vision = new Vision();
+    private final Vision vision = new Vision();
     private final PowerDistributionPanel pdp = new PowerDistributionPanel();
     private final Dashboard dashboard = new Dashboard();
     
@@ -137,9 +137,13 @@ public class RobotContainer {
         JoystickButton operatorStart = new JoystickButton(operator, Button.kStart.value);
         operatorStart.whileHeld(new RetractClimber(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
 
-        var spinUp = new SpinUpFlywheel(flyWheel, Constants.ShooterConstants.STUFF_SPEED);
+        var spinUp = new SpinUpFlywheelVision(flyWheel, vision, Constants.ShooterConstants.STUFF_SPEED);
         JoystickButton operatorX = new JoystickButton(operator, Button.kX.value);
         operatorX.whenPressed(spinUp);
+
+        JoystickButton operatorA = new JoystickButton(operator, Button.kA.value);
+        operatorA.whileHeld(() -> spinUp.preserveRPM());
+        operatorA.whenReleased(() -> spinUp.revertRPM());
         //JoystickButton operatorY = new JoystickButton(operator, Button.kY.value);
         //operatorY.whenPressed(() -> spinUp.targetVelocity = Constants.ShooterConstants.SHOOT_SPEED);
         //JoystickButton operatorA = new JoystickButton(operator, Button.kA.value);
@@ -151,7 +155,7 @@ public class RobotContainer {
         operatorRightBumper.whenPressed(new LoadShooter(shooter, spinUp)).whenPressed(spinUp);
 
         JoystickButton driverY = new JoystickButton(driver, Button.kY.value);
-        //driverY.whenPressed(new Align(vision, drivetrain));
+        driverY.whenPressed(new Align(vision, drivetrain));
         //operatorA.whenPressed(new FireShooter(shooter));
 
         /*

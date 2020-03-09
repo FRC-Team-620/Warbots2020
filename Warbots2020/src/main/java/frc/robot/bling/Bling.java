@@ -42,9 +42,9 @@ public class Bling extends SubsystemBase {
         led.setLength(buffer.getLength());
         led.setData(buffer);
         led.start();
-        r = 255;
-        g = 0;
-        b = 0;
+        r = 0; // r = 255, g = 0, g = 0
+        g = 150;
+        b = 200;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class Bling extends SubsystemBase {
         //selectColor();
         for (var i = 0; i < buffer.getLength(); i++) {
             if(i % 2 == 0) buffer.setRGB(i, r, g, b);
-            else buffer.setRGB(i, 255, 255, 255);
+            else buffer.setRGB(i, 0, 50, 255);// buffer.setRGB(i, 255, 255, 255);
         }
 
         led.setData(buffer);
@@ -113,18 +113,19 @@ public class Bling extends SubsystemBase {
     }
 
     private void selectColor() {
-        if (ballLoaded)
-            setColor(255, 197, 0);
-        else if (flywheelOn)
-            setColor(0, 191, 255);
-        else if (armsUp)
-            setColor(168, 0, 255);
-        else if (slowDrive)
-            setColor(109, 255, 233);
-        else if (endgame)
-            setColor(255, 0, 0);
-        else
-            setColor(255, 255, 255);
+        // if (ballLoaded)
+        //     setColor(255, 197, 0);
+        // else if (flywheelOn)
+        //     setColor(0, 191, 255);
+        // else if (armsUp)
+        //     setColor(168, 0, 255);
+        // else if (slowDrive)
+        //     setColor(109, 255, 233);
+        // else if (endgame)
+        //     setColor(255, 0, 0);
+        // else
+        //     setColor(255, 255, 255);
+        setColor(0, 0, 255);
     }
 
     private void setColor(int rVal, int gVal, int bVal) {
