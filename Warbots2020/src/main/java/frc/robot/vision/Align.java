@@ -45,6 +45,6 @@ public class Align extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Math.abs(vision.getTx()) < 2.5;
+        return Math.abs(vision.getTx()) < 1.5;
     }
 }

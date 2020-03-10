@@ -22,6 +22,7 @@ public class BattlefieldExtendClimberArms extends CommandBase {
   @Override
   public void initialize() {
     climber.setAngleUpper(70);
+    climber.setAngleLower(70);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

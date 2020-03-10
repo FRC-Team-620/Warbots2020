@@ -55,7 +55,7 @@ public class Vision extends SubsystemBase {
 
     public double getRPM()
     {
-        var verticalAngle = (int) NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getNumber(0);
+        var verticalAngle = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getNumber(0).intValue();
 
         switch (verticalAngle)
         {
@@ -83,7 +83,7 @@ public class Vision extends SubsystemBase {
             case 7: return 1725;
             case 8: return 1669;
             case 9: return 1614;
-            case 10: return 1561;
+            case 10: return 1520;//1561;
             case 11: return 1510;
             case 12: return 1461;
             case 13: return 1413;

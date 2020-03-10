@@ -174,7 +174,10 @@ public class RobotContainer {
         driverRightBumper.whenReleased(new SequentialCommandGroup(new InstantCommand(drivetrain::clearSlowDown), new InstantCommand(bling::setDefault)));
 
         // TODO: Need to check if BOTH buttons are pressed
-        driverXButton.whenPressed(new BattlefieldExtendClimberArms(climber).withTimeout(2));
+        driverXButton.whenPressed(() -> 
+        {
+            climber.setAngleLower(70);
+        });
         //operatorStartButton.whenPressed(new ExtendClimber(climber));
     }
 
