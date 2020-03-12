@@ -25,6 +25,7 @@ public class Shooter extends SubsystemBase {
     private DigitalInput ballLoadedSwitch = new DigitalInput(Pin.BallLoadedLimitSwitch.id);
 
     public Shooter() {
+        loaderMotor.restoreFactoryDefaults();
         loaderMotor.setIdleMode(IdleMode.kBrake);
     }
 

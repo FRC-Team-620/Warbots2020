@@ -25,6 +25,7 @@ public class SpinUpFlywheelVision extends SpinUpFlywheel {
   {
     if(usePreservedRPM)
       shooter.setShootRPM(super.targetVelocity);
+      //shooter.setShootSpeed(1);
     else
       shooter.setShootRPM(vision.getRPM());
   }

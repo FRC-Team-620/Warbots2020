@@ -155,7 +155,7 @@ public class RobotContainer {
         operatorRightBumper.whenPressed(new LoadShooter(shooter, spinUp)).whenPressed(spinUp);
 
         JoystickButton driverY = new JoystickButton(driver, Button.kY.value);
-        driverY.whenPressed(new Align(vision, drivetrain));
+        driverY.whileHeld(new Align(vision, drivetrain));
         //operatorA.whenPressed(new FireShooter(shooter));
 
         /*
@@ -177,6 +177,7 @@ public class RobotContainer {
         driverXButton.whenPressed(() -> 
         {
             climber.setAngleLower(70);
+            climber.setAngleUpper(70);
         });
         //operatorStartButton.whenPressed(new ExtendClimber(climber));
     }

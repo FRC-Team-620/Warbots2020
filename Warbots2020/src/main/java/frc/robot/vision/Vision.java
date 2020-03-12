@@ -55,6 +55,11 @@ public class Vision extends SubsystemBase {
 
     public double getRPM()
     {
+        return getRPMHelp();//- 150;
+    }
+
+    private double getRPMHelp()
+    {
         var verticalAngle = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getNumber(0).intValue();
 
         switch (verticalAngle)

@@ -20,7 +20,8 @@ public class FlyWheel extends SubsystemBase { // TODO Make A PID Subsystem.
 
     public FlyWheel() {
         shooter = new TalonFX(Pin.ShooterMotor1.id);
-        shooter.configOpenloopRamp(1);
+        shooter.configFactoryDefault();
+        //shooter.configOpenloopRamp(1);
         shooter.configAllSettings(new TalonFXConfiguration());
     }
 
