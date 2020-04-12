@@ -52,10 +52,10 @@ public class Vision extends SubsystemBase {
     {
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
     }
-
-    public double getRPM()
+    
+    public double getRPM() throws Exception
     {
-        if(NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getNumber(0).intValue() == 0) return 0;
+        if(NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getNumber(0).intValue() == 0) throw new Exception("No limelight targets detected");
         return getRPMHelp();//- 150;
     }
 

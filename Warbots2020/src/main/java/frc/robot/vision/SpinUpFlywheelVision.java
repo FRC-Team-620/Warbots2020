@@ -9,6 +9,7 @@ package frc.robot.vision;
 
 import frc.robot.commands.SpinUpFlywheel;
 import frc.robot.subsystems.FlyWheel;
+import frc.robot.util.Constants.ShooterConstants;
 
 
 public class SpinUpFlywheelVision extends SpinUpFlywheel {
@@ -23,17 +24,28 @@ public class SpinUpFlywheelVision extends SpinUpFlywheel {
   @Override
   public void execute()
   {
-    if(usePreservedRPM)
-      shooter.setShootRPM(super.targetVelocity);
-      //shooter.setShootSpeed(1);
-    else
-      shooter.setShootRPM(vision.getRPM());
+    try
+    {
+      if(usePreservedRPM) shooter.setShootRPM(super.targetVelocity);
+      else shooter.setShootRPM(vision.getRPM());
+    }
+    catch(Exception e)
+    {
+      shooter.setShootSpeed(ShooterConstants.STUFF_SPEED * 1.5);
+    }
   }
 
   public void preserveRPM() 
   {
     usePreservedRPM = true;
-    super.targetVelocity = vision.getRPM();
+    try
+    {
+      super.targetVelocity = vision.getRPM();
+    }
+    catch(Exception e)
+    {
+      super.targetVelocity = 0;
+    }
   }
 
   public void revertRPM() 

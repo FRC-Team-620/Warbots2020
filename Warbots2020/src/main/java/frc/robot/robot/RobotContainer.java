@@ -89,7 +89,7 @@ public class RobotContainer {
         var width = 640;
         var height = 480;
         camera.setResolution(width / 4, height / 4);
-        camera.setExposureManual(50);
+        camera.setExposureManual(95); //competition exposure 50
         //camera.setWhiteBalanceManual(50);
         // var videoMode = new VideoMode(pixelFormat, width, height, fps);
         camera.setPixelFormat(PixelFormat.kMJPEG);
