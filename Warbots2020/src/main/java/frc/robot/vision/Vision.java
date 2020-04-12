@@ -55,6 +55,7 @@ public class Vision extends SubsystemBase {
 
     public double getRPM()
     {
+        if(NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getNumber(0).intValue() == 0) return 0;
         return getRPMHelp();//- 150;
     }
 
