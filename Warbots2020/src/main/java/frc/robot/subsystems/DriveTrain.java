@@ -103,18 +103,14 @@ public class DriveTrain extends SubsystemBase
 
     public double getDistance() 
     {
-        double distance = -lr.getEncoder().getPosition() 
-            * Constants.DriveTrainConstants.DRIVE_CONVERSION_FACTOR
-            * Constants.DriveTrainConstants.DRIVE_FUDGE_FACTOR;
-        SmartDashboard.putNumber("Drive Distance", distance);
-
-        return (distance);
+        return lr.getEncoder().getPosition();
+            //* Constants.DriveTrainConstants.DRIVE_CONVERSION_FACTOR
+            //* Constants.DriveTrainConstants.DRIVE_FUDGE_FACTOR;
     }
 
     public void resetDistance() 
     {
         lr.getEncoder().setPosition(0);
-        rr.getEncoder().setPosition(0);
     }
 
     public void setQuickTurn() 

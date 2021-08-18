@@ -35,6 +35,7 @@ import frc.robot.commands.climber.ReleaseLowerArmClimber;
 import frc.robot.commands.climber.ReleaseUpperArmClimber;
 import frc.robot.commands.climber.RetractClimber;
 import frc.robot.commands.drivetrain.DriveStraight;
+import frc.robot.commands.drivetrain.DriveStraightTwo;
 import frc.robot.commands.drivetrain.DriveWithJoysticks;
 import frc.robot.commands.drivetrain.TurnToAngle;
 import frc.robot.commands.shooter.LoadShooter;
@@ -53,14 +54,13 @@ import frc.robot.vision.Vision;
 
 public class RobotContainer {
     // subsystems
-    private final DriveTrain drivetrain = new DriveTrain();
-    public final Climber climber = new Climber();
+    public final DriveTrain drivetrain = new DriveTrain();
+    private final Climber climber = new Climber();
     private final FlyWheel flyWheel = new FlyWheel();
     private final Intake intake = new Intake();
     public final Shooter shooter = new Shooter();
     private final Bling bling = new Bling();
     private final Vision vision = new Vision();
-    private final PowerDistributionPanel pdp = new PowerDistributionPanel();
     private final Dashboard dashboard = new Dashboard();
     
     // Autonomous Selector Switches
@@ -187,7 +187,9 @@ public class RobotContainer {
         var bas = new BattlefieldAutoShooter(shooter, shoot);
         var bdu = new BattlefieldDriveUp(drivetrain, shoot);
         var ba = new BattlefieldAuto(bdu, bas);
-        return ba;
+        //return ba //for competitions
+        var dst = new DriveStraightTwo(drivetrain);
+        return dst;
         //return m_autocommand;
     }
 
