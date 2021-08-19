@@ -95,7 +95,7 @@ public class RobotContainer {
         camera.setPixelFormat(PixelFormat.kMJPEG);
         
         // set default commands
-        drivetrain.setDefaultCommand(new DriveWithJoysticks(drivetrain, driver));
+        drivetrain.setDefaultCommand(getDriveWithJoysticks());
         dashboard.setDefaultCommand(new Update(dashboard));
 
         // Sets up Autonomous
@@ -197,6 +197,12 @@ public class RobotContainer {
     {
         climber.setAngleLower(0);
         climber.setAngleUpper(0);
+        drivetrain.setDefaultCommand(getDriveWithJoysticks());        
+    }
+
+    public Command getDriveWithJoysticks()
+    {
+        return new DriveWithJoysticks(drivetrain, driver);
     }
 
     // Sets up Autonomous
