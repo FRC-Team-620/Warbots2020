@@ -39,7 +39,7 @@ public class DriveTrain extends SubsystemBase
         rf.restoreFactoryDefaults();
         rr.restoreFactoryDefaults();
 
-        var mode = IdleMode.kBrake;
+        var mode = IdleMode.kCoast;
         lf.setIdleMode(mode);
         lr.setIdleMode(mode);
         rf.setIdleMode(mode);
