@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
         autonomousCommand = robotContainer.getAutonomousCommand();
         if (autonomousCommand != null)
             autonomousCommand.schedule();
-        //robotContainer.shooter.set(1); uncomment for competition
+        robotContainer.shooter.set(1);// uncomment for competition
     }
 
     @Override

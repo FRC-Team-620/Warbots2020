@@ -30,9 +30,9 @@ public class DriveWithJoysticks extends CommandBase {
         double speed = 0.0;
 
         if (driverXbox.getTriggerAxis(Hand.kLeft) > driverXbox.getTriggerAxis(Hand.kRight)) {
-            speed = 0.5 * driverXbox.getTriggerAxis(Hand.kLeft);
+            speed = /*0.5 */ driverXbox.getTriggerAxis(Hand.kLeft);
         } else if (driverXbox.getTriggerAxis(Hand.kRight) > driverXbox.getTriggerAxis(Hand.kLeft)) {
-            speed = -1 * 0.5 * driverXbox.getTriggerAxis(Hand.kRight);
+            speed = -1 * /*0.5 */ driverXbox.getTriggerAxis(Hand.kRight);
         }
 
         if (driveTrain.getSlowDown()) {
